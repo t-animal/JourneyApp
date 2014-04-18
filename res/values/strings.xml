@@ -4,5 +4,8 @@
     <string name="app_name">JourneyApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="locationService_name">JourneyApp LocationService</string>
+    <string name="locationServiceToggleButton_text">LocationService</string>
 
 </resources>
