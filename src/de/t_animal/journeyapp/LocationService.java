@@ -10,6 +10,7 @@ public class LocationService extends IntentService {
 
 	public LocationService() {
 		super("LocationService");
+		setIntentRedelivery(true);
 	}
 
 	@Override
