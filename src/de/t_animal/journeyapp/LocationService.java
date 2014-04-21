@@ -15,7 +15,9 @@ import android.widget.Toast;
 public class LocationService extends IntentService implements
 		ConnectionCallbacks, OnConnectionFailedListener {
 
-	private boolean isStopped = false;
+	// Should be ok, because the service won't be recreated if already running
+	public static LocationService singletonLocationService;
+
 	private LocationClient locationClient;
 
 	public LocationService() {
@@ -23,8 +25,26 @@ public class LocationService extends IntentService implements
 		setIntentRedelivery(true);
 	}
 
+	// TODO: Make this thread-safe
+	static boolean isServiceRunning() {
+		return singletonLocationService != null;
+	}
+	
+	static LocationService getServiceInstance(){
+		return singletonLocationService;
+	}
+	
+
+	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		if (isServiceRunning()) {
+			// Do not call super i.e. do not call onHandleIntent
+			return IntentService.START_NOT_STICKY;
+		}
+		singletonLocationService = this;
+
 		Toast.makeText(this, "service starting", Toast.LENGTH_SHORT).show();
 
 		int resultCode = GooglePlayServicesUtil
@@ -34,9 +54,7 @@ public class LocationService extends IntentService implements
 			Toast.makeText(this, R.string.noGooglePlayServices,
 					Toast.LENGTH_LONG).show();
 
-			// TODO: Find out if this is clever ;)
-			// I think this should bypass thread creation or at least
-			// onHandleIntent() being called
+			// Do not call super i.e. do not call onHandleIntent
 			return IntentService.START_NOT_STICKY;
 		}
 
@@ -48,11 +66,13 @@ public class LocationService extends IntentService implements
 
 	@Override
 	public void onDestroy() {
+		singletonLocationService = null;
+		
 		Toast.makeText(this, "service destroyed", Toast.LENGTH_SHORT).show();
 
-		locationClient.disconnect();
+		if(locationClient != null && locationClient.isConnected())
+			locationClient.disconnect();
 
-		isStopped = true;
 		super.onDestroy();
 	}
 
@@ -60,20 +80,20 @@ public class LocationService extends IntentService implements
 	protected void onHandleIntent(Intent intent) {
 		System.out.println("Intent received");
 
-		while (!isStopped) {
+		while (isServiceRunning()) {
 			System.out.println("Service still running");
 			Location curLoc;
-			
-			//wait actively for the first connection
-			if(locationClient.isConnected()){
+
+			// wait actively for the first connection
+			if (locationClient.isConnected()) {
 				curLoc = locationClient.getLastLocation();
-			}else{
-				if(!locationClient.isConnecting())
+			} else {
+				if (!locationClient.isConnecting())
 					locationClient.connect();
 				continue;
 			}
 
-			System.out.println("Current Location"+curLoc.toString());
+			System.out.println("Current Location" + curLoc.toString());
 
 			try {
 				Thread.sleep(5000);
