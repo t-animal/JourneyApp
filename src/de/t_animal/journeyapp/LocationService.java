@@ -32,13 +32,16 @@ public class LocationService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		System.out.println("Intent received");
 
-		int i = 0;
-
 		while (!isStopped) {
+				
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					//do nothing, just execute as usual
+				}
 
-			if (i++ % 10000000 == 0) {
 				System.out.println("Service still running");
-			}
+				
 
 		}
 	}
