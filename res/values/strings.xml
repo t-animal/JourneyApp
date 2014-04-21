@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- <string name="locationServer">locationserver.journey.hawo.net</string>-->
+    <!--  <string name="locationServer">10.0.2.2</string>-->
+    <string name="locationServer">faui00j.cs.fau.de</string>
+    
     <string name="app_name">JourneyApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

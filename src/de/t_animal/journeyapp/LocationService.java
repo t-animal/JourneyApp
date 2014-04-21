@@ -1,5 +1,16 @@
 package de.t_animal.journeyapp;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -29,11 +40,41 @@ public class LocationService extends IntentService implements
 	static boolean isServiceRunning() {
 		return singletonLocationService != null;
 	}
-	
-	static LocationService getServiceInstance(){
+
+	static LocationService getServiceInstance() {
 		return singletonLocationService;
 	}
+
+	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	private void sendLocationToServer(Location location){		
+		String userId = new String("generateAtFirstStart");
+		double lat = location.getLatitude();
+		double lon = location.getLongitude();
+		float acc = location.getAccuracy();
+		
+		byte[] data = new byte[1 + userId.length() + 8 + 8 + 4];
+		ByteBuffer.wrap(data).put((byte)userId.length()).put(userId.getBytes()).putDouble(lat).putDouble(lon).putFloat(acc);
+		
 	
+		// TODO:Keep socket open and only reconnect if necessary
+		DatagramSocket sock;
+		try {
+			sock = new DatagramSocket();
+		
+			sock.connect(new InetSocketAddress(getResources().getString(R.string.locationServer), 1338));
+			
+			sock.send(new DatagramPacket(data, data.length));
+			
+			sock.close();
+			
+		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -67,10 +108,10 @@ public class LocationService extends IntentService implements
 	@Override
 	public void onDestroy() {
 		singletonLocationService = null;
-		
+
 		Toast.makeText(this, "service destroyed", Toast.LENGTH_SHORT).show();
 
-		if(locationClient != null && locationClient.isConnected())
+		if (locationClient != null && locationClient.isConnected())
 			locationClient.disconnect();
 
 		super.onDestroy();
@@ -94,9 +135,10 @@ public class LocationService extends IntentService implements
 			}
 
 			System.out.println("Current Location" + curLoc.toString());
+			sendLocationToServer(curLoc);
 
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// do nothing, just execute as usual
 			}
