@@ -11,7 +11,9 @@
     
     <string name="locationService_name">JourneyApp LocationService</string>
     <string name="locationServiceToggleButton_text">LocationService</string>
-    
     <string name="locationServerConnectionFailure">Could not connect to the location server</string>
     <string name="noGooglePlayServices">No Google Play Services installed</string>
+
+    <string name="notificationTitle">Location update is on</string>
+    <string name="notificationMessage">Location is currently sent to the journey team</string>
 </resources>

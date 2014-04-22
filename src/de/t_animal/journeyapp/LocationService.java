@@ -20,9 +20,11 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
 public class LocationService extends IntentService implements
@@ -106,6 +108,13 @@ public class LocationService extends IntentService implements
 
 		locationClient = new LocationClient(this, this, this);
 		locationClient.connect();
+		
+		Notification foregroundNotification = new NotificationCompat.Builder(this)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentTitle(getResources().getString(R.string.notificationTitle))
+				.setContentText(getResources().getString(R.string.notificationMessage)).build();
+
+		startForeground(1, foregroundNotification);
 
 		return super.onStartCommand(intent, flags, startId);
 	}
@@ -134,6 +143,7 @@ public class LocationService extends IntentService implements
 			}
 
 			System.out.println("Service still running");
+			
 			Location curLoc;
 
 			// wait for the first connection
@@ -149,7 +159,6 @@ public class LocationService extends IntentService implements
 
 			System.out.println("Current Location" + curLoc.toString());
 			sendLocationToServer(curLoc);
-
 		}
 	}
 
