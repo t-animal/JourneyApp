@@ -16,6 +16,8 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -24,12 +26,13 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class LocationService extends IntentService implements
-		ConnectionCallbacks, OnConnectionFailedListener {
+		ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
 
 	// Should be ok, because the service won't be recreated if already running
 	public static LocationService singletonLocationService;
 
 	private LocationClient locationClient;
+	private Location currentLocation;
 
 	public LocationService() {
 		super("LocationService");
@@ -47,27 +50,29 @@ public class LocationService extends IntentService implements
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private void sendLocationToServer(Location location){		
+	private void sendLocationToServer(Location location) {
 		String userId = new String("generateAtFirstStart");
 		double lat = location.getLatitude();
 		double lon = location.getLongitude();
 		float acc = location.getAccuracy();
-		
+
 		byte[] data = new byte[1 + userId.length() + 8 + 8 + 4];
-		ByteBuffer.wrap(data).put((byte)userId.length()).put(userId.getBytes()).putDouble(lat).putDouble(lon).putFloat(acc);
-		
-	
+		ByteBuffer.wrap(data).put((byte) userId.length())
+				.put(userId.getBytes()).putDouble(lat).putDouble(lon)
+				.putFloat(acc);
+
 		// TODO:Keep socket open and only reconnect if necessary
 		DatagramSocket sock;
 		try {
 			sock = new DatagramSocket();
-		
-			sock.connect(new InetSocketAddress(getResources().getString(R.string.locationServer), 1338));
-			
+
+			sock.connect(new InetSocketAddress(getResources().getString(
+					R.string.locationServer), 1338));
+
 			sock.send(new DatagramPacket(data, data.length));
-			
+
 			sock.close();
-			
+
 		} catch (SocketException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -122,12 +127,20 @@ public class LocationService extends IntentService implements
 		System.out.println("Intent received");
 
 		while (isServiceRunning()) {
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// do nothing, just execute as usual
+			}
+
 			System.out.println("Service still running");
 			Location curLoc;
 
-			// wait actively for the first connection
+			// wait for the first connection
 			if (locationClient.isConnected()) {
 				curLoc = locationClient.getLastLocation();
+				if (curLoc == null)
+					continue;
 			} else {
 				if (!locationClient.isConnecting())
 					locationClient.connect();
@@ -137,11 +150,6 @@ public class LocationService extends IntentService implements
 			System.out.println("Current Location" + curLoc.toString());
 			sendLocationToServer(curLoc);
 
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// do nothing, just execute as usual
-			}
 		}
 	}
 
@@ -160,6 +168,10 @@ public class LocationService extends IntentService implements
 	@Override
 	public void onConnected(Bundle arg0) {
 		System.out.println("Connected to the Location Server");
+		locationClient.requestLocationUpdates(
+				LocationRequest.create().setInterval(5000)
+						.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY),
+				this);
 	}
 
 	@Override
@@ -167,4 +179,8 @@ public class LocationService extends IntentService implements
 		System.out.println("Disconnected from the Location Server");
 	}
 
+	@Override
+	public void onLocationChanged(Location arg0) {
+		currentLocation = arg0;
+	}
 }
