@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Journey" >
+    
+    <TextView
+        android:id="@+id/info_journeyName_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/info_journeyName_intro" />
+    <TextView
+        android:id="@+id/info_journeyName_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/info_journeyName_intro"
+        android:text="@string/info_journeyName_value" />
+    <TextView
+        android:id="@+id/info_journeyDate_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyName_intro"
+        android:text="@string/info_journeyDate_intro" />
+    <TextView
+        android:id="@+id/info_journeyDate_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyName_intro"
+        android:layout_toRightOf="@id/info_journeyDate_intro"
+        android:text="@string/info_journeyDate_value" />
+    <TextView
+        android:id="@+id/info_journeyLocation_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyDate_intro"
+        android:text="@string/info_journeyLocation_intro" />
+    <TextView
+        android:id="@+id/info_journeyLocation_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyDate_intro"
+        android:layout_toRightOf="@id/info_journeyLocation_intro"
+        android:text="@string/info_journeyLocation_value" />
+    
+    <TextView
+        android:id="@+id/info_locationServiceButton_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyLocation_intro"
+        android:text="@string/info_locationServiceButton_intro" />
+    
+    <ToggleButton
+        android:id="@+id/locationServiceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/info_journeyLocation_intro"
+        android:layout_toRightOf="@+id/info_locationServiceButton_intro"
+        android:layout_marginTop="15dp"
+        android:text="@string/info_locationServiceButton_text" />
+    <TextView
+        android:id="@+id/info_locationServiceButton_outro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/locationServiceButton"
+        android:text="@string/info_locationServiceButton_outro" />
+    
+</RelativeLayout>
