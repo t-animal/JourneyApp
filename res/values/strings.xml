@@ -9,6 +9,9 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     
+    <string name="tab_map_name">Map</string>
+    <string name="tab_info_name">Information</string>
+    
     <string name="locationService_name">JourneyApp LocationService</string>
     <string name="locationServiceToggleButton_text">LocationService</string>
     <string name="locationServerConnectionFailure">Could not connect to the location server</string>
