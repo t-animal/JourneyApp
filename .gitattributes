@@ -1,1 +1,2 @@
 AndroidManifest.xml filter=removeAPIKey
+*html filter=removeWebAPIKey
