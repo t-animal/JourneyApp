@@ -4,22 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.google.android.gms.maps.MapView
-        xmlns:map="http://schemas.android.com/apk/res-auto"
+    <WebView
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        map:cameraTargetLat="49.596361"
-        map:cameraTargetLng="11.004311"
-        map:cameraTilt="45"
-        map:cameraZoom="13"
-        map:mapType="normal"
-        map:uiZoomControls="false" />
-
-    <ImageView
-        android:id="@+id/colorShiftView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ImageView>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

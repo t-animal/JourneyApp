@@ -5,49 +5,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.google.android.gms.maps.MapView;
+import android.webkit.WebView;
 
 public class MapFragment extends Fragment {
-
-	MapView m;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// inflat and return the layout
-		View v = inflater.inflate(R.layout.fragment_map, container, false);
-		m = (MapView) v.findViewById(R.id.map_view);
-		m.onCreate(savedInstanceState);
+		View fragmentRootView = inflater.inflate(R.layout.fragment_map, container, false);
 
-		ImageView image = (ImageView) v.findViewById(R.id.colorShiftView);
-		image.setBackgroundColor(0x30FF0000);
+		WebView map = (WebView) fragmentRootView.findViewById(R.id.map_view);
 
-		return v;
+		map.getSettings().setJavaScriptEnabled(true);
+		map.loadUrl("file:///android_asset/map.html");
+
+		return fragmentRootView;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		m.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		m.onPause();
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		m.onDestroy();
-	}
-
-	@Override
-	public void onLowMemory() {
-		super.onLowMemory();
-		m.onLowMemory();
-	}
 }
