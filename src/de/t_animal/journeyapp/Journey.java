@@ -18,29 +18,28 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 	private JourneyFragmentPagerAdapter adapter;
 	private ViewPager viewPager;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_journey);
 
+		adapter = new JourneyFragmentPagerAdapter(getSupportFragmentManager());
+
+		viewPager = (ViewPager) findViewById(R.id.mainContainer);
+		viewPager.setAdapter(adapter);
+
 		final ActionBar actionBar = getSupportActionBar();
-		
+
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		
+
 		actionBar.addTab(actionBar.newTab()
 				.setText(R.string.tab_map_name)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab()
 				.setText(R.string.tab_info_name)
 				.setTabListener(this));
-		
 
-		adapter = new JourneyFragmentPagerAdapter(getSupportFragmentManager());
-
-		viewPager = (ViewPager) findViewById(R.id.mainContainer);
-		viewPager.setAdapter(adapter);
-		
 		/*
 		 * Select correct tab, when the viewpager is swiped
 		 */
@@ -79,11 +78,10 @@ public class Journey extends ActionBarActivity implements TabListener {
 	}
 
 	@Override
-	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-
+	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
+		viewPager.setCurrentItem(tab.getPosition());
 	}
-	
+
 	public class JourneyFragmentPagerAdapter extends FragmentPagerAdapter {
 
 		private Fragment tabs[] = new Fragment[2];
