@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -90,7 +92,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 		public JourneyFragmentPagerAdapter(android.support.v4.app.FragmentManager fm) {
 			super(fm);
-			tabs[0] = InformationFragment.newInstance();
+			tabs[0] = SupportMapFragment.newInstance();
 			tabs[1] = InformationFragment.newInstance();
 		}
 
