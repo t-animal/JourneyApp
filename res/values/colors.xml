@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="transparent">#00000000</color>
+    <color name="runner">#ffd2c51e</color>
+    <color name="chaser">#ffd21e1e</color>
+</resources>
