@@ -11,8 +11,6 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
-import android.view.View;
-import android.widget.ToggleButton;
 
 public class Journey extends ActionBarActivity implements TabListener {
 
@@ -104,14 +102,6 @@ public class Journey extends ActionBarActivity implements TabListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
-	}
-
-	public void onToggleLocationService(View view) {
-		if (((ToggleButton) view).isChecked()) {
-			startService(new Intent(this, LocationService.class));
-		} else {
-			stopService(new Intent(this, LocationService.class));
-		}
 	}
 
 	@Override

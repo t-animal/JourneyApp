@@ -1,12 +1,15 @@
 package de.t_animal.journeyapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ToggleButton;
 
-public class InformationFragment extends Fragment {
+public class InformationFragment extends Fragment implements OnClickListener {
 
 	private View fragmentRootView;
 
@@ -14,8 +17,7 @@ public class InformationFragment extends Fragment {
 		InformationFragment newFrag = new InformationFragment();
 
 		/*
-		 * Bundle args = new Bundle(); args.putInt("id", number);
-		 * newFrag.setArguments(args);
+		 * Bundle args = new Bundle(); args.putInt("id", number); newFrag.setArguments(args);
 		 */
 
 		return newFrag;
@@ -26,6 +28,25 @@ public class InformationFragment extends Fragment {
 			Bundle savedInstanceState) {
 		fragmentRootView = inflater.inflate(R.layout.fragment_information, container, false);
 
+		fragmentRootView.findViewById(R.id.locationServiceButton).setOnClickListener(this);
+
 		return fragmentRootView;
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.locationServiceButton:
+			onToggleLocationService(view);
+			break;
+		}
+	}
+
+	private void onToggleLocationService(View view) {
+		if (((ToggleButton) view).isChecked()) {
+			getActivity().startService(new Intent(getActivity(), LocationService.class));
+		} else {
+			getActivity().stopService(new Intent(getActivity(), LocationService.class));
+		}
 	}
 }
