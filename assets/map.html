@@ -54,7 +54,7 @@ var style_chaser = [
     ]
   }
 ]
-
+var map;
 function initialize() {
 	var mapOptions = {
 		center: new google.maps.LatLng(49.596361, 11.004311),
@@ -62,10 +62,18 @@ function initialize() {
 		disableDefaultUI: true,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-	var map = new google.maps.Map(document.getElementById("map_canvas"),
+	map = new google.maps.Map(document.getElementById("map_canvas"),
 			mapOptions);
 	
-	map.setOptions({styles: style_runner});
+	setTheme();
+}
+
+function setTheme(){
+    if(comm.getTheme() == "THEME_CHASER"){
+       map.setOptions({styles: style_chaser});
+    }else if(comm.getTheme() == "THEME_RUNNER"){
+       map.setOptions({styles: style_runner});
+    }
 }
 </script>
 </head>

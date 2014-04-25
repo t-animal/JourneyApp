@@ -19,9 +19,46 @@ public class Journey extends ActionBarActivity implements TabListener {
 	private JourneyFragmentPagerAdapter adapter;
 	private ViewPager viewPager;
 
+	public static final int THEME_CHASER = 0x00;
+	public static final int THEME_RUNNER = 0x01;
+
+	/**
+	 * Sets the theme according to the value "Theme" passed in the start intent's extras
+	 */
+	private void setJourneyTheme() {
+		int theme = getIntent().getIntExtra("Theme", THEME_RUNNER);
+
+		switch (theme) {
+		case THEME_CHASER:
+			setTheme(R.style.Theme_Chaser);
+			break;
+		case THEME_RUNNER:
+		default:
+			setTheme(R.style.Theme_Runner);
+			break;
+		}
+	}
+
+	/**
+	 * Restarts the activity using the supplied theme
+	 * 
+	 * @param theme
+	 *            either Journey.THEME_CHASER or Journey.THEME_RUNNER
+	 */
+	private void restartWithTheme(int theme) {
+		if (theme != THEME_CHASER && theme != THEME_RUNNER)
+			return;
+
+		Intent intent = new Intent(this, Journey.class);
+		intent.putExtra("Theme", theme);
+		startActivity(intent);
+		finish();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setJourneyTheme();
 		setContentView(R.layout.activity_journey);
 
 		adapter = new JourneyFragmentPagerAdapter(getSupportFragmentManager());
