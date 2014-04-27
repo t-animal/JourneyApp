@@ -55,9 +55,27 @@ var style_chaser = [
   }
 ]
 var map;
+var startMarker;
+
+//For debugging outside the app:
+if(typeof(comm) == 'undefined'){
+	comm = {
+		getTheme : function(){
+			return "THEME_RUNNER";
+		},
+		
+		getStart : function(){
+			return {
+				lat: 49.596361,
+				lon: 11.004311
+			}	
+		}
+	};
+}
+
 function initialize() {
 	var mapOptions = {
-		center: new google.maps.LatLng(49.596361, 11.004311),
+		center: new google.maps.LatLng(start.lat, start.lon),
 		zoom: 15,
 		disableDefaultUI: true,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
