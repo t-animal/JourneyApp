@@ -19,6 +19,7 @@ body { height: 100%; margin: 0; padding: 0 }
 src="http://maps.googleapis.com/maps/api/js?key=WEBAPIKEYGOESHEREBUTSHOULDNOTBECOMMITTEDANDPUTONGITHUB&sensor=true">
 </script>
 <script type="text/javascript" src="./markerwithlabel.js"></script>
+<script type="text/javascript" src="./geolocationmarker.js"></script>
 <script type="text/javascript">
 var style_runner = [
   {
@@ -64,6 +65,7 @@ var style_chaser = [
   }
 ]
 var map;
+var geolocationMarker;
 var startMarker;
 var checkpointMarkers = [];
 var safeZones = [];
@@ -164,6 +166,15 @@ function initialize() {
 	drawCheckpoints(JSON.parse(comm.getCheckpoints()));
 	drawSafezones(JSON.parse(comm.getSafeZones()));
 	drawOffLimitsZones(JSON.parse(comm.getOffLimitsZones()));
+	
+	geomarker = new GeolocationMarker();
+	
+	google.maps.event.addListener(geomarker, "position_changed", function(){
+		map.setCenter(this.getPosition());
+	});
+	
+	geomarker.setMap(map);
+	
 }
 
 function setTheme(){

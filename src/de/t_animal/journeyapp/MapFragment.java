@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.GeolocationPermissions;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 public class MapFragment extends Fragment {
@@ -12,6 +14,12 @@ public class MapFragment extends Fragment {
 	WebView map;
 
 	JSCommunicationObject co;
+
+	private class GeoWebChromeClient extends WebChromeClient {
+		public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+			callback.invoke(origin, true, false);
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +32,8 @@ public class MapFragment extends Fragment {
 		map = (WebView) fragmentRootView.findViewById(R.id.map_view);
 
 		map.getSettings().setJavaScriptEnabled(true);
+		map.getSettings().setGeolocationEnabled(true);
+		map.setWebChromeClient(new GeoWebChromeClient());
 		map.addJavascriptInterface(co, "comm");
 
 		setMapThemeValue();
