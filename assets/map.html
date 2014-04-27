@@ -77,14 +77,14 @@ if(typeof(comm) == 'undefined'){
 		},
 		
 		getStart : function(){
-			return {
+			return JSON.stringify({
 				lat: 49.579838,
 				lon: 11.019883
-			}	
+			})
 		},
 		
 		getCheckpoints: function(){
-			return [{
+			return JSON.stringify([{
 				lat: 49.593742,
 				lon: 11.010189,
 				no: 1
@@ -92,11 +92,11 @@ if(typeof(comm) == 'undefined'){
 				lat: 49.599602,
 				lon: 11.005383,
 				no: 2
-			}];
+			}]);
 		},
 		
-		getSafezones: function(){
-			return [[
+		getSafeZones: function(){
+			return JSON.stringify([[
 				{lat: 49.579578, lon: 11.020153},
 				{lat: 49.579628, lon: 11.018418},
 				{lat: 49.579727, lon: 11.017195},
@@ -122,11 +122,11 @@ if(typeof(comm) == 'undefined'){
 				{lat: 49.588272, lon: 11.003655},
 				{lat: 49.588268, lon: 11.003239},
 				{lat: 49.588337, lon: 11.002341}
-			]]
+			]]);
 		},
 		
 		getOffLimitsZones: function(){
-			return [[
+			return JSON.stringify([[
 			    {lat: 49.587025, lon: 11.028275},
 			    {lat: 49.586830, lon: 11.027459},
 			    {lat: 49.586273, lon: 11.026944},
@@ -142,13 +142,13 @@ if(typeof(comm) == 'undefined'){
 			    {lat: 49.586147, lon: 11.031687},
 			    {lat: 49.586720, lon: 11.031450},
 			    {lat: 49.587025, lon: 11.028275}
-            		]]
+            		]])
             	}
 	};
 }
 
 function initialize() {
-	var start = comm.getStart();
+	var start = JSON.parse(comm.getStart());
 	
 	var mapOptions = {
 		center: new google.maps.LatLng(start.lat, start.lon),
@@ -161,9 +161,9 @@ function initialize() {
 	
 	setTheme();
 	drawStart(start.lat, start.lon);
-	drawCheckpoints(comm.getCheckpoints());
-	drawSafezones(comm.getSafezones());
-	drawOffLimitsZones(comm.getOffLimitsZones());
+	drawCheckpoints(JSON.parse(comm.getCheckpoints()));
+	drawSafezones(JSON.parse(comm.getSafeZones()));
+	drawOffLimitsZones(JSON.parse(comm.getOffLimitsZones()));
 }
 
 function setTheme(){
