@@ -61,4 +61,11 @@ public class MapFragment extends Fragment {
 		}
 	}
 
+	/**
+	 * Executes the given String as javascript inside the html of the map.
+	 */
+	void executeInMap(String js) {
+		map.loadUrl("javascript:" + js);
+	}
+
 }

@@ -21,6 +21,8 @@
     <string name="info_locationServiceButton_intro">Location updates:</string>
     <string name="info_locationServiceButton_text">LocationService</string>
     <string name="info_locationServiceButton_outro">Help the journey organization team by sending your location to them. This helps them organize future journeys and create neat graphics of how the game went.</string>
+    <string name="info_mapFollowingUserButton_intro">Map follows your location</string>
+    
     
     
     <string name="locationService_name">JourneyApp LocationService</string>

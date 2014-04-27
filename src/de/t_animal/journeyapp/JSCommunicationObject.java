@@ -97,8 +97,9 @@ public class JSCommunicationObject {
 	}
 
 	String theme;
-	Coordinate start;
+	boolean followingUser;
 
+	Coordinate start;
 	Checkpoint[] checkpoints;
 	Coordinate[][] safeZones;
 	Coordinate[][] offLimitsZones;
@@ -157,7 +158,6 @@ public class JSCommunicationObject {
 					ArrayList<Coordinate> offlimitsZone = new ArrayList<Coordinate>();
 
 					for (String coordline : coordlines) {
-						System.out.println(coordline);
 						String[] coords = coordline.split(",");
 						if (coords.length != 3)
 							continue;
@@ -223,5 +223,14 @@ public class JSCommunicationObject {
 	@JavascriptInterface
 	public String getOffLimitsZones() {
 		return Arrays.deepToString(offLimitsZones);
+	}
+
+	public boolean isFollowingUser() {
+		return followingUser;
+	}
+
+	@JavascriptInterface
+	public void setFollowingUser(boolean followingUser) {
+		this.followingUser = followingUser;
 	}
 }

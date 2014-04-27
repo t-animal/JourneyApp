@@ -66,6 +66,7 @@ var style_chaser = [
 ]
 var map;
 var geolocationMarker;
+var locationChangedListener;
 var startMarker;
 var checkpointMarkers = [];
 var safeZones = [];
@@ -145,7 +146,10 @@ if(typeof(comm) == 'undefined'){
 			    {lat: 49.586720, lon: 11.031450},
 			    {lat: 49.587025, lon: 11.028275}
             		]])
-            	}
+            	},
+            	
+            	setFollowingUser: function(){}
+            		
 	};
 }
 
@@ -169,11 +173,9 @@ function initialize() {
 	
 	geomarker = new GeolocationMarker();
 	
-	google.maps.event.addListener(geomarker, "position_changed", function(){
-		map.setCenter(this.getPosition());
-	});
-	
 	geomarker.setMap(map);
+	
+	toggleLocationChangedListener();
 	
 }
 
@@ -272,6 +274,32 @@ function drawOffLimitsZone(coordList){
 		paths: new google.maps.MVCArray(coords)
 	}
 	var foo = new google.maps.Polygon(options);
+}
+
+function toggleLocationChangedListener(){
+	if(typeof(locationChangedListener) == 'undefined'){
+		map.setOptions({
+			draggable:false,
+			zoomControl: true,
+			zoomControlOptions: {position: google.maps.ControlPosition.TOP_LEFT, 
+			style: google.maps.ZoomControlStyle.SMALL}});
+		
+		map.setCenter(geomarker.getPosition());
+
+		locationChangedListener = google.maps.event.addListener(geomarker, "position_changed", function(){
+			map.panTo(this.getPosition());
+		});
+	}else{
+		google.maps.event.removeListener(locationChangedListener);
+		map.setOptions({
+			draggable:true,
+			zoomControl: false,
+			zoomControlOptions: {position: google.maps.ControlPosition.TOP_LEFT, 
+			style: google.maps.ZoomControlStyle.SMALL}});
+		locationChangedListener = undefined;
+	}
+	
+	comm.setFollowingUser(typeof(locationChangedListener) == 'undefined');
 }
 </script>
 </head>

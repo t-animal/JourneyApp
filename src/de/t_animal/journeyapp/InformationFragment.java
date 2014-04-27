@@ -29,6 +29,7 @@ public class InformationFragment extends Fragment implements OnClickListener {
 		fragmentRootView = inflater.inflate(R.layout.fragment_information, container, false);
 
 		fragmentRootView.findViewById(R.id.locationServiceButton).setOnClickListener(this);
+		fragmentRootView.findViewById(R.id.info_mapFollowingUserButton).setOnClickListener(this);
 
 		return fragmentRootView;
 	}
@@ -39,7 +40,16 @@ public class InformationFragment extends Fragment implements OnClickListener {
 		case R.id.locationServiceButton:
 			onToggleLocationService(view);
 			break;
+		case R.id.info_mapFollowingUserButton:
+			onToggleMapFollowingUser(view);
+			break;
 		}
+	}
+
+	private void onToggleMapFollowingUser(View view) {
+		MapFragment map = ((Journey) getActivity()).adapter.getMapFragment();
+		map.executeInMap("toggleLocationChangedListener();");
+		((ToggleButton) view).setChecked(map.co.isFollowingUser());
 	}
 
 	private void onToggleLocationService(View view) {

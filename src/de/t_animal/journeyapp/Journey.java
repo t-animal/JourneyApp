@@ -14,7 +14,7 @@ import android.view.Menu;
 
 public class Journey extends ActionBarActivity implements TabListener {
 
-	private JourneyFragmentPagerAdapter adapter;
+	JourneyFragmentPagerAdapter adapter;
 	private ViewPager viewPager;
 
 	public static final int THEME_CHASER = 0x00;
@@ -131,6 +131,10 @@ public class Journey extends ActionBarActivity implements TabListener {
 		@Override
 		public int getCount() {
 			return tabs.length;
+		}
+
+		MapFragment getMapFragment() {
+			return (MapFragment) tabs[0];
 		}
 	}
 
