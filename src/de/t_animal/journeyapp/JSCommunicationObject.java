@@ -85,7 +85,6 @@ public class JSCommunicationObject {
 			}
 
 			if (localName.equalsIgnoreCase("coordinates")) {
-				System.out.println(curValue);
 				curElem.coordinates = curValue;
 			}
 		}
