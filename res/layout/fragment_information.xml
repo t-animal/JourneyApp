@@ -215,7 +215,7 @@
                     android:layout_weight="1"
                     android:text="@string/info_locationServiceButton_value" />
 
-                <ToggleButton
+                <CheckBox
                     android:id="@+id/locationServiceButton"
                     android:layout_width="120dip"
                     android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                     android:layout_weight="1"
                     android:text="@string/info_mapFollowingUserButton_value" />
 
-                <ToggleButton
+                <CheckBox
                     android:id="@+id/info_mapFollowingUserButton"
                     android:layout_width="120dip"
                     android:layout_height="wrap_content"
@@ -294,7 +294,7 @@
                     android:layout_weight="1"
                     android:text="@string/info_gotCaught_value" />
 
-                <ToggleButton
+                <CheckBox
                     android:id="@+id/info_gotCaughtButton"
                     android:layout_width="120dip"
                     android:layout_height="wrap_content"

@@ -19,6 +19,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 	public static final int THEME_CHASER = 0x00;
 	public static final int THEME_RUNNER = 0x01;
+	private int curTheme;
 
 	/**
 	 * Sets the theme according to the value "Theme" passed in the start intent's extras
@@ -29,12 +30,18 @@ public class Journey extends ActionBarActivity implements TabListener {
 		switch (theme) {
 		case THEME_CHASER:
 			setTheme(R.style.Theme_Chaser);
+			curTheme = THEME_CHASER;
 			break;
 		case THEME_RUNNER:
 		default:
 			setTheme(R.style.Theme_Runner);
+			curTheme = THEME_RUNNER;
 			break;
 		}
+	}
+
+	int getCurrentJourneyTheme() {
+		return curTheme;
 	}
 
 	/**
