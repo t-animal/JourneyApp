@@ -1,87 +1,301 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Journey" >
-    
-    <TextView
-        android:id="@+id/info_journeyName_intro"
-        android:layout_width="wrap_content"
+    xmlns:custom="http://schemas.android.com/apk/res/de.t_animal.journeyapp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/info_journeyName_intro" />
-    <TextView
-        android:id="@+id/info_journeyName_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/info_journeyName_intro"
-        android:text="@string/info_journeyName_value" />
-    <TextView
-        android:id="@+id/info_journeyDate_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyName_intro"
-        android:text="@string/info_journeyDate_intro" />
-    <TextView
-        android:id="@+id/info_journeyDate_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyName_intro"
-        android:layout_toRightOf="@id/info_journeyDate_intro"
-        android:text="@string/info_journeyDate_value" />
-    <TextView
-        android:id="@+id/info_journeyLocation_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyDate_intro"
-        android:text="@string/info_journeyLocation_intro" />
-    <TextView
-        android:id="@+id/info_journeyLocation_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyDate_intro"
-        android:layout_toRightOf="@id/info_journeyLocation_intro"
-        android:text="@string/info_journeyLocation_value" />
-    
-    <TextView
-        android:id="@+id/info_locationServiceButton_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyLocation_intro"
-        android:text="@string/info_locationServiceButton_intro" />
-    
-    <ToggleButton
-        android:id="@+id/locationServiceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_journeyLocation_intro"
-        android:layout_toRightOf="@+id/info_locationServiceButton_intro"
-        android:layout_marginTop="15dp"
-        android:text="@string/info_locationServiceButton_text" />
-    <TextView
-        android:id="@+id/info_locationServiceButton_outro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/locationServiceButton"
-        android:text="@string/info_locationServiceButton_outro" />
-    
-    <TextView
-        android:id="@+id/info_mapFollowingUser_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_locationServiceButton_outro"
-        android:text="@string/info_mapFollowingUserButton_intro" />
-    
-    <ToggleButton
-        android:id="@+id/info_mapFollowingUserButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/info_locationServiceButton_outro"
-        android:layout_toRightOf="@+id/info_mapFollowingUser_intro"
-        android:layout_marginTop="15dp"
-        android:text="foobar" />
-    
-</RelativeLayout>
+        android:orientation="vertical" >
+
+        <!-- Journey Information -->
+
+        <TableLayout style="@style/Table" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_tableHeader_journeyInformation"
+                    android:layout_marginLeft="6dip"
+                    android:layout_span="3"
+                    android:padding="3dip"
+                    android:text="@string/info_journey_headline"
+                    style="@style/TableHeader" />
+            </TableRow>
+
+            <!-- colored divider -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="?attr/themeColor" />
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_journeyName_intro" />
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_journeyDate_intro" />
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_journeyLocation_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_journeyName_value"
+                    style="@style/Cell"
+                    android:text="@string/info_journeyName_value" />
+
+                <TextView
+                    android:id="@+id/info_journeyDate_value"
+                    style="@style/Cell"
+                    android:text="@string/info_journeyDate_value" />
+
+                <TextView
+                    android:id="@+id/info_journeyLocation_value"
+                    style="@style/Cell"
+                    android:text="@string/info_journeyLocation_value" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <View style="@style/Divider" />
+
+                <View style="@style/Divider" />
+
+                <View style="@style/Divider" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:text="@string/info_journeyFurtherInformation_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_journeyFurtherInformation_value"
+                    style="@style/Cell"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:text="@string/info_journeyFurtherInformation_value" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- Statistics -->
+
+        <TableLayout style="@style/Table" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_tableHeader_statistics"
+                    android:layout_marginLeft="6dip"
+                    android:layout_span="2"
+                    android:padding="3dip"
+                    android:text="@string/info_statistics_headline"
+                    style="@style/TableHeader" />
+            </TableRow>
+
+            <!-- colored divider -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="?attr/themeColor" />
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_distance_intro" />
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_time_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_distance_value"
+                    style="@style/Cell"
+                    android:text="@string/info_distance_value" />
+
+                <TextView
+                    android:id="@+id/info_time_value"
+                    style="@style/Cell"
+                    android:text="@string/info_time_value" />
+            </TableRow>
+        </TableLayout>
+
+        <!-- Settings -->
+
+        <TableLayout
+            style="@style/Table"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_tableHeader_settings"
+                    android:layout_marginLeft="6dip"
+                    android:layout_span="2"
+                    android:padding="3dip"
+                    android:text="@string/info_settings_headline"
+                    style="@style/TableHeader" />
+            </TableRow>
+
+            <!-- colored divider -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="?attr/themeColor" />
+
+            <!-- Location updates -->
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:layout_span="2"
+                    android:text="@string/info_locationServiceButton_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_locationServiceButton_value"
+                    style="@style/Cell"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/info_locationServiceButton_value" />
+
+                <ToggleButton
+                    android:id="@+id/locationServiceButton"
+                    android:layout_width="120dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <View style="@style/Divider" />
+
+                <View style="@style/Divider" />
+            </TableRow>
+
+            <!-- Map follows user -->
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:layout_span="2"
+                    android:text="@string/info_mapFollowingUserButton_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_mapFollowingUserButton_value"
+                    style="@style/Cell"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/info_mapFollowingUserButton_value" />
+
+                <ToggleButton
+                    android:id="@+id/info_mapFollowingUserButton"
+                    android:layout_width="120dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <View style="@style/Divider" />
+
+                <View style="@style/Divider" />
+            </TableRow>
+            
+        </TableLayout>
+
+        <!-- System -->
+
+        <TableLayout style="@style/Table" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_tableHeader_system"
+                    android:layout_marginLeft="6dip"
+                    android:padding="3dip"
+                    android:text="@string/info_system_headline"
+                    style="@style/TableHeader" />
+            </TableRow>
+
+            <!-- colored divider -->
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:background="?attr/themeColor" />
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>
