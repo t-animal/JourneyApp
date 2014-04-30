@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<!--
+     File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -19,7 +20,7 @@
 
 <resources>
 
-    <style name="Theme.Chaser" parent="@style/Theme.AppCompat">
+    <style name="Theme.Chaser" parent="ThemeBase">
         <item name="actionBarItemBackground">@drawable/selectable_background_chaser</item>
         <item name="popupMenuStyle">@style/PopupMenu.Chaser</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Chaser</item>
@@ -29,8 +30,6 @@
         <item name="actionModeBackground">@drawable/cab_background_top_chaser</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_chaser</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Chaser</item>
-
-        
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -44,11 +43,11 @@
         <item name="background">@drawable/ab_transparent_chaser</item>
         <item name="progressBarStyle">@style/ProgressBar.Chaser</item>
     </style>
-	
-    <style name="PopupMenu.Chaser" parent="@style/Widget.AppCompat.PopupMenu">	
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_chaser</item>	
+
+    <style name="PopupMenu.Chaser" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_chaser</item>
     </style>
-	
+
     <style name="DropDownListView.Chaser" parent="@style/Widget.AppCompat.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_chaser</item>
     </style>
@@ -56,25 +55,24 @@
     <style name="ActionBarTabStyle.Chaser" parent="@style/Widget.AppCompat.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_chaser</item>
     </style>
-	
+
     <style name="DropDownNav.Chaser" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_chaser</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_chaser</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_chaser</item>
     </style>
-    
+
     <style name="ProgressBar.Chaser" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_chaser</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.Chaser" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_chaser</item>
     </style>
-    
+
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Chaser.Widget" parent="@style/Theme.AppCompat">
         <item name="popupMenuStyle">@style/PopupMenu.Chaser</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Chaser</item>
     </style>
-
 </resources>

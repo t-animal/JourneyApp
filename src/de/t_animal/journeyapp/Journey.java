@@ -43,7 +43,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 	 * @param theme
 	 *            either Journey.THEME_CHASER or Journey.THEME_RUNNER
 	 */
-	private void restartWithTheme(int theme) {
+	void restartWithTheme(int theme) {
 		if (theme != THEME_CHASER && theme != THEME_RUNNER)
 			return;
 
@@ -55,8 +55,8 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setJourneyTheme();
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_journey);
 
 		adapter = new JourneyFragmentPagerAdapter(getSupportFragmentManager());

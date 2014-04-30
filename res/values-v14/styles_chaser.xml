@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Chaser" parent="@style/Theme.AppCompat">
+    <style name="Theme.Chaser" parent="@style/ThemeBase.Chaser">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_chaser</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Chaser</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Chaser</item>
@@ -29,8 +29,6 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_chaser</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_chaser</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Chaser</item>
-        
-        
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">

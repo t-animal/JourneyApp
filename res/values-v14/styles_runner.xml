@@ -19,7 +19,7 @@
 
 <resources>
 
-    <style name="Theme.Runner" parent="@style/Theme.AppCompat">
+    <style name="Theme.Runner" parent="@style/ThemeBase.Runner">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_runner</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Runner</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Runner</item>
@@ -29,8 +29,6 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_runner</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_runner</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Runner</item>
-        
-        
     </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">

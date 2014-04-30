@@ -1,20 +1,44 @@
 <resources>
 
-    <!--
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    -->
-    <style name="AppBaseTheme" parent="android:Theme.Light">
-        <!--
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        -->
+    <!-- API independent styles go here, API dependent in styles_chaser and styles_runner -->
+    <style name="ThemeBase" parent="@style/Theme.AppCompat" />
+
+    <style name="ThemeBase.Runner">
+        <item name="themeColor">@color/runner</item>
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="ThemeBase.Chaser">
+        <item name="themeColor">@color/chaser</item>
+    </style>
+
+    <!-- Some other styles -->
+
+    <style name="Table">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:shrinkColumns">*</item>
+        <item name="android:stretchColumns">*</item>
+    </style>
+
+    <style name="Cell">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Cell.Header">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TableHeader">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/themeColor</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">2dip</item>
+        <item name="android:layout_margin">6dip</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
 </resources>
