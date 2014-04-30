@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Runner" parent="ThemeBase.Runner">
+        <item name="actionBarItemBackground">@drawable/selectable_background_runner</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Runner</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Runner</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Runner</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Runner</item>
+        <item name="actionBarStyle">@style/ActionBar.Transparent.Runner</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_runner</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_runner</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Runner</item>
+        <!-- android-holo-colors -->
+        <item name="android:listChoiceIndicatorMultiple">@drawable/runner_btn_check_holo_dark</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/runner_fastscroll_thumb_holo</item>
+    </style>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.Chaser" parent="ThemeBase">
+        <item name="actionBarItemBackground">@drawable/selectable_background_chaser</item>
+        <item name="popupMenuStyle">@style/PopupMenu.Chaser</item>
+        <item name="dropDownListViewStyle">@style/DropDownListView.Chaser</item>
+        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Chaser</item>
+        <item name="actionDropDownStyle">@style/DropDownNav.Chaser</item>
+        <item name="actionBarStyle">@style/ActionBar.Transparent.Chaser</item>
+        <item name="actionModeBackground">@drawable/cab_background_top_chaser</item>
+        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_chaser</item>
+        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Chaser</item>
+        <!-- android-holo-colors -->
+        <item name="android:listChoiceIndicatorMultiple">@drawable/chaser_btn_check_holo_dark</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/chaser_fastscroll_thumb_holo</item>
+    </style>
+
+</resources>

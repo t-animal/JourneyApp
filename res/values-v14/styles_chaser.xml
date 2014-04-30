@@ -29,6 +29,10 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_chaser</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_chaser</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Chaser</item>
+        <!-- android-holo-colors -->
+        <item name="android:listChoiceIndicatorMultiple">@drawable/chaser_btn_check_holo_dark</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/chaser_fastscroll_thumb_holo</item>
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">

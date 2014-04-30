@@ -19,6 +19,7 @@
 -->
 
 <resources>
+
     <style name="Theme.Runner" parent="ThemeBase.Runner">
         <item name="actionBarItemBackground">@drawable/selectable_background_runner</item>
         <item name="popupMenuStyle">@style/PopupMenu.Runner</item>
@@ -29,6 +30,9 @@
         <item name="actionModeBackground">@drawable/cab_background_top_runner</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_runner</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Runner</item>
+        <!-- android-holo-colors -->
+        <item name="android:checkboxStyle">@style/Checkbox.Runner</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
     </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -74,4 +78,17 @@
         <item name="popupMenuStyle">@style/PopupMenu.Runner</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Runner</item>
     </style>
+
+    <!-- android-holo-colors -->
+
+    <style name="Checkbox.Runner" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/runner_btn_check_holo_dark</item>
+    </style>
+
+    <style name="ToggleButton.Runner" parent="android:Widget.Button.Toggle">
+        <item name="android:background">@drawable/runner_btn_toggle_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
 </resources>

@@ -30,6 +30,9 @@
         <item name="actionModeBackground">@drawable/cab_background_top_chaser</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_chaser</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Chaser</item>
+        <!-- android-holo-colors -->
+        <item name="android:checkboxStyle">@style/Checkbox.Chaser</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -75,4 +78,17 @@
         <item name="popupMenuStyle">@style/PopupMenu.Chaser</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Chaser</item>
     </style>
+
+    <!-- android-holo-colors -->
+    
+    <style name="Checkbox.Chaser" parent="android:Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/chaser_btn_check_holo_dark</item>
+    </style>
+
+    <style name="ToggleButton.Chaser" parent="android:Widget.Button.Toggle">
+        <item name="android:background">@drawable/chaser_btn_toggle_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
 </resources>

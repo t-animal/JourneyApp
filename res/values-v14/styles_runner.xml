@@ -29,6 +29,10 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_runner</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_runner</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Runner</item>
+        <!-- android-holo-colors -->
+        <item name="android:listChoiceIndicatorMultiple">@drawable/runner_btn_check_holo_dark</item>
+        <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/runner_fastscroll_thumb_holo</item>
     </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">
