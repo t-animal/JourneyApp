@@ -30,6 +30,7 @@ public class InformationFragment extends Fragment implements OnClickListener {
 
 		fragmentRootView.findViewById(R.id.locationServiceButton).setOnClickListener(this);
 		fragmentRootView.findViewById(R.id.info_mapFollowingUserButton).setOnClickListener(this);
+		fragmentRootView.findViewById(R.id.info_gotCaughtButton).setOnClickListener(this);
 
 		return fragmentRootView;
 	}
@@ -42,6 +43,9 @@ public class InformationFragment extends Fragment implements OnClickListener {
 			break;
 		case R.id.info_mapFollowingUserButton:
 			onToggleMapFollowingUser(view);
+			break;
+		case R.id.info_gotCaughtButton:
+			changeTheme();
 			break;
 		}
 	}
@@ -58,5 +62,9 @@ public class InformationFragment extends Fragment implements OnClickListener {
 		} else {
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
 		}
+	}
+
+	private void changeTheme() {
+		((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
 	}
 }

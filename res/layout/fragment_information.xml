@@ -270,7 +270,36 @@
 
                 <View style="@style/Divider" />
             </TableRow>
-            
+            <!-- Got caught -->
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:layout_span="2"
+                    android:text="@string/info_gotCaught_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_gotCaught_value"
+                    style="@style/Cell"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/info_gotCaught_value" />
+
+                <ToggleButton
+                    android:id="@+id/info_gotCaughtButton"
+                    android:layout_width="120dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </TableRow>
         </TableLayout>
 
         <!-- System -->
