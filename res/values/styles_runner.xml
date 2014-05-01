@@ -18,7 +18,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.Runner" parent="ThemeBase.Runner">
         <item name="actionBarItemBackground">@drawable/selectable_background_runner</item>
@@ -90,5 +90,15 @@
         <item name="android:minHeight">48dip</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-
+    
+    <style name="Switch.Runner" parent="Widget.Holo.CompoundButton.Switch">
+        <item name="track">@drawable/runner_switch_track_holo_dark</item>
+        <item name="thumb">@drawable/runner_switch_inner_holo_dark</item>
+        <item name="switchTextAppearance">@style/runnerSwitchColor</item>
+    </style>
+    
+    <style name="runnerSwitchColor" parent="android:TextAppearance.Small">
+        <item name="android:textColor">@drawable/runner_switch_textcolor</item>
+    </style>
+    
 </resources>

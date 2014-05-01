@@ -36,6 +36,8 @@
     <string name="info_mapFollowingUserButton_value">Keeps the map centered on your location and disables panning</string>
     <string name="info_gotCaught_intro">Got caught</string>
     <string name="info_gotCaught_value">Change the theme</string>
+    <string name="info_gotCaughtButton_on">Chaser</string>
+    <string name="info_gotCaughtButton_off">Runner</string>
     
     <string name="info_system_headline">System</string>
     

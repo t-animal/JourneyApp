@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import org.jraf.android.backport.switchwidget.Switch;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,14 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 public class InformationFragment extends Fragment implements OnClickListener {
 
 	private View fragmentRootView;
-	private CheckBox locationServiceButton;
-	private CheckBox info_mapFollowingUserButton;
-	private CheckBox info_gotCaughtButton;
+	private Switch locationServiceButton;
+	private Switch info_mapFollowingUserButton;
+	private Switch info_gotCaughtButton;
 
 	public static InformationFragment newInstance() {
 		InformationFragment newFrag = new InformationFragment();
@@ -31,9 +32,10 @@ public class InformationFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		fragmentRootView = inflater.inflate(R.layout.fragment_information, container, false);
 
-		locationServiceButton = (CheckBox) fragmentRootView.findViewById(R.id.locationServiceButton);
-		info_mapFollowingUserButton = (CheckBox) fragmentRootView.findViewById(R.id.info_mapFollowingUserButton);
-		info_gotCaughtButton = (CheckBox) fragmentRootView.findViewById(R.id.info_gotCaughtButton);
+		locationServiceButton = (Switch) fragmentRootView.findViewById(R.id.locationServiceButton);
+		info_mapFollowingUserButton = (Switch) fragmentRootView.findViewById(R.id.info_mapFollowingUserButton);
+		info_gotCaughtButton = (Switch) fragmentRootView
+				.findViewById(R.id.info_gotCaughtButton);
 
 		locationServiceButton.setOnClickListener(this);
 		info_mapFollowingUserButton.setOnClickListener(this);
@@ -69,11 +71,11 @@ public class InformationFragment extends Fragment implements OnClickListener {
 	private void onToggleMapFollowingUser(View view) {
 		MapFragment map = ((Journey) getActivity()).adapter.getMapFragment();
 		map.executeInMap("toggleLocationChangedListener();");
-		((CheckBox) view).setChecked(map.co.isFollowingUser());
+		((Switch) view).setChecked(map.co.isFollowingUser());
 	}
 
 	private void onToggleLocationService(View view) {
-		if (((CheckBox) view).isChecked()) {
+		if (((Switch) view).isChecked()) {
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
 		} else {
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));

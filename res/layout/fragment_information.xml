@@ -215,9 +215,9 @@
                     android:layout_weight="1"
                     android:text="@string/info_locationServiceButton_value" />
 
-                <CheckBox
+                <org.jraf.android.backport.switchwidget.Switch
                     android:id="@+id/locationServiceButton"
-                    android:layout_width="120dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical" />
             </TableRow>
@@ -255,10 +255,10 @@
                     android:layout_weight="1"
                     android:text="@string/info_mapFollowingUserButton_value" />
 
-                <CheckBox
+                <org.jraf.android.backport.switchwidget.Switch
                     android:id="@+id/info_mapFollowingUserButton"
-                    android:layout_width="120dip"
                     android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical" />
             </TableRow>
 
@@ -294,11 +294,13 @@
                     android:layout_weight="1"
                     android:text="@string/info_gotCaught_value" />
 
-                <CheckBox
+                <org.jraf.android.backport.switchwidget.Switch
                     android:id="@+id/info_gotCaughtButton"
-                    android:layout_width="120dip"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    custom:textOn="@string/info_gotCaughtButton_on"
+                    custom:textOff="@string/info_gotCaughtButton_off" />
             </TableRow>
         </TableLayout>
 

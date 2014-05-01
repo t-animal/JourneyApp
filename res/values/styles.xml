@@ -5,10 +5,12 @@
 
     <style name="ThemeBase.Runner">
         <item name="themeColor">@color/runner</item>
+        <item name="switchStyle">@style/Switch.Runner</item>
     </style>
 
     <style name="ThemeBase.Chaser">
         <item name="themeColor">@color/chaser</item>
+        <item name="switchStyle">@style/Switch.Chaser</item>
     </style>
 
     <!-- Some role  styles -->
