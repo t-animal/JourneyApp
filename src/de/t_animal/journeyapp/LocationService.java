@@ -157,6 +157,8 @@ public class LocationService extends IntentService implements
 		while (isServiceRunning()) {
 			try {
 				Thread.sleep(10000);
+				if (!isServiceRunning())
+					break;
 			} catch (InterruptedException e) {
 				// do nothing, just execute as usual
 			}
