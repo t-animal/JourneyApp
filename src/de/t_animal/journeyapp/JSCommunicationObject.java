@@ -20,6 +20,15 @@ import android.webkit.JavascriptInterface;
  */
 public class JSCommunicationObject {
 
+	private static JSCommunicationObject singleton;
+
+	public static JSCommunicationObject getInstance(Context context) {
+		if (singleton == null) {
+			singleton = new JSCommunicationObject(context);
+		}
+		return singleton;
+	}
+
 	private class KMLPlacemark {
 		String name;
 		String description;
@@ -104,7 +113,7 @@ public class JSCommunicationObject {
 	Coordinate[][] safeZones;
 	Coordinate[][] offLimitsZones;
 
-	public JSCommunicationObject(Context context) {
+	private JSCommunicationObject(Context context) {
 		try {
 			// Parse XML file
 			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();

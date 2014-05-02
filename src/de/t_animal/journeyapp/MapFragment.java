@@ -27,7 +27,7 @@ public class MapFragment extends Fragment {
 		// inflat and return the layout
 		View fragmentRootView = inflater.inflate(R.layout.fragment_map, container, false);
 
-		co = new JSCommunicationObject(this.getActivity());
+		co = JSCommunicationObject.getInstance(this.getActivity());
 
 		map = (WebView) fragmentRootView.findViewById(R.id.map_view);
 
