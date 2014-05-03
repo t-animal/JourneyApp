@@ -107,41 +107,41 @@ public class Journey extends ActionBarActivity implements TabListener {
 	}
 
 	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
+		viewPager.setCurrentItem(tab.getPosition());
+		Fragment curFrag = getSupportFragmentManager().findFragmentByTag(
+				"android:switcher:" + R.id.mainContainer + ":" + viewPager.getCurrentItem());
+
+		if (curFrag != null && curFrag.isResumed())
+			((OnDisplayFragment) curFrag).onDisplay();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
 	}
 
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction arg1) {
-		viewPager.setCurrentItem(tab.getPosition());
-	}
-
 	public class JourneyFragmentPagerAdapter extends FragmentPagerAdapter {
-
-		private Fragment tabs[] = new Fragment[2];
 
 		public JourneyFragmentPagerAdapter(android.support.v4.app.FragmentManager fm) {
 			super(fm);
-			tabs[0] = new MapFragment();
-			tabs[1] = InformationFragment.newInstance();
 		}
 
 		@Override
 		public Fragment getItem(int i) {
-			try {
-				return tabs[i];
-			} catch (ArrayIndexOutOfBoundsException e) {
-				return tabs[0];
+			switch (i) {
+			case 0:
+				return MapFragment.newInstance();
+			case 1:
+				return InformationFragment.newInstance();
+			default:
+				return null;
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return tabs.length;
-		}
-
-		MapFragment getMapFragment() {
-			return (MapFragment) tabs[0];
+			return 2;
 		}
 	}
 

@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-public class InformationFragment extends Fragment implements OnClickListener {
+public class InformationFragment extends Fragment implements OnClickListener, OnDisplayFragment {
 
 	private View fragmentRootView;
 	private Switch locationServiceButton;
@@ -25,6 +25,12 @@ public class InformationFragment extends Fragment implements OnClickListener {
 		 */
 
 		return newFrag;
+	}
+
+	private void setButtonsFromPrefs() {
+		locationServiceButton.setChecked(Preferences.sendData(this));
+		info_mapFollowingUserButton.setChecked(Preferences.mapFollowsUser(this));
+		info_gotCaughtButton.setChecked(Preferences.isCaught(this));
 	}
 
 	@Override
@@ -47,10 +53,12 @@ public class InformationFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		setButtonsFromPrefs();
+	}
 
-		locationServiceButton.setChecked(LocationService.isServiceRunning());
-		info_mapFollowingUserButton.setChecked(((Journey) getActivity()).adapter.getMapFragment().co.isFollowingUser());
-		info_gotCaughtButton.setChecked(((Journey) getActivity()).getCurrentJourneyTheme() != Journey.THEME_RUNNER);
+	@Override
+	public void onDisplay() {
+		setButtonsFromPrefs();
 	}
 
 	@Override
@@ -69,20 +77,26 @@ public class InformationFragment extends Fragment implements OnClickListener {
 	}
 
 	private void onToggleMapFollowingUser(View view) {
-		MapFragment map = ((Journey) getActivity()).adapter.getMapFragment();
-		map.executeInMap("toggleLocationChangedListener();");
-		((Switch) view).setChecked(map.co.isFollowingUser());
+		Preferences.mapFollowsUser(this, ((Switch) view).isChecked());
 	}
 
 	private void onToggleLocationService(View view) {
-		if (((Switch) view).isChecked()) {
-			getActivity().startService(new Intent(getActivity(), LocationService.class));
-		} else {
+		if (Preferences.sendData(this)) {
+			Preferences.sendData(this, false);
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
+		} else {
+			Preferences.sendData(this, true);
+			getActivity().startService(new Intent(getActivity(), LocationService.class));
 		}
 	}
 
 	private void changeTheme() {
-		((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
+		if (Preferences.isCaught(this)) {
+			Preferences.isCaught(this, false);
+			((Journey) getActivity()).restartWithTheme(Journey.THEME_RUNNER);
+		} else {
+			Preferences.isCaught(this, true);
+			((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
+		}
 	}
 }

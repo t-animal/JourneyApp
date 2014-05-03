@@ -9,11 +9,11 @@ import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnDisplayFragment {
 
-	WebView map;
-
-	JSCommunicationObject co;
+	private WebView map;
+	private JSCommunicationObject co;
+	private View fragmentRootView;
 
 	private class GeoWebChromeClient extends WebChromeClient {
 		public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
@@ -21,11 +21,17 @@ public class MapFragment extends Fragment {
 		}
 	}
 
+	public static MapFragment newInstance() {
+		MapFragment newFrag = new MapFragment();
+
+		return newFrag;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// inflat and return the layout
-		View fragmentRootView = inflater.inflate(R.layout.fragment_map, container, false);
+		fragmentRootView = inflater.inflate(R.layout.fragment_map, container, false);
 
 		co = JSCommunicationObject.getInstance(this.getActivity());
 
@@ -36,35 +42,26 @@ public class MapFragment extends Fragment {
 		map.setWebChromeClient(new GeoWebChromeClient());
 		map.addJavascriptInterface(co, "comm");
 
-		setMapThemeValue();
-
 		map.loadUrl("file:///android_asset/map.html");
 
 		return fragmentRootView;
 	}
 
-	/**
-	 * Sets the theme inside the map by setting it in the @see CommunicationObject , but does not trigger the update
-	 * inside the js
-	 */
-	private void setMapThemeValue() {
-		int theme = getActivity().getIntent().getIntExtra("Theme", Journey.THEME_RUNNER);
+	@Override
+	public void onResume() {
+		super.onResume();
+		executeInMap("onResume();");
+	}
 
-		switch (theme) {
-		case Journey.THEME_CHASER:
-			co.setTheme("THEME_CHASER");
-			break;
-		case Journey.THEME_RUNNER:
-		default:
-			co.setTheme("THEME_RUNNER");
-			break;
-		}
+	@Override
+	public void onDisplay() {
+		executeInMap("onDisplay();");
 	}
 
 	/**
 	 * Executes the given String as javascript inside the html of the map.
 	 */
-	void executeInMap(String js) {
+	private void executeInMap(String js) {
 		map.loadUrl("javascript:" + js);
 	}
 

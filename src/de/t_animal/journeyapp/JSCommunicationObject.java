@@ -105,8 +105,7 @@ public class JSCommunicationObject {
 		}
 	}
 
-	String theme;
-	boolean followingUser;
+	private Context context;
 
 	Coordinate start;
 	Checkpoint[] checkpoints;
@@ -114,6 +113,18 @@ public class JSCommunicationObject {
 	Coordinate[][] offLimitsZones;
 
 	private JSCommunicationObject(Context context) {
+		this.context = context;
+		parseKMLFile();
+	}
+
+	private void initEmpty() {
+		start = new Coordinate(0, 0);
+		checkpoints = new Checkpoint[0];
+		safeZones = new Coordinate[0][0];
+		offLimitsZones = new Coordinate[0][0];
+	}
+
+	private void parseKMLFile() {
 		try {
 			// Parse XML file
 			SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
@@ -194,24 +205,11 @@ public class JSCommunicationObject {
 			initEmpty();
 			e.printStackTrace();
 		}
-
-		theme = "THEME_RUNNER";
-	}
-
-	private void initEmpty() {
-		start = new Coordinate(0, 0);
-		checkpoints = new Checkpoint[0];
-		safeZones = new Coordinate[0][0];
-		offLimitsZones = new Coordinate[0][0];
-	};
-
-	public void setTheme(String theme) {
-		this.theme = theme;
 	}
 
 	@JavascriptInterface
 	public String getTheme() {
-		return this.theme;
+		return Preferences.isCaught(context) ? "THEME_CHASER" : "THEME_RUNNER";
 	}
 
 	@JavascriptInterface
@@ -234,12 +232,13 @@ public class JSCommunicationObject {
 		return Arrays.deepToString(offLimitsZones);
 	}
 
+	@JavascriptInterface
 	public boolean isFollowingUser() {
-		return followingUser;
+		return Preferences.mapFollowsUser(context);
 	}
 
 	@JavascriptInterface
 	public void setFollowingUser(boolean followingUser) {
-		this.followingUser = followingUser;
+		Preferences.mapFollowsUser(context, followingUser);
 	}
 }
