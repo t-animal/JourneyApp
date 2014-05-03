@@ -256,6 +256,29 @@ GeolocationMarker.prototype.watchPosition_ = function() {
 };
 
 /**
+ * @return {undefined}
+ */
+GeolocationMarker.prototype.stopWatch = function() {
+  var self = this;
+
+  if(navigator.geolocation && this.watchId_ != -1){
+      navigator.geolocation.clearWatch(this.watchId_);
+      this.watchId_ = -1;
+  }
+};
+
+/**
+ * @return {undefined}
+ */
+GeolocationMarker.prototype.startWatch = function() {
+  var self = this;
+
+  if(this.watchId_ == -1){
+      this.watchPosition_();
+  }
+};
+
+/**
  * @private
  * @param {Object.<string,*>} target
  * @param {Object.<string,*>} source

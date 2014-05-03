@@ -247,10 +247,15 @@ function onStart() {
 function onResume() {
     setTheme(comm.getTheme());
     setFollowingUser(comm.isFollowingUser());
+    geomarker.startWatch();
 }
 
 function onDisplay() {
     setFollowingUser(comm.isFollowingUser());
+}
+
+function onPause() {
+    geomarker.stopWatch();
 }
 
 function setTheme(theme) {

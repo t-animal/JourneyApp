@@ -37,6 +37,7 @@ public class MapFragment extends Fragment implements OnDisplayFragment {
 
 		map = (WebView) fragmentRootView.findViewById(R.id.map_view);
 
+		map.setBackgroundColor(0xFF000000);
 		map.getSettings().setJavaScriptEnabled(true);
 		map.getSettings().setGeolocationEnabled(true);
 		map.setWebChromeClient(new GeoWebChromeClient());
@@ -48,8 +49,16 @@ public class MapFragment extends Fragment implements OnDisplayFragment {
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+		executeInMap("onPause();");
+		map.getSettings().setGeolocationEnabled(false);
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
+		map.getSettings().setGeolocationEnabled(true);
 		executeInMap("onResume();");
 	}
 
