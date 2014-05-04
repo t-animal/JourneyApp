@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/checkpoint_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Checkpoint 1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/checkpoint_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkpoint_name"
+        android:layout_marginLeft="40sp"
+        android:text="Wohnheim Hartmannstr. Hartmannstr. 129.\nStart auf dem Parkdeck\nZiel in der Kneipe (Keller)" />
+    
+    <TextView
+        android:id="@+id/checkpoint_distance_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkpoint_description"
+        android:layout_marginLeft="40sp"
+        android:text="Distance: " />
+
+    <TextView
+        android:id="@+id/checkpoint_distance_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkpoint_description"
+        android:layout_toRightOf="@id/checkpoint_distance_intro"
+        android:text="3.2km" />
+
+    <TextView
+        android:id="@+id/checkpoint_visited_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkpoint_distance_intro"
+        android:layout_marginLeft="40sp"
+        android:text="Visited: " />
+    
+    <CheckBox
+        android:id="@+id/checkpoint_visitedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/checkpoint_visited_intro"
+        android:layout_alignBaseline="@id/checkpoint_visited_intro" />
+
+    <TextView
+        android:id="@+id/checkpoint_visited_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkpoint_distance_intro"
+        android:layout_toRightOf="@id/checkpoint_visitedButton"
+        android:text="13:37" />
+
+
+</RelativeLayout>

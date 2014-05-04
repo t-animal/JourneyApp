@@ -10,7 +10,12 @@
     <string name="hello_world">Hello world!</string>
     
     <string name="tab_map_name">Map</string>
+    <string name="tab_game_name">Game</string>
     <string name="tab_info_name">Information</string>
+
+    <string name="game_gotCaught_value">Have you been caught?</string>
+    <string name="game_gotCaughtButton_on">Chaser</string>
+    <string name="game_gotCaughtButton_off">Runner</string>
     
     <string name="info_journey_headline">Journey Information</string>
     <string name="info_journeyName_intro">Name</string>
@@ -34,10 +39,6 @@
     <string name="info_locationServiceButton_value">Send your location to the journey team. This helps organize future journeys and create neat graphics of game.</string>
     <string name="info_mapFollowingUserButton_intro">Map follows your location</string>
     <string name="info_mapFollowingUserButton_value">Keeps the map centered on your location and disables panning</string>
-    <string name="info_gotCaught_intro">Got caught</string>
-    <string name="info_gotCaught_value">Change the theme</string>
-    <string name="info_gotCaughtButton_on">Chaser</string>
-    <string name="info_gotCaughtButton_off">Runner</string>
     
     <string name="info_system_headline">System</string>
     

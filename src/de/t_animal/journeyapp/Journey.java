@@ -81,6 +81,9 @@ public class Journey extends ActionBarActivity implements TabListener {
 				.setText(R.string.tab_map_name)
 				.setTabListener(this));
 		actionBar.addTab(actionBar.newTab()
+				.setText(R.string.tab_game_name)
+				.setTabListener(this));
+		actionBar.addTab(actionBar.newTab()
 				.setText(R.string.tab_info_name)
 				.setTabListener(this));
 
@@ -133,6 +136,8 @@ public class Journey extends ActionBarActivity implements TabListener {
 			case 0:
 				return MapFragment.newInstance();
 			case 1:
+				return GameFragment.newInstance();
+			case 2:
 				return InformationFragment.newInstance();
 			default:
 				return null;
@@ -141,7 +146,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 3;
 		}
 	}
 

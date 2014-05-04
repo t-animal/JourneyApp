@@ -15,7 +15,6 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	private View fragmentRootView;
 	private Switch locationServiceButton;
 	private Switch info_mapFollowingUserButton;
-	private Switch info_gotCaughtButton;
 
 	public static InformationFragment newInstance() {
 		InformationFragment newFrag = new InformationFragment();
@@ -30,7 +29,6 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	private void setButtonsFromPrefs() {
 		locationServiceButton.setChecked(Preferences.sendData(this));
 		info_mapFollowingUserButton.setChecked(Preferences.mapFollowsUser(this));
-		info_gotCaughtButton.setChecked(Preferences.isCaught(this));
 	}
 
 	@Override
@@ -40,12 +38,9 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 
 		locationServiceButton = (Switch) fragmentRootView.findViewById(R.id.locationServiceButton);
 		info_mapFollowingUserButton = (Switch) fragmentRootView.findViewById(R.id.info_mapFollowingUserButton);
-		info_gotCaughtButton = (Switch) fragmentRootView
-				.findViewById(R.id.info_gotCaughtButton);
 
 		locationServiceButton.setOnClickListener(this);
 		info_mapFollowingUserButton.setOnClickListener(this);
-		info_gotCaughtButton.setOnClickListener(this);
 
 		return fragmentRootView;
 	}
@@ -70,9 +65,6 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 		case R.id.info_mapFollowingUserButton:
 			onToggleMapFollowingUser(view);
 			break;
-		case R.id.info_gotCaughtButton:
-			changeTheme();
-			break;
 		}
 	}
 
@@ -87,16 +79,6 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 		} else {
 			Preferences.sendData(this, true);
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
-		}
-	}
-
-	private void changeTheme() {
-		if (Preferences.isCaught(this)) {
-			Preferences.isCaught(this, false);
-			((Journey) getActivity()).restartWithTheme(Journey.THEME_RUNNER);
-		} else {
-			Preferences.isCaught(this, true);
-			((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
 		}
 	}
 }
