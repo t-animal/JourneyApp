@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:custom="http://schemas.android.com/apk/res/de.t_animal.journeyapp"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
@@ -58,18 +57,15 @@
 
                 <TextView
                     android:id="@+id/info_journeyName_value"
-                    style="@style/Cell"
-                    android:text="@string/info_journeyName_value" />
+                    style="@style/Cell" />
 
                 <TextView
                     android:id="@+id/info_journeyDate_value"
-                    style="@style/Cell"
-                    android:text="@string/info_journeyDate_value" />
+                    style="@style/Cell" />
 
                 <TextView
                     android:id="@+id/info_journeyLocation_value"
-                    style="@style/Cell"
-                    android:text="@string/info_journeyLocation_value" />
+                    style="@style/Cell" />
             </TableRow>
 
             <TableRow
