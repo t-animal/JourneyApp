@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="journeyName">Erlangen</entry>
+<entry key="journeyDate">2014-06-12 20:00:00</entry>
+<entry key="journeyStartLocation">HaWo</entry>
+<entry key="journeyFurtherInformation">There will be a party at the HaWo bar after the journey. Admittance for journey participants only!</entry>
+<entry key="journeyFurtherInformationSecret">Under no circumnstances enter the off-limits-zone (red bordered area), please. Birds nest there on the ground!</entry>
+<entry key="checkpointsCount">6</entry>
+<entry key="checkpoint1">Checkpoint 1</entry>
+<entry key="checkpoint2">Checkpoint 2</entry>
+<entry key="checkpoint3">Checkpoint 3</entry>
+<entry key="checkpoint4">Checkpoint 4</entry>
+<entry key="checkpoint5">Checkpoint 5</entry>
+<entry key="checkpoint6">Checkpoint 6</entry>
+</properties>
