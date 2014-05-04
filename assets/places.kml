@@ -171,7 +171,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 1</name>
     <description><![CDATA[<div dir="ltr">Statdverwaltung Parkplatz</div>]]></description>
     <styleUrl>#style6</styleUrl>
     <Point>
@@ -209,7 +209,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 2</name>
     <description><![CDATA[<div dir="ltr">Langemarckplatz vor dem Eingang zum (derzeit geschlossenen) Studentenwerksgebäude</div>]]></description>
     <styleUrl>#style1</styleUrl>
     <Point>
@@ -242,7 +242,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 3</name>
     <description><![CDATA[<div dir="ltr">Theaterpassage</div>]]></description>
     <styleUrl>#style13</styleUrl>
     <Point>
@@ -274,7 +274,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 4</name>
     <description><![CDATA[<div dir="ltr">Rathsberger Str. 9 (Zugang von Süden)</div>]]></description>
     <styleUrl>#style11</styleUrl>
     <Point>
@@ -282,7 +282,7 @@
     </Point>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 5</name>
     <description><![CDATA[<div dir="ltr">Ludwidg-Feuerbach-Platz</div>]]></description>
     <styleUrl>#style3</styleUrl>
     <Point>
@@ -341,7 +341,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>checkpoint</name>
+    <name>Checkpoint 6</name>
     <description><![CDATA[<div dir="ltr">Am Radweg gegenüber der Bauwagensiedlung</div>]]></description>
     <styleUrl>#style9</styleUrl>
     <Point>

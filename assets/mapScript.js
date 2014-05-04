@@ -71,11 +71,11 @@ if (typeof (comm) == 'undefined') {
             return JSON.stringify([{
                 lat: 49.593742,
                 lon: 11.010189,
-                no: 1
+                no: "Checkpoint 1"
             }, {
                 lat: 49.599602,
                 lon: 11.005383,
-                no: 2
+                no: "Checkpoint 2"
             }]);
         },
 
@@ -295,7 +295,7 @@ function drawCheckpoints(checkpoints) {
     }
 }
 
-function drawCheckpoint(lat, long, no) {
+function drawCheckpoint(lat, long, name) {
     var markerOptions = {
         position: new google.maps.LatLng(lat, long),
         clickable: false,
@@ -305,7 +305,7 @@ function drawCheckpoint(lat, long, no) {
             strokeColor: '#FFFFFF',
             scale: 5
         },
-        labelContent: "CP" + no,
+        labelContent: name,
         labelAnchor: new google.maps.Point(50, -10),
         labelClass: "labels",
         labelInBackground: false
