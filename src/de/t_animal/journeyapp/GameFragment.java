@@ -1,17 +1,13 @@
 package de.t_animal.journeyapp;
 
-import java.util.ArrayList;
-
 import org.jraf.android.backport.switchwidget.Switch;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 public class GameFragment extends Fragment implements OnClickListener, OnDisplayFragment {
@@ -37,7 +33,9 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 
 		checkpointList = (ListView) fragmentRootView.findViewById(R.id.game_checkpointsList);
 
-		checkpointList.setAdapter(new ItemListBaseAdapter(getActivity(), null));
+		checkpointList.setAdapter(new CheckpointFragment
+				.CheckpointListAdapter(getActivity(),
+						JourneyProperties.getInstance(getActivity()).getCheckpoints()));
 
 		return fragmentRootView;
 	}
@@ -63,35 +61,6 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 		} else {
 			Preferences.isCaught(this, true);
 			((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
-		}
-	}
-
-	public class ItemListBaseAdapter extends BaseAdapter {
-		private ArrayList<CheckpointFragment> itemDetailsarrayList;
-
-		private LayoutInflater l_Inflater;
-
-		public ItemListBaseAdapter(Context context, ArrayList<CheckpointFragment> results) {
-			itemDetailsarrayList = results;
-			l_Inflater = LayoutInflater.from(context);
-		}
-
-		public int getCount() {
-			return 15;
-		}
-
-		public Object getItem(int position) {
-			return new Object();
-		}
-
-		public long getItemId(int position) {
-			return position;
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent) {
-			convertView = l_Inflater.inflate(R.layout.fragment_checkpoint, null);
-			convertView.setEnabled(false);
-			return convertView;
 		}
 	}
 }
