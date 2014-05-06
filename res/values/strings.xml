@@ -15,6 +15,8 @@
     <string name="game_startJourneyButton_off">Start your journey</string>
     
     
+    <string name="checkpoint_description_intro">Details: </string>
+    <string name="checkpoint_safezoneDescription_intro">Safe zone: </string>
     <string name="checkpoint_distance">Distance: </string>
     <string name="checkpoint_visited">Visited: </string>
     

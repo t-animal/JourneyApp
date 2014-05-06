@@ -11,50 +11,75 @@
         android:layout_alignParentTop="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/checkpoint_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@id/checkpoint_name"
-        android:layout_marginLeft="40sp" />
-    
-    <TextView
-        android:id="@+id/checkpoint_distance_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkpoint_description"
-        android:layout_marginLeft="40sp"
-        android:text="@string/checkpoint_distance" />
+        android:layout_marginLeft="40sp" >
 
-    <TextView
-        android:id="@+id/checkpoint_distance_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkpoint_description"
-        android:layout_toRightOf="@id/checkpoint_distance_intro"
-        android:text="--" />
+        <TableRow>
 
-    <TextView
-        android:id="@+id/checkpoint_visited_intro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkpoint_distance_intro"
-        android:layout_marginLeft="40sp"
-        android:text="@string/checkpoint_visited" />
-    
-    <CheckBox
-        android:id="@+id/checkpoint_visitedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/checkpoint_visited_intro"
-        android:layout_alignBaseline="@id/checkpoint_visited_intro" />
+            <TextView
+                android:id="@+id/checkpoint_description_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkpoint_description_intro" />
 
-    <TextView
-        android:id="@+id/checkpoint_visited_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/checkpoint_distance_intro"
-        android:layout_toRightOf="@id/checkpoint_visitedButton" />
+            <TextView
+                android:id="@+id/checkpoint_description_value"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
 
+        <TableRow>
+
+            <TextView
+                android:id="@+id/checkpoint_safezoneDescription_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkpoint_safezoneDescription_intro" />
+
+            <TextView
+                android:id="@+id/checkpoint_safezoneDescription_value"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/checkpoint_distance_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkpoint_distance" />
+
+            <TextView
+                android:id="@+id/checkpoint_distance_value"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/checkpoint_visited_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/checkpoint_visited" />
+
+            <CheckBox
+                android:id="@+id/checkpoint_visitedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/checkpoint_visited_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>

@@ -37,7 +37,8 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 		Bundle args = getArguments();
 
 		((TextView) fragmentRootView.findViewById(R.id.checkpoint_name)).setText(args.getString("name"));
-		((TextView) fragmentRootView.findViewById(R.id.checkpoint_description)).setText(args.getString("description"));
+		((TextView) fragmentRootView.findViewById(R.id.checkpoint_description_value)).setText(args
+				.getString("description"));
 
 		return fragmentRootView;
 	}
@@ -71,10 +72,13 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.fragment_checkpoint, parent, false);
 			}
-
 			// Uhoh... what if convertView does not have these things?!
 			((TextView) convertView.findViewById(R.id.checkpoint_name)).setText(checkpoints[i].name);
-			((TextView) convertView.findViewById(R.id.checkpoint_description)).setText(checkpoints[i].description);
+			((TextView) convertView.findViewById(R.id.checkpoint_description_value))
+					.setText(checkpoints[i].description);
+			if (checkpoints[i].safeZone != null)
+				((TextView) convertView.findViewById(R.id.checkpoint_safezoneDescription_value))
+						.setText(checkpoints[i].safeZone.description);
 
 			if (currentLocation != null) {
 				float results[] = new float[1];
