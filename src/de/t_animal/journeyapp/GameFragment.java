@@ -1,7 +1,9 @@
 package de.t_animal.journeyapp;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +11,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ToggleButton;
+import de.t_animal.journeyapp.CheckpointFragment.CheckpointListAdapter;
 
 public class GameFragment extends Fragment implements OnClickListener, OnDisplayFragment {
+
+	private final String TAG = "GameFragment";
 
 	private View fragmentRootView;
 	private ListView checkpointList;
@@ -67,6 +72,29 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
 		} else {
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
+
+			final Handler handler = new Handler();
+			Runnable runnable = new Runnable() {
+
+				@Override
+				public void run() {
+
+					if (LocationService.isServiceRunning()) {
+						Location curLoc = LocationService.getLastLocation();
+						if (curLoc != null) {
+							((CheckpointListAdapter) checkpointList.getAdapter()).updateLocation();
+							((CheckpointListAdapter) checkpointList.getAdapter()).notifyDataSetChanged();
+						}
+
+						handler.postDelayed(this, 1000);
+					} else {
+						handler.removeCallbacks(this);
+					}
+				}
+			};
+
+			// 500: give service time to start
+			handler.postDelayed(runnable, 500);
 		}
 	}
 

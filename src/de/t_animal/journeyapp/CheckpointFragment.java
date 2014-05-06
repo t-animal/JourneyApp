@@ -1,6 +1,7 @@
 package de.t_animal.journeyapp;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 	 */
 	public static class CheckpointListAdapter extends ArrayAdapter<Checkpoint> {
 		private Checkpoint[] checkpoints;
+		private Location currentLocation;
 
 		private LayoutInflater inflater;
 		private Context context;
@@ -74,7 +76,29 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 			((TextView) convertView.findViewById(R.id.checkpoint_name)).setText(checkpoints[i].name);
 			((TextView) convertView.findViewById(R.id.checkpoint_description)).setText(checkpoints[i].description);
 
+			if (currentLocation != null) {
+				float results[] = new float[1];
+				String unit = "m";
+
+				Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
+						checkpoints[i].lat, checkpoints[i].lon, results);
+
+				if (results[0] > 1000) {
+					results[0] /= 1000;
+					unit = "km";
+				}
+
+				((TextView) convertView.findViewById(R.id.checkpoint_distance_value)).setText(
+						String.format("%.2f%s", results[0], unit));
+			} else {
+				((TextView) convertView.findViewById(R.id.checkpoint_distance_value)).setText("--");
+			}
+
 			return convertView;
+		}
+
+		public void updateLocation() {
+			currentLocation = LocationService.getLastLocation();
 		}
 	}
 }

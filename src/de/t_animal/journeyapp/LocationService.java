@@ -65,6 +65,19 @@ public class LocationService extends IntentService implements
 		return singletonLocationService;
 	}
 
+	/**
+	 * Gets the last acquired location if the service is running and has acquired a location, else it returns null
+	 * 
+	 * @return a @see Location or null
+	 */
+	static Location getLastLocation() {
+		if (isServiceRunning()) {
+			return getServiceInstance().currentLocation;
+		} else {
+			return null;
+		}
+	}
+
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
