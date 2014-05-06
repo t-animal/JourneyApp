@@ -13,6 +13,7 @@ class Preferences {
 	static final String MAP_FOLLOWS_USER = "map_follows_user";
 	static final String IS_CAUGHT = "is_caught";
 	static final String SEND_DATA = "send_data";
+	static final String CAUGHT_COUNT = "caught_count";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -90,5 +91,24 @@ class Preferences {
 
 	static boolean sendData(Fragment caller) {
 		return sendData(caller.getActivity());
+	}
+
+	/*
+	 * caughtCount
+	 */
+	static void caughtCount(Context caller, int count) {
+		getEditor(caller).putInt(CAUGHT_COUNT, count).commit();
+	}
+
+	static int caughtCount(Context caller) {
+		return getPref(caller).getInt(CAUGHT_COUNT, 0);
+	}
+
+	static void caughtCount(Fragment caller, int count) {
+		caughtCount(caller.getActivity(), count);
+	}
+
+	static int caughtCount(Fragment caller) {
+		return caughtCount(caller.getActivity());
 	}
 }

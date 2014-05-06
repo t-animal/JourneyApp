@@ -13,6 +13,8 @@
     <string name="game_gotCaughtButton_off">I have been caught</string>
     <string name="game_startJourneyButton_on">End your journey</string>
     <string name="game_startJourneyButton_off">Start your journey</string>
+    <string name="game_othersCaught_intro">I caught </string>
+    <string name="game_othersCaught_outro"> others</string>
     
     
     <string name="checkpoint_description_intro">Details: </string>
