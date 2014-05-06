@@ -8,27 +8,15 @@
     <ToggleButton android:id="@+id/game_startJourneyButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOn="End your journey"
-        android:textOff="Start your journey" />
-
-    <TextView
-        android:id="@+id/game_gotCaught_value"
-        android:layout_width="wrap_content"
+        android:textOn="@string/game_startJourneyButton_on"
+        android:textOff="@string/game_startJourneyButton_off" />
+    
+    <ToggleButton android:id="@+id/game_gotCaughtButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/game_startJourneyButton"
-        android:text="@string/game_gotCaught_value"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <org.jraf.android.backport.switchwidget.Switch
-        android:id="@+id/game_gotCaughtButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_below="@id/game_startJourneyButton"
-        android:layout_toRightOf="@id/game_gotCaught_value"
-        android:layout_marginLeft="30sp"
-        custom:textOff="@string/game_gotCaughtButton_off"
-        custom:textOn="@string/game_gotCaughtButton_on" />
+        android:textOn="@string/game_gotCaughtButton_on"
+        android:textOff="@string/game_gotCaughtButton_off" />
 
     <ListView android:id="@+id/game_checkpointsList" 
     android:layout_width="fill_parent"

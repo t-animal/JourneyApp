@@ -1,7 +1,5 @@
 package de.t_animal.journeyapp;
 
-import org.jraf.android.backport.switchwidget.Switch;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +15,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 	private View fragmentRootView;
 	private ListView checkpointList;
 
-	private Switch game_gotCaughtButton;
+	private ToggleButton game_gotCaughtButton;
 	private ToggleButton game_startJourneyButton;
 
 	public static GameFragment newInstance() {
@@ -32,7 +30,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 		fragmentRootView = inflater.inflate(R.layout.fragment_game, container, false);
 
 		game_startJourneyButton = (ToggleButton) fragmentRootView.findViewById(R.id.game_startJourneyButton);
-		game_gotCaughtButton = (Switch) fragmentRootView.findViewById(R.id.game_gotCaughtButton);
+		game_gotCaughtButton = (ToggleButton) fragmentRootView.findViewById(R.id.game_gotCaughtButton);
 
 		game_gotCaughtButton.setOnClickListener(this);
 		game_startJourneyButton.setOnClickListener(this);

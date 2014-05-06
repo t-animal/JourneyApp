@@ -9,8 +9,11 @@
     <string name="tab_info_name">Information</string>
 
     <string name="game_gotCaught_value">Have you been caught?</string>
-    <string name="game_gotCaughtButton_on">Chaser</string>
-    <string name="game_gotCaughtButton_off">Runner</string>
+    <string name="game_gotCaughtButton_on">I have not yet been caught</string>
+    <string name="game_gotCaughtButton_off">I have been caught</string>
+    <string name="game_startJourneyButton_on">End your journey</string>
+    <string name="game_startJourneyButton_off">Start your journey</string>
+    
     
     <string name="checkpoint_distance">Distance: </string>
     <string name="checkpoint_visited">Visited: </string>
