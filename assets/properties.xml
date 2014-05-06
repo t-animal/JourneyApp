@@ -13,6 +13,12 @@
 <entry key="checkpoint4">Checkpoint 4</entry>
 <entry key="checkpoint5">Checkpoint 5</entry>
 <entry key="checkpoint6">Checkpoint 6</entry>
+<entry key="safezone1">safezone1</entry>
+<entry key="safezone2">safezone2</entry>
+<entry key="safezone3">safezone3</entry>
+<entry key="safezone4">safezone4</entry>
+<entry key="safezone5">safezone5</entry>
+<entry key="safezone6">safezone6</entry>
 <entry key="serverLocation">faui00q.cs.fau.de</entry>
 <entry key="serverPort">1338</entry>
 </properties>

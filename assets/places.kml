@@ -179,7 +179,7 @@
     </Point>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone1</name>
     <description><![CDATA[<div dir="ltr">Parkplatz Stadtverwaltung<br>Parkplatz Siemens<br>Parkplatz Verlag<br>Weg südlich von der Autobahnunterführung</div>]]></description>
     <styleUrl>#style15</styleUrl>
     <Polygon>
@@ -217,7 +217,7 @@
     </Point>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone2</name>
     <description><![CDATA[<div dir="ltr">Langemarkplatz ink. angrenzender Straßen (ab Straßenmitte)</div>]]></description>
     <styleUrl>#style4</styleUrl>
     <Polygon>
@@ -250,7 +250,7 @@
     </Point>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone3</name>
     <description><![CDATA[<div dir="ltr">Kreuzung Wasserturmstr./Apfelstraße<br>Kreuzung Glockenstr./Theaterstraße<br>Gesamte Theaterstraße</div>]]></description>
     <styleUrl>#style12</styleUrl>
     <Polygon>
@@ -290,7 +290,7 @@
     </Point>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone5</name>
     <description><![CDATA[<div dir="ltr">Ludwig-Feuerbach-Platz inkl. umliegende Straßen</div>]]></description>
     <styleUrl>#style5</styleUrl>
     <Polygon>
@@ -309,7 +309,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone6</name>
     <description><![CDATA[<div dir="ltr">Naturschutzgebiet Exerzierplatz und umliegende Wege/Straßen:<br>Silbergrasweg (Fußweg nördlicher Seite)<br>Radweg Schenkstraße (westliche Seite)<br>Staudtstraße (südliche Seite)<br>Kurt-Schumacher-Str. (östliche Seite)</div>]]></description>
     <styleUrl>#style14</styleUrl>
     <Polygon>
@@ -378,7 +378,7 @@
     </Polygon>
   </Placemark>
   <Placemark>
-    <name>safezone</name>
+    <name>safezone4</name>
     <description><![CDATA[<div dir="ltr">Ab Kreuzung An den Kellern/Rathsberger Straße (nördlicher Fußweg)<br>bis Leo-Hauck-Straße/Spardorfer Straße<br>bis Rathsberger Straße/Staffelweg</div>]]></description>
     <styleUrl>#style7</styleUrl>
     <Polygon>

@@ -34,6 +34,7 @@ public class JourneyProperties {
 
 	private Date journeyDate;
 	private String[] checkpointNames;
+	private String[] safezoneNames;
 
 	private Coordinate start;
 	private Checkpoint[] checkpoints;
@@ -74,6 +75,7 @@ public class JourneyProperties {
 		int checkpoints = Integer.parseInt(prop.getProperty("checkpointsCount", "0"));
 		checkpointNames = new String[checkpoints];
 
+		// get checkpoint names
 		for (int i = 0; i < checkpoints; i++) {
 			checkpointNames[i] = prop.getProperty("checkpoint" + (i + 1));
 
@@ -88,6 +90,15 @@ public class JourneyProperties {
 
 				break;
 			}
+		}
+
+		// try to get a safezone for each checkpoint
+		safezoneNames = new String[checkpointNames.length];
+		for (int i = 0; i < checkpointNames.length; i++) {
+			safezoneNames[i] = prop.getProperty("safezone" + (i + 1));
+			if (safezoneNames[i] == null)
+				Toast.makeText(context, "Warning: No safezone for checkpoint " + checkpointNames[i], Toast.LENGTH_LONG)
+						.show();
 		}
 
 		parseKMLFile();
@@ -118,6 +129,8 @@ public class JourneyProperties {
 			ArrayList<Zone> offLimitsZones = new ArrayList<Zone>();
 
 			List<String> checkpointNames = Arrays.asList(this.checkpointNames);
+			List<String> safezoneNames = Arrays.asList(this.safezoneNames);
+
 			for (KMLPlacemark placemark : placemarks) {
 
 				if (placemark.name.equalsIgnoreCase("start")) {
@@ -128,16 +141,27 @@ public class JourneyProperties {
 				if (checkpointNames.contains(placemark.name)) {
 
 					String[] coords = placemark.coordinates.split(",");
-					checkpoints.add(new Checkpoint(Double.parseDouble(coords[1]), Double.parseDouble(coords[0]),
-							placemark.name, placemark.description));
+					Checkpoint newPoint = new Checkpoint(Double.parseDouble(coords[1]), Double.parseDouble(coords[0]),
+							placemark.name, placemark.description);
+
+					// try to find the corresponding safezone (if existing and already in list)
+					int cpIndex = checkpointNames.indexOf(placemark.name);
+					for (Zone safeZone : safeZones) {
+						if (safeZone.name.equals(safezoneNames.get(cpIndex))) {
+							newPoint.safeZone = safeZone;
+						}
+					}
+
+					checkpoints.add(newPoint);
 
 				} else
 
-				if (placemark.name.equalsIgnoreCase("safezone")) {
+				if (placemark.name.equalsIgnoreCase("safezone") || safezoneNames.contains(placemark.name)) {
 
 					String[] coordlines = placemark.coordinates.split("\n");
 					ArrayList<Coordinate> border = new ArrayList<Coordinate>();
 
+					// get coordinates from comma seperated string
 					for (String coordline : coordlines) {
 						String[] coords = coordline.split(",");
 						if (coords.length != 3)
@@ -145,7 +169,17 @@ public class JourneyProperties {
 						border.add(new Coordinate(Double.parseDouble(coords[1]), Double.parseDouble(coords[0])));
 					}
 
-					safeZones.add(new Zone(placemark.description, border.toArray(new Coordinate[0])));
+					Zone newZone = new Zone(placemark.name, placemark.description, border.toArray(new Coordinate[0]));
+
+					// try to find the corresponding safezone (if existing and already in list)
+					int szIndex = safezoneNames.indexOf(placemark.name);
+					for (Checkpoint checkpoint : checkpoints) {
+						if (checkpoint.name.equals(checkpointNames.get(szIndex))) {
+							checkpoint.safeZone = newZone;
+						}
+					}
+
+					safeZones.add(newZone);
 				} else
 
 				if (placemark.name.equalsIgnoreCase("offlimits")) {
@@ -153,6 +187,7 @@ public class JourneyProperties {
 					String[] coordlines = placemark.coordinates.split("\n");
 					ArrayList<Coordinate> border = new ArrayList<Coordinate>();
 
+					// get coordinates from comma seperated string
 					for (String coordline : coordlines) {
 						String[] coords = coordline.split(",");
 						if (coords.length != 3)
@@ -160,7 +195,8 @@ public class JourneyProperties {
 						border.add(new Coordinate(Double.parseDouble(coords[1]), Double.parseDouble(coords[0])));
 					}
 
-					offLimitsZones.add(new Zone(placemark.description, border.toArray(new Coordinate[0])));
+					offLimitsZones.add(new Zone(placemark.name, placemark.description, border
+							.toArray(new Coordinate[0])));
 				}
 
 				this.checkpoints = checkpoints.toArray(new Checkpoint[0]);
@@ -254,6 +290,8 @@ public class JourneyProperties {
 		String name;
 		String description;
 
+		Zone safeZone;
+
 		public Checkpoint(double lat, double lon, String name, String description) {
 			super(lat, lon);
 			this.name = name;
@@ -267,10 +305,12 @@ public class JourneyProperties {
 	}
 
 	class Zone {
+		String name;
 		String description;
 		Coordinate[] border;
 
-		public Zone(String description, Coordinate[] border) {
+		public Zone(String name, String description, Coordinate[] border) {
+			this.name = name;
 			this.description = description.replaceAll("<br>", "\n").replaceAll("<.*?>", "");
 			this.border = border;
 		}
