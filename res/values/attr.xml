@@ -4,6 +4,8 @@
     <declare-styleable name="ThemeBase">
         <attr name="tableHeader" format="reference" />
         <attr name="themeColor" format="reference|color" />
+        <attr name="chaserOnly" format="integer" />
+        <attr name="runnerOnly" format="integer" /> 
     </declare-styleable>
 
 </resources>
