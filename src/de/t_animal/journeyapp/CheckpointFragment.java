@@ -1,17 +1,26 @@
 package de.t_animal.journeyapp;
 
+import java.util.Calendar;
+
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import de.t_animal.journeyapp.JourneyProperties.Checkpoint;
 
 public class CheckpointFragment extends Fragment implements OnDisplayFragment {
+
+	private final static String TAG = "CheckpointFragment";
 
 	private View fragmentRootView;
 
@@ -53,7 +62,7 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 	 * @author ar79yxiw
 	 * 
 	 */
-	public static class CheckpointListAdapter extends ArrayAdapter<Checkpoint> {
+	public static class CheckpointListAdapter extends ArrayAdapter<Checkpoint> implements OnItemClickListener {
 		private Checkpoint[] checkpoints;
 		private Location currentLocation;
 
@@ -98,11 +107,39 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 				((TextView) convertView.findViewById(R.id.checkpoint_distance_value)).setText("--");
 			}
 
+			CheckBox visitedButton = ((CheckBox) convertView.findViewById(R.id.checkpoint_visitedButton));
+			TextView visitedTime = (TextView) convertView.findViewById(R.id.checkpoint_visited_value);
+			if ((Preferences.visitedBitMask(context) & (0x01 << i)) > 0) {
+				visitedButton.setChecked(true);
+				visitedTime.setText(Preferences.visitedTimes(context).split(",")[i]);
+			} else {
+				visitedButton.setChecked(false);
+				visitedTime.setText("");
+			}
+
 			return convertView;
 		}
 
 		public void updateLocation() {
 			currentLocation = LocationService.getLastLocation();
+		}
+
+		@Override
+		public void onItemClick(AdapterView parent, View v, int position, long id) {
+			CheckBox cb = (CheckBox) v.findViewById(R.id.checkpoint_visitedButton);
+			cb.setChecked(!cb.isChecked());
+
+			String times[] = Preferences.visitedTimes(context).split(",");
+			if (cb.isChecked()) {
+				times[position] = (String) DateFormat.format("HH:mm", Calendar.getInstance().getTime());
+				Preferences.visitedBitMask(context, (Preferences.visitedBitMask(context) | (1 << position)));
+			} else {
+				times[position] = "";
+				Preferences.visitedBitMask(context, (Preferences.visitedBitMask(context) & ~(1 << position)));
+			}
+			Preferences.visitedTimes(context, TextUtils.join(",", times));
+
+			((TextView) v.findViewById(R.id.checkpoint_visited_value)).setText(times[position]);
 		}
 	}
 }

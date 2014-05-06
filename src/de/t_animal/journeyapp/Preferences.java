@@ -14,6 +14,8 @@ class Preferences {
 	static final String IS_CAUGHT = "is_caught";
 	static final String SEND_DATA = "send_data";
 	static final String CAUGHT_COUNT = "caught_count";
+	static final String VISITED_BITMASK = "visited_bitmask";
+	static final String VISITED_TIMES = "visited_times";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -110,5 +112,44 @@ class Preferences {
 
 	static int caughtCount(Fragment caller) {
 		return caughtCount(caller.getActivity());
+	}
+
+	/*
+	 * visitedBitmask
+	 */
+	static void visitedBitMask(Context caller, int bitMaks) {
+		getEditor(caller).putInt(VISITED_BITMASK, bitMaks).commit();
+	}
+
+	static int visitedBitMask(Context caller) {
+		return getPref(caller).getInt(VISITED_BITMASK, 0);
+	}
+
+	static void visitedBitMask(Fragment caller, int bitMaks) {
+		visitedBitMask(caller.getActivity(), bitMaks);
+	}
+
+	static int visitedBitMask(Fragment caller) {
+		return visitedBitMask(caller.getActivity());
+	}
+
+	/*
+	 * visitedTimes
+	 */
+	static void visitedTimes(Context caller, String timesString) {
+		getEditor(caller).putString(VISITED_TIMES, timesString).commit();
+	}
+
+	static String visitedTimes(Context caller) {
+		// return 32 empty entries (=32 bits in an int => max bitmask size) and one " " entry for split to work easily
+		return getPref(caller).getString(VISITED_TIMES, ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,, ");
+	}
+
+	static void visitedTimes(Fragment caller, String timesString) {
+		visitedTimes(caller.getActivity(), timesString);
+	}
+
+	static String visitedTimes(Fragment caller) {
+		return visitedTimes(caller.getActivity());
 	}
 }

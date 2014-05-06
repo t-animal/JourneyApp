@@ -29,6 +29,7 @@
                 android:id="@+id/checkpoint_description_value"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_span="2"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -44,6 +45,7 @@
                 android:id="@+id/checkpoint_safezoneDescription_value"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_span="2"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -59,10 +61,11 @@
                 android:id="@+id/checkpoint_distance_value"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_span="2"
                 android:text="--" />
         </TableRow>
 
-        <TableRow>
+        <TableRow android:visibility="?attr/runnerOnly" >
 
             <TextView
                 android:id="@+id/checkpoint_visited_intro"
@@ -73,7 +76,9 @@
             <CheckBox
                 android:id="@+id/checkpoint_visitedButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/checkpoint_visited_value"

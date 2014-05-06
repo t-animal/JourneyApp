@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 		checkpointList.setAdapter(new CheckpointFragment
 				.CheckpointListAdapter(getActivity(),
 						JourneyProperties.getInstance(getActivity()).getCheckpoints()));
+		checkpointList.setOnItemClickListener((OnItemClickListener) checkpointList.getAdapter());
 
 		if (LocationService.isServiceRunning()) {
 			startUpdatingDistance();
