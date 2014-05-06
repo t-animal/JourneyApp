@@ -76,10 +76,10 @@ class Preferences {
 	}
 
 	static void sendData(Fragment caller, boolean sendData) {
-		isCaught(caller.getActivity(), sendData);
+		sendData(caller.getActivity(), sendData);
 	}
 
 	static boolean sendData(Fragment caller) {
-		return isCaught(caller.getActivity());
+		return sendData(caller.getActivity());
 	}
 }

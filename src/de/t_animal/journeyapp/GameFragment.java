@@ -2,6 +2,7 @@ package de.t_animal.journeyapp;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ToggleButton;
 
 public class GameFragment extends Fragment implements OnClickListener, OnDisplayFragment {
 
@@ -16,6 +18,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 	private ListView checkpointList;
 
 	private Switch game_gotCaughtButton;
+	private ToggleButton game_startJourneyButton;
 
 	public static GameFragment newInstance() {
 		GameFragment newFrag = new GameFragment();
@@ -28,8 +31,11 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			Bundle savedInstanceState) {
 		fragmentRootView = inflater.inflate(R.layout.fragment_game, container, false);
 
+		game_startJourneyButton = (ToggleButton) fragmentRootView.findViewById(R.id.game_startJourneyButton);
 		game_gotCaughtButton = (Switch) fragmentRootView.findViewById(R.id.game_gotCaughtButton);
+
 		game_gotCaughtButton.setOnClickListener(this);
+		game_startJourneyButton.setOnClickListener(this);
 
 		checkpointList = (ListView) fragmentRootView.findViewById(R.id.game_checkpointsList);
 
@@ -42,6 +48,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 
 	@Override
 	public void onDisplay() {
+		game_startJourneyButton.setChecked(LocationService.isServiceRunning());
 		game_gotCaughtButton.setChecked(Preferences.isCaught(this));
 	}
 
@@ -51,6 +58,17 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 		case R.id.game_gotCaughtButton:
 			changeTheme();
 			break;
+		case R.id.game_startJourneyButton:
+			toggleService();
+			break;
+		}
+	}
+
+	private void toggleService() {
+		if (LocationService.isServiceRunning()) {
+			getActivity().stopService(new Intent(getActivity(), LocationService.class));
+		} else {
+			getActivity().startService(new Intent(getActivity(), LocationService.class));
 		}
 	}
 

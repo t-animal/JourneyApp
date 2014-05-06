@@ -4,11 +4,18 @@
     xmlns:custom="http://schemas.android.com/apk/res/de.t_animal.journeyapp"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
+    
+    <ToggleButton android:id="@+id/game_startJourneyButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOn="End your journey"
+        android:textOff="Start your journey" />
 
     <TextView
         android:id="@+id/game_gotCaught_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/game_startJourneyButton"
         android:text="@string/game_gotCaught_value"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -17,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_below="@id/game_startJourneyButton"
         android:layout_toRightOf="@id/game_gotCaught_value"
         android:layout_marginLeft="30sp"
         custom:textOff="@string/game_gotCaughtButton_off"

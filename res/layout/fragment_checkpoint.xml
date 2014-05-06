@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Checkpoint 1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -17,8 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/checkpoint_name"
-        android:layout_marginLeft="40sp"
-        android:text="Wohnheim Hartmannstr. Hartmannstr. 129.\nStart auf dem Parkdeck\nZiel in der Kneipe (Keller)" />
+        android:layout_marginLeft="40sp" />
     
     <TextView
         android:id="@+id/checkpoint_distance_intro"
@@ -26,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/checkpoint_description"
         android:layout_marginLeft="40sp"
-        android:text="Distance: " />
+        android:text="@string/checkpoint_distance" />
 
     <TextView
         android:id="@+id/checkpoint_distance_value"
@@ -34,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/checkpoint_description"
         android:layout_toRightOf="@id/checkpoint_distance_intro"
-        android:text="3.2km" />
+        android:text="--" />
 
     <TextView
         android:id="@+id/checkpoint_visited_intro"
@@ -42,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/checkpoint_distance_intro"
         android:layout_marginLeft="40sp"
-        android:text="Visited: " />
+        android:text="@string/checkpoint_visited" />
     
     <CheckBox
         android:id="@+id/checkpoint_visitedButton"
@@ -56,8 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/checkpoint_distance_intro"
-        android:layout_toRightOf="@id/checkpoint_visitedButton"
-        android:text="13:37" />
+        android:layout_toRightOf="@id/checkpoint_visitedButton" />
 
 
 </RelativeLayout>

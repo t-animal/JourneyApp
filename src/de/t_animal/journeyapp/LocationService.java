@@ -87,8 +87,9 @@ public class LocationService extends IntentService implements
 		try {
 			sock = new DatagramSocket();
 
-			sock.connect(new InetSocketAddress(getResources().getString(
-					R.string.locationServer), 1338));
+			sock.connect(new InetSocketAddress(
+					JourneyProperties.getInstance(this).getServerLocation(),
+					JourneyProperties.getInstance(this).getServerPort()));
 
 			sock.send(new DatagramPacket(data, data.length));
 

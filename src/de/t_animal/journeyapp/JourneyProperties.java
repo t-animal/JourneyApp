@@ -201,6 +201,14 @@ public class JourneyProperties {
 		return checkpointNames;
 	}
 
+	public String getServerLocation() {
+		return prop.getProperty("serverLocation");
+	}
+
+	public int getServerPort() {
+		return Integer.parseInt(prop.getProperty("serverPort"));
+	}
+
 	public Coordinate getStart() {
 		return start;
 	}
