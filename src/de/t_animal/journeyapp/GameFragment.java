@@ -46,6 +46,10 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 				.CheckpointListAdapter(getActivity(),
 						JourneyProperties.getInstance(getActivity()).getCheckpoints()));
 
+		if (LocationService.isServiceRunning()) {
+			startUpdatingDistance();
+		}
+
 		return fragmentRootView;
 	}
 
@@ -72,29 +76,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
 		} else {
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
-
-			final Handler handler = new Handler();
-			Runnable runnable = new Runnable() {
-
-				@Override
-				public void run() {
-
-					if (LocationService.isServiceRunning()) {
-						Location curLoc = LocationService.getLastLocation();
-						if (curLoc != null) {
-							((CheckpointListAdapter) checkpointList.getAdapter()).updateLocation();
-							((CheckpointListAdapter) checkpointList.getAdapter()).notifyDataSetChanged();
-						}
-
-						handler.postDelayed(this, 1000);
-					} else {
-						handler.removeCallbacks(this);
-					}
-				}
-			};
-
-			// 500: give service time to start
-			handler.postDelayed(runnable, 500);
+			startUpdatingDistance();
 		}
 	}
 
@@ -107,4 +89,32 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
 		}
 	}
+
+	private void startUpdatingDistance() {
+		final Handler handler = new Handler();
+		Runnable runnable = new Runnable() {
+
+			@Override
+			public void run() {
+
+				if (LocationService.isServiceRunning()) {
+					Location curLoc = LocationService.getLastLocation();
+					if (curLoc != null) {
+						((CheckpointListAdapter) checkpointList.getAdapter()).updateLocation();
+						((CheckpointListAdapter) checkpointList.getAdapter()).notifyDataSetChanged();
+					}
+
+					handler.postDelayed(this, 1000);
+				} else {
+					((CheckpointListAdapter) checkpointList.getAdapter()).updateLocation();
+					((CheckpointListAdapter) checkpointList.getAdapter()).notifyDataSetChanged();
+					handler.removeCallbacks(this);
+				}
+			}
+		};
+
+		// 500: give service time to start
+		handler.postDelayed(runnable, 500);
+	}
+
 }
