@@ -127,6 +127,9 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 		@Override
 		public void onItemClick(AdapterView parent, View v, int position, long id) {
 			CheckBox cb = (CheckBox) v.findViewById(R.id.checkpoint_visitedButton);
+			if (!cb.isShown())
+				return;
+
 			cb.setChecked(!cb.isChecked());
 
 			String times[] = Preferences.visitedTimes(context).split(",");
