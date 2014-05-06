@@ -19,11 +19,11 @@ class Preferences {
 	}
 
 	static private Editor getEditor(Context context) {
-		return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE).edit();
+		return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
 	}
 
 	static private SharedPreferences getPref(Context context) {
-		return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
+		return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 	}
 
 	static void registerOnSharedPreferenceChangeListener(Context context, OnSharedPreferenceChangeListener listener) {
