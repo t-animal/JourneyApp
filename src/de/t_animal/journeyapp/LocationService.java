@@ -10,6 +10,8 @@ import java.nio.ByteBuffer;
 import android.app.IntentService;
 import android.app.Notification;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -31,7 +33,7 @@ import com.google.android.gms.location.LocationRequest;
  * 
  */
 public class LocationService extends IntentService implements
-		ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+		ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnSharedPreferenceChangeListener {
 
 	// Should be ok, because the service won't be recreated if already running
 	public static LocationService singletonLocationService;
@@ -129,12 +131,8 @@ public class LocationService extends IntentService implements
 		locationClient = new LocationClient(this, this, this);
 		locationClient.connect();
 
-		Notification foregroundNotification = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle(getResources().getString(R.string.notificationTitle))
-				.setContentText(getResources().getString(R.string.notificationMessage)).build();
-
-		startForeground(1, foregroundNotification);
+		Preferences.registerOnSharedPreferenceChangeListener(this, this);
+		setForegroundNotification();
 
 		return super.onStartCommand(intent, flags, startId);
 	}
@@ -183,6 +181,24 @@ public class LocationService extends IntentService implements
 			if (Preferences.sendData(this)) {
 				sendLocationToServer(curLoc);
 			}
+		}
+	}
+
+	private void setForegroundNotification() {
+		Notification foregroundNotification = new NotificationCompat.Builder(this)
+				.setSmallIcon(R.drawable.ic_launcher)
+				.setContentTitle(getResources().getString(R.string.notificationTitle))
+				.setContentText(getResources().getString(
+						Preferences.sendData(this) ? R.string.notificationMessage_sendData
+								: R.string.notificationMessage_noData)).build();
+
+		startForeground(1, foregroundNotification);
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
+		if (key == Preferences.SEND_DATA) {
+			setForegroundNotification();
 		}
 	}
 

@@ -3,15 +3,16 @@ package de.t_animal.journeyapp;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.support.v4.app.Fragment;
 
 class Preferences {
 
 	private static final String PREF_NAME = "Journey";
 
-	private static final String MAP_FOLLOWS_USER = "map_follows_user";
-	private static final String IS_CAUGHT = "is_caught";
-	private static final String SEND_DATA = "send_data";
+	static final String MAP_FOLLOWS_USER = "map_follows_user";
+	static final String IS_CAUGHT = "is_caught";
+	static final String SEND_DATA = "send_data";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -23,6 +24,14 @@ class Preferences {
 
 	static private SharedPreferences getPref(Context context) {
 		return context.getSharedPreferences(PREF_NAME, context.MODE_PRIVATE);
+	}
+
+	static void registerOnSharedPreferenceChangeListener(Context context, OnSharedPreferenceChangeListener listener) {
+		getPref(context).registerOnSharedPreferenceChangeListener(listener);
+	}
+
+	static void registerOnSharedPreferenceChangeListener(Fragment caller, OnSharedPreferenceChangeListener listener) {
+		registerOnSharedPreferenceChangeListener(caller.getActivity(), listener);
 	}
 
 	/*
