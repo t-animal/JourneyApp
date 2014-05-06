@@ -179,7 +179,9 @@ public class LocationService extends IntentService implements
 			}
 
 			System.out.println("Current Location" + curLoc.toString());
-			sendLocationToServer(curLoc);
+			if (Preferences.sendData(this)) {
+				sendLocationToServer(curLoc);
+			}
 		}
 	}
 
