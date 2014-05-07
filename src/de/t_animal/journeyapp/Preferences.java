@@ -18,6 +18,7 @@ class Preferences {
 	static final String VISITED_TIMES = "visited_times";
 	static final String PLAY_TIME = "play_time";
 	static final String LAST_START_TIME = "last_start_time";
+	static final String COVERED_DISTANCE = "covered_distance";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -194,5 +195,24 @@ class Preferences {
 
 	static int lastStartTime(Fragment caller) {
 		return lastStartTime(caller.getActivity());
+	}
+
+	/*
+	 * coveredDistance
+	 */
+	static void coveredDistance(Context caller, float coveredDistance) {
+		getEditor(caller).putFloat(COVERED_DISTANCE, coveredDistance).commit();
+	}
+
+	static float coveredDistance(Context caller) {
+		return getPref(caller).getFloat(COVERED_DISTANCE, 0);
+	}
+
+	static void coveredDistance(Fragment caller, float coveredDistance) {
+		coveredDistance(caller.getActivity(), coveredDistance);
+	}
+
+	static float coveredDistance(Fragment caller) {
+		return coveredDistance(caller.getActivity());
 	}
 }

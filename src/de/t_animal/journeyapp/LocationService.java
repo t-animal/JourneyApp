@@ -242,7 +242,15 @@ public class LocationService extends IntentService implements
 	}
 
 	@Override
-	public void onLocationChanged(Location arg0) {
-		currentLocation = arg0;
+	public void onLocationChanged(Location newLocation) {
+		if (currentLocation != null) {
+			float result[] = new float[1];
+			Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
+					newLocation.getLatitude(), newLocation.getLongitude(), result);
+
+			Preferences.coveredDistance(this, Preferences.coveredDistance(this) + result[0]);
+		}
+
+		currentLocation = newLocation;
 	}
 }

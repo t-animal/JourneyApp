@@ -32,6 +32,26 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 		info_mapFollowingUserButton.setChecked(Preferences.mapFollowsUser(this));
 	}
 
+	private void updateStatistics() {
+		int playTime = Preferences.playTime(this) + (int) (System.currentTimeMillis() / 1000)
+				- Preferences.lastStartTime(this);
+		int hours = playTime / 60 / 60;
+		int minutes = playTime / 60 % 60;
+		int seconds = playTime % 60;
+		((TextView) fragmentRootView.findViewById(R.id.info_time_value))
+				.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+
+		String unit = "m";
+		float distance = Preferences.coveredDistance(this);
+		if (distance > 10000) {
+			distance /= 1000;
+			unit = "km";
+		}
+
+		((TextView) fragmentRootView.findViewById(R.id.info_distance_value)).setText(
+				String.format("%.2f%s", distance, unit));
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -66,14 +86,7 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	@Override
 	public void onDisplay() {
 		setButtonsFromPrefs();
-
-		int playTime = Preferences.playTime(this) + (int) (System.currentTimeMillis() / 1000)
-				- Preferences.lastStartTime(this);
-		int hours = playTime / 60 / 60;
-		int minutes = playTime / 60 % 60;
-		int seconds = playTime % 60;
-		((TextView) fragmentRootView.findViewById(R.id.info_time_value))
-				.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
+		updateStatistics();
 	}
 
 	@Override
