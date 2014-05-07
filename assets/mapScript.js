@@ -47,6 +47,7 @@ var style_chaser = [{
 }]
 var map;
 var geolocationMarker;
+var lockLocationButton
 var locationChangedListener;
 var startMarker;
 var checkpointMarkers = [];
@@ -208,11 +209,15 @@ if (typeof (comm) == 'undefined') {
                 }]
             ])
         },
+        
+        isFollowing: false,
+        
+        setFollowingUser: function (fu) {
+            this.isFollowing = fu
+        },
 
-        setFollowingUser: function () {},
-
-        isFollowinguser: function () {
-            return true;
+        isFollowingUser: function () {
+            return this.isFollowing;
         }
 
     };
@@ -242,6 +247,12 @@ function onStart() {
 
     geomarker = new GeolocationMarker();
     geomarker.setMap(map);
+   
+    var homeControlDiv = document.createElement('div');
+    var homeControl = new lockLocationControl(homeControlDiv, map);
+
+    homeControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(homeControlDiv);
 }
 
 function onResume() {
@@ -365,11 +376,6 @@ function setFollowingUser(following) {
     if (following) {
         map.setOptions({
             draggable: false,
-            zoomControl: true,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.TOP_LEFT,
-                style: google.maps.ZoomControlStyle.SMALL
-            }
         });
 
         locationChangedListener = google.maps.event.addListener(geomarker, "position_changed", function () {
@@ -377,18 +383,73 @@ function setFollowingUser(following) {
         });
         
         map.panTo(geomarker.getPosition());
+        lockLocationButton.style.backgroundImage = 'url(./lockLocationOn.png)';
     } else {
         if (typeof (locationChangedListener) != 'undefined') {
             google.maps.event.removeListener(locationChangedListener);
         }
         map.setOptions({
-            draggable: true,
-            zoomControl: false,
-            zoomControlOptions: {
-                position: google.maps.ControlPosition.TOP_LEFT,
-                style: google.maps.ZoomControlStyle.SMALL
-            }
+            draggable: true
         });
         locationChangedListener = undefined;
+        lockLocationButton.style.backgroundImage = 'url(./lockLocationOff.png)';
     }
+}
+
+function lockLocationControl(controlDiv, map) {
+
+  controlDiv.style.margin = '3px';
+
+  lockLocationButton = document.createElement('div');
+  lockLocationButton.style.width = '28px';
+  lockLocationButton.style.height = '28px';
+  lockLocationButton.style.background = '#101010';
+  lockLocationButton.style.backgroundPosition = 'center';
+  lockLocationButton.style.backgroundRepeat = 'no-repeat';
+  lockLocationButton.style.backgroundImage = 'url(./lockLocationOff.png)';
+  lockLocationButton.style.backgroundSize = '24px';
+  lockLocationButton.style.border = '2px solid #404040';
+  lockLocationButton.style.borderRadius = '2px';
+  lockLocationButton.innerHTML = '&nbsp;';
+  controlDiv.appendChild(lockLocationButton);
+  
+  zoomInButton = document.createElement('div');
+  zoomInButton.style.width = '28px';
+  zoomInButton.style.height = '28px';
+  zoomInButton.style.background = '#101010';
+  zoomInButton.style.backgroundPosition = 'center';
+  zoomInButton.style.backgroundRepeat = 'no-repeat';
+  zoomInButton.style.backgroundImage = 'url(./zoomIn.png)';
+  zoomInButton.style.backgroundSize = '20px';
+  zoomInButton.style.border = '2px solid #404040';
+  zoomInButton.style.borderRadius = '2px';
+  zoomInButton.style.marginTop = '3px';
+  zoomInButton.innerHTML = '&nbsp;';
+  controlDiv.appendChild(zoomInButton);
+  
+  zoomOutButton = document.createElement('div');
+  zoomOutButton.style.width = '28px';
+  zoomOutButton.style.height = '28px';
+  zoomOutButton.style.background = '#101010';
+  zoomOutButton.style.backgroundPosition = 'center';
+  zoomOutButton.style.backgroundRepeat = 'no-repeat';
+  zoomOutButton.style.backgroundImage = 'url(./zoomOut.png)';
+  zoomOutButton.style.backgroundSize = '18px';
+  zoomOutButton.style.border = '2px solid #404040';
+  zoomOutButton.style.borderRadius = '2px';
+  zoomOutButton.style.marginTop = '3px';
+  zoomOutButton.innerHTML = '&nbsp;';
+  controlDiv.appendChild(zoomOutButton);
+
+  google.maps.event.addDomListener(lockLocationButton, 'click', function() {
+    setFollowingUser(!comm.isFollowingUser());
+  });
+  
+  google.maps.event.addDomListener(zoomInButton, 'click', function() {
+    map.setZoom(map.getZoom()+1);
+  });
+  
+  google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+    map.setZoom(map.getZoom()-1);
+  });
 }
