@@ -79,7 +79,7 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			changeTheme();
 			break;
 		case R.id.game_startJourneyButton:
-			toggleService();
+			toggleGameRunning();
 			break;
 		case R.id.game_othersCaught_plus:
 			caughtMore();
@@ -101,12 +101,21 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 		game_othersCaught_value.setText("" + Preferences.caughtCount(this));
 	}
 
-	private void toggleService() {
+	private void toggleGameRunning() {
 		if (LocationService.isServiceRunning()) {
+
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
+
+			long endTime = System.currentTimeMillis() / 1000;
+			Preferences.playTime(this, (int) (Preferences.playTime(this) + endTime - Preferences.lastStartTime(this)));
+			Preferences.lastStartTime(this, -1);
+
 		} else {
+
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
 			startUpdatingDistance();
+
+			Preferences.lastStartTime(this, (int) (System.currentTimeMillis() / 1000));
 		}
 	}
 

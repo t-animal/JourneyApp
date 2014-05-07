@@ -66,6 +66,14 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	@Override
 	public void onDisplay() {
 		setButtonsFromPrefs();
+
+		int playTime = Preferences.playTime(this) + (int) (System.currentTimeMillis() / 1000)
+				- Preferences.lastStartTime(this);
+		int hours = playTime / 60 / 60;
+		int minutes = playTime / 60 % 60;
+		int seconds = playTime % 60;
+		((TextView) fragmentRootView.findViewById(R.id.info_time_value))
+				.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 	}
 
 	@Override

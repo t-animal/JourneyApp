@@ -16,6 +16,8 @@ class Preferences {
 	static final String CAUGHT_COUNT = "caught_count";
 	static final String VISITED_BITMASK = "visited_bitmask";
 	static final String VISITED_TIMES = "visited_times";
+	static final String PLAY_TIME = "play_time";
+	static final String LAST_START_TIME = "last_start_time";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -151,5 +153,46 @@ class Preferences {
 
 	static String visitedTimes(Fragment caller) {
 		return visitedTimes(caller.getActivity());
+	}
+
+	/*
+	 * playTime
+	 */
+	static void playTime(Context caller, int playTime) {
+		getEditor(caller).putInt(PLAY_TIME, playTime).commit();
+	}
+
+	static int playTime(Context caller) {
+		return getPref(caller).getInt(PLAY_TIME, 0);
+	}
+
+	static void playTime(Fragment caller, int playTime) {
+		playTime(caller.getActivity(), playTime);
+	}
+
+	static int playTime(Fragment caller) {
+		return playTime(caller.getActivity());
+	}
+
+	/*
+	 * playTime
+	 */
+	static void lastStartTime(Context caller, int lastStartTime) {
+		if (lastStartTime == -1)
+			getEditor(caller).remove(LAST_START_TIME).commit();
+		else
+			getEditor(caller).putInt(LAST_START_TIME, lastStartTime).commit();
+	}
+
+	static int lastStartTime(Context caller) {
+		return getPref(caller).getInt(LAST_START_TIME, (int) (System.currentTimeMillis() / 1000));
+	}
+
+	static void lastStartTime(Fragment caller, int lastStartTime) {
+		lastStartTime(caller.getActivity(), lastStartTime);
+	}
+
+	static int lastStartTime(Fragment caller) {
+		return lastStartTime(caller.getActivity());
 	}
 }
