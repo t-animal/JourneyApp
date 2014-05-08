@@ -14,7 +14,8 @@ while True:
 		data, addr = sock.recvfrom(1024)
 		userIdLen = ord(data[0])
 		userId = data[1:userIdLen+1]
-		lat, lon, acc = struct.unpack(">ddf", data[userIdLen+1:])
+		lat, lon, acc, time, caught = struct.unpack(">ddfq?", data[userIdLen+1:])
 		
 		print "[{}, {: <26s}] ".format(str(datetime.datetime.now()), str(addr)),
-		print "User: {} Lat: {:0<3.7f} Lon: {:0<3.7f} Acc:{} ".format(userId, lat, lon, acc)
+		print "User: {} Lat: {:0<3.7f} Lon: {:0<3.7f} Acc:{:<2.0f} Time:{} Caught:{}".\
+			format(userId, lat, lon, acc, datetime.datetime.fromtimestamp(time), caught)

@@ -1,6 +1,9 @@
 package de.t_animal.journeyapp;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
@@ -14,7 +17,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -35,11 +40,15 @@ import com.google.android.gms.location.LocationRequest;
 public class LocationService extends IntentService implements
 		ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnSharedPreferenceChangeListener {
 
+	private final String TAG = "LocationService";
+
 	// Should be ok, because the service won't be recreated if already running
 	public static LocationService singletonLocationService;
 
 	private LocationClient locationClient;
 	private Location currentLocation;
+
+	private OutputStream output;
 
 	public LocationService() {
 		super("LocationService");
@@ -81,21 +90,35 @@ public class LocationService extends IntentService implements
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Sends a userid, latitude, longtitude and accuracy to a server (configured in res/values/strings.xml)
+	 * Get a string to send to the server or save to a file containing the user's location and an id
+	 * 
+	 * @param location
+	 * @return
+	 */
+	private byte[] getUserData(Location location) {
+		String userId = new String("generateAtFirstStart");
+		double lat = location.getLatitude();
+		double lon = location.getLongitude();
+		float acc = location.getAccuracy();
+		long time = System.currentTimeMillis() / 1000;
+		byte caught = Preferences.isCaught(this) ? (byte) 1 : (byte) 0;
+
+		byte[] data = new byte[1 + userId.length() + 8 + 8 + 4 + 8 + 1];
+		ByteBuffer.wrap(data).put((byte) userId.length())
+				.put(userId.getBytes()).putDouble(lat).putDouble(lon)
+				.putFloat(acc).putLong(time).put(caught);
+
+		return data;
+	}
+
+	/**
+	 * Sends a userid, latitude, longtitude and accuracy to a server
 	 * 
 	 * @param location
 	 *            the location to take the values from
 	 */
 	private void sendLocationToServer(Location location) {
-		String userId = new String("generateAtFirstStart");
-		double lat = location.getLatitude();
-		double lon = location.getLongitude();
-		float acc = location.getAccuracy();
-
-		byte[] data = new byte[1 + userId.length() + 8 + 8 + 4];
-		ByteBuffer.wrap(data).put((byte) userId.length())
-				.put(userId.getBytes()).putDouble(lat).putDouble(lon)
-				.putFloat(acc);
+		byte[] data = getUserData(location);
 
 		// TODO:Keep socket open and only reconnect if necessary
 		DatagramSocket sock;
@@ -115,7 +138,20 @@ public class LocationService extends IntentService implements
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
+	/**
+	 * Safes the given location to a file
+	 * 
+	 * @param location
+	 */
+	private void saveLocationToFile(Location location) {
+		if (output != null)
+			try {
+				output.write(getUserData(location));
+			} catch (IOException e) {
+				Log.e(TAG, "Could not safe userlocation to SDCard", e);
+			}
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +180,20 @@ public class LocationService extends IntentService implements
 		locationClient = new LocationClient(this, this, this);
 		locationClient.connect();
 
+		try {
+			output = new FileOutputStream(
+					Environment.getExternalStorageDirectory().getPath()
+							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
+							+ "/locationData",
+					true);
+		} catch (FileNotFoundException e) {
+			Log.e(TAG, "Directory should have been created on startup", e);
+			Toast.makeText(this, "Directory structure corrupted, aborting start", Toast.LENGTH_SHORT).show();
+
+			// Do not call super i.e. do not call onHandleIntent
+			return IntentService.START_NOT_STICKY;
+		}
+
 		Preferences.registerOnSharedPreferenceChangeListener(this, this);
 		setForegroundNotification();
 
@@ -158,6 +208,14 @@ public class LocationService extends IntentService implements
 
 		if (locationClient != null && locationClient.isConnected())
 			locationClient.disconnect();
+
+		if (output != null) {
+			try {
+				output.close();
+			} catch (IOException e) {
+				Log.e(TAG, "Could not close output file", e);
+			}
+		}
 
 		super.onDestroy();
 	}
@@ -193,6 +251,7 @@ public class LocationService extends IntentService implements
 			System.out.println("Current Location" + curLoc.toString());
 			if (Preferences.sendData(this)) {
 				sendLocationToServer(curLoc);
+				saveLocationToFile(curLoc);
 			}
 		}
 	}
@@ -243,6 +302,7 @@ public class LocationService extends IntentService implements
 
 	@Override
 	public void onLocationChanged(Location newLocation) {
+		// calculate covered distance
 		if (currentLocation != null) {
 			float result[] = new float[1];
 			Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
