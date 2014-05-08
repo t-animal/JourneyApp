@@ -33,6 +33,7 @@
         <!-- android-holo-colors -->
         <item name="android:checkboxStyle">@style/Checkbox.Runner</item>
         <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarRunner</item>
     </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -68,6 +69,14 @@
     <style name="ProgressBar.Runner" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_runner</item>
     </style>
+    
+    <!-- From android-holo-colors for progress bar (outside actionbar) -->
+  <style name="ProgressBarRunner" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
+      <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
+      <item name="android:minHeight">16dip</item>
+      <item name="android:maxHeight">16dip</item>
+  </style>
 
     <style name="ActionButton.CloseMode.Runner" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_runner</item>
