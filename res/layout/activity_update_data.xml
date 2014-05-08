@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50sp"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/update_infotext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_headline"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center" />
+
+        <ProgressBar
+            android:id="@+id/update_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+        android:layout_gravity="center" />
+        
+        <TextView
+            android:id="@+id/update_explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_checkingVersion"
+        android:layout_gravity="center" />
+        
+        <Button
+            android:id="@+id/update_skipButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_skipButton" 
+            android:onClick="startMainView"
+        android:layout_gravity="center"/>
+    </LinearLayout>
+
+</FrameLayout>

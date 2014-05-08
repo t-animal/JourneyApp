@@ -1,5 +1,6 @@
 package de.t_animal.journeyapp;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -54,7 +56,8 @@ public class JourneyProperties {
 		this.context = context;
 
 		try {
-			prop.loadFromXML(context.getAssets().open("properties.xml"));
+			prop.loadFromXML(new FileInputStream(Environment.getExternalStorageDirectory().getPath()
+					+ "/de.t_animal/journeyApp/net.hawo.journey/properties.xml"));
 		} catch (InvalidPropertiesFormatException e) {
 			Toast.makeText(context, "Could not load properties", Toast.LENGTH_SHORT).show();
 			Log.e(TAG, "Could not load properties", e);
@@ -119,7 +122,8 @@ public class JourneyProperties {
 			JourneyKmlHandler myXMLHandler = new JourneyKmlHandler();
 
 			xmlReader.setContentHandler(myXMLHandler);
-			xmlReader.parse(new InputSource(context.getAssets().open("places.kml")));
+			xmlReader.parse(new InputSource(new FileInputStream(Environment.getExternalStorageDirectory().getPath()
+					+ "/de.t_animal/journeyApp/net.hawo.journey/places.kml")));
 
 			ArrayList<KMLPlacemark> placemarks = ((JourneyKmlHandler) xmlReader.getContentHandler()).placemarks;
 

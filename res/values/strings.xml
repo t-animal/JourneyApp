@@ -7,6 +7,11 @@
     <string name="tab_map_name">Map</string>
     <string name="tab_game_name">Game</string>
     <string name="tab_info_name">Information</string>
+    
+    <string name="update_headline">Checking for newer journey data</string>
+    <string name="update_checkingVersion">Checking for newer data</string>
+    <string name="update_downloadingFiles">Downloading new files</string>
+    <string name="update_skipButton">Skip</string>
 
     <string name="game_gotCaught_value">Have you been caught?</string>
     <string name="game_gotCaughtButton_on">I have not yet been caught</string>
