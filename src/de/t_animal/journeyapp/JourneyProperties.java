@@ -51,13 +51,17 @@ public class JourneyProperties {
 		return singleton;
 	}
 
+	public String getJourneyID() {
+		return "net.hawo.journey";
+	}
+
 	public JourneyProperties(Context context) {
 		prop = new java.util.Properties();
 		this.context = context;
 
 		try {
 			prop.loadFromXML(new FileInputStream(Environment.getExternalStorageDirectory().getPath()
-					+ "/de.t_animal/journeyApp/net.hawo.journey/properties.xml"));
+					+ "/de.t_animal/journeyApp/" + getJourneyID() + "/properties.xml"));
 		} catch (InvalidPropertiesFormatException e) {
 			Toast.makeText(context, "Could not load properties", Toast.LENGTH_SHORT).show();
 			Log.e(TAG, "Could not load properties", e);
@@ -123,7 +127,7 @@ public class JourneyProperties {
 
 			xmlReader.setContentHandler(myXMLHandler);
 			xmlReader.parse(new InputSource(new FileInputStream(Environment.getExternalStorageDirectory().getPath()
-					+ "/de.t_animal/journeyApp/net.hawo.journey/places.kml")));
+					+ "/de.t_animal/journeyApp/" + getJourneyID() + "/places.kml")));
 
 			ArrayList<KMLPlacemark> placemarks = ((JourneyKmlHandler) xmlReader.getContentHandler()).placemarks;
 
