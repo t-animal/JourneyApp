@@ -80,6 +80,7 @@ public class JourneyUpdater extends Activity {
 		}
 		Intent i = new Intent(this, Journey.class);
 		startActivity(i);
+		finish();
 	}
 
 	private class JourneyDownloader extends AsyncTask<Void, Integer, Boolean> {
@@ -102,6 +103,9 @@ public class JourneyUpdater extends Activity {
 
 			int fileSize = connection.getContentLength();
 
+			PreferenceManager.getDefaultSharedPreferences(context)
+					.edit().putInt("net.hawo.journey", -1).commit();
+
 			InputStream inputStream = connection.getInputStream();
 			OutputStream outputStream = new FileOutputStream(Environment.getExternalStorageDirectory().getPath()
 					+ "/de.t_animal/journeyApp/net.hawo.journey/" + filename);
@@ -113,8 +117,6 @@ public class JourneyUpdater extends Activity {
 			while ((count = inputStream.read(data)) != -1) {
 
 				if (isCancelled()) {
-					PreferenceManager.getDefaultSharedPreferences(context)
-							.edit().putInt("net.hawo.journey", -1).commit();
 					inputStream.close();
 					return false;
 				}
@@ -155,13 +157,8 @@ public class JourneyUpdater extends Activity {
 				if (vString.endsWith("\n"))
 					vString = vString.substring(0, vString.length() - 1);
 
-				System.out.println("vString:" + vString);
-
 				int curVersion = Integer.parseInt(vString);
 				int oldVersion = PreferenceManager.getDefaultSharedPreferences(context).getInt("net.hawo.journey", -1);
-
-				System.out.println("CV:" + curVersion);
-				System.out.println("OV:" + oldVersion);
 
 				if (oldVersion == curVersion)
 					return true;
