@@ -12,12 +12,15 @@ import java.nio.ByteBuffer;
 
 import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,6 +32,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+
+import de.t_animal.journeyapp.JourneyProperties.Zone;
 
 /**
  * A foreground service that keeps requesting the location while running and sends it to a server regularly. Offers
@@ -47,6 +52,7 @@ public class LocationService extends IntentService implements
 
 	private LocationClient locationClient;
 	private Location currentLocation;
+	private boolean isSafe = false;
 
 	private OutputStream output;
 
@@ -217,6 +223,8 @@ public class LocationService extends IntentService implements
 			}
 		}
 
+		((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(2);
+
 		super.onDestroy();
 	}
 
@@ -309,6 +317,36 @@ public class LocationService extends IntentService implements
 					newLocation.getLatitude(), newLocation.getLongitude(), result);
 
 			Preferences.coveredDistance(this, Preferences.coveredDistance(this) + result[0]);
+		}
+
+		// check if user is in a safezone
+		boolean isNowSafe = false;
+		for (Zone safeZone : JourneyProperties.getInstance(this).getSafeZones()) {
+			if (safeZone.containsLocation(newLocation)) {
+				isNowSafe = true;
+			}
+		}
+		if (isNowSafe && !isSafe) {
+			Notification isSafeNotification = new NotificationCompat.Builder(this)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setContentTitle("You are safe")
+					.setContentText("You're in a safe zone").build();
+
+			NotificationManager mNotificationManager =
+					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			// mId allows you to update the notification later on.
+			mNotificationManager.notify(2, isSafeNotification);
+
+			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1000);
+
+			isSafe = true;
+		} else if (!isNowSafe && isSafe) {
+			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1000);
+
+			NotificationManager mNotificationManager =
+					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			// mId allows you to update the notification later on.
+			mNotificationManager.cancel(2);
 		}
 
 		currentLocation = newLocation;
