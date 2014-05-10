@@ -53,6 +53,7 @@ var startMarker;
 var checkpointMarkers = [];
 var safeZones = [];
 var offLimitsZones = [];
+var poly;
 
 //For debugging outside the app:
 if (typeof (comm) == 'undefined') {
@@ -218,8 +219,34 @@ if (typeof (comm) == 'undefined') {
 
         isFollowingUser: function () {
             return this.isFollowing;
+        },
+        
+        getPreviousMovement: function(){
+            return JSON.stringify(
+                [{ 
+                    lat: 49.57358579558048,
+                    lon:11.024158000946045
+                }, { 
+                    lat: 49.57478940023296,
+                    lon:11.026378870010376
+                }, {
+                    lat: 49.57471287134099,
+                    lon:11.026604175567627
+                }, { 
+                    lat: 49.57455981319708,
+                    lon:11.026754379272461
+                }, { 
+                    lat: 49.57448328394513,
+                    lon:11.027065515518188
+                }, { 
+                    lat: 49.57435109677272,
+                    lon:11.027108430862427
+                }, {
+                    lat: 49.5729526737061 ,
+                    lon:11.02502703666687 
+                }]
+            );
         }
-
     };
 }
 
@@ -244,9 +271,14 @@ function onStart() {
     drawCheckpoints(JSON.parse(comm.getCheckpoints()));
     drawSafezones(JSON.parse(comm.getSafeZones()));
     drawOffLimitsZones(JSON.parse(comm.getOffLimitsZones()));
+    drawPreviousMovement(JSON.parse(comm.getPreviousMovement()));
 
     geomarker = new GeolocationMarker();
     geomarker.setMap(map);
+
+    drawMovementListener = google.maps.event.addListener(geomarker, "position_changed", function () {
+        poly.getPath().push(this.getPosition());
+    });
    
     var homeControlDiv = document.createElement('div');
     var homeControl = new lockLocationControl(homeControlDiv, map);
@@ -258,6 +290,9 @@ function onStart() {
 function onResume() {
     setTheme(comm.getTheme());
     setFollowingUser(comm.isFollowingUser());
+    //fill in gap with data from service
+    removePreviousMovement();
+    drawPreviousMovement(JSON.parse(comm.getPreviousMovement()));
     geomarker.startWatch();
 }
 
@@ -369,6 +404,26 @@ function drawOffLimitsZone(coordList) {
     }
     var foo = new google.maps.Polygon(options);
 }
+
+function drawPreviousMovement(coordList){
+    var polyOptions = {
+        strokeColor: '#FFFFFF',
+        strokeOpacity: 0.70,
+        strokeWeight: 1.5
+    }
+    poly = new google.maps.Polyline(polyOptions);
+    poly.setMap(map);
+    
+    for (var i = 0; i < coordList.length; i++) {
+        poly.getPath().push(new google.maps.LatLng(coordList[i].lat, coordList[i].lon));
+    }
+}
+
+function removePreviousMovement(){
+    poly.setMap(null);
+    poly = null;
+}
+    
 
 function setFollowingUser(following) {
     comm.setFollowingUser(following);

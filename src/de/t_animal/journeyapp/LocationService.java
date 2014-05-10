@@ -34,6 +34,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 import de.t_animal.journeyapp.containers.Zone;
+import de.t_animal.journeyapp.util.JSCommunicationObject;
 import de.t_animal.journeyapp.util.JourneyPreferences;
 import de.t_animal.journeyapp.util.JourneyProperties;
 
@@ -223,7 +224,7 @@ public class LocationService extends IntentService implements
 			NotificationManager mNotificationManager =
 					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			// mId allows you to update the notification later on.
-			mNotificationManager.cancel(2);
+			mNotificationManager.cancel(NOTIFICATION_SAFEZONE);
 			isSafe = false;
 		}
 	}
@@ -381,6 +382,8 @@ public class LocationService extends IntentService implements
 		}
 
 		checkForSafezone();
+
+		JSCommunicationObject.getInstance(this).addWaypoint(newLocation.getLatitude(), newLocation.getLongitude());
 
 		currentLocation = newLocation;
 	}
