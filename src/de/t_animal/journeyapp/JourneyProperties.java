@@ -167,7 +167,7 @@ public class JourneyProperties {
 
 				if (placemark.name.equalsIgnoreCase("safezone") || safezoneNames.contains(placemark.name)) {
 
-					String[] coordlines = placemark.coordinates.split("\n");
+					String[] coordlines = placemark.coordinates.split("\\s+");
 					ArrayList<Coordinate> border = new ArrayList<Coordinate>();
 
 					// get coordinates from comma seperated string
