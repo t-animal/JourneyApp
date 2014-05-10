@@ -102,7 +102,7 @@ public class LocationService extends IntentService implements
 	 * @return
 	 */
 	private byte[] getUserData(Location location) {
-		String userId = new String("generateAtFirstStart");
+		String userId = Preferences.userID(this);
 		double lat = location.getLatitude();
 		double lon = location.getLongitude();
 		float acc = location.getAccuracy();

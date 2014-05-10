@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import java.util.UUID;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -19,6 +21,7 @@ class Preferences {
 	static final String PLAY_TIME = "play_time";
 	static final String LAST_START_TIME = "last_start_time";
 	static final String COVERED_DISTANCE = "covered_distance";
+	static final String USER_ID = "user_id";
 
 	private Preferences() {
 		throw new AssertionError();
@@ -214,5 +217,22 @@ class Preferences {
 
 	static float coveredDistance(Fragment caller) {
 		return coveredDistance(caller.getActivity());
+	}
+
+	/*
+	 * coveredDistance
+	 */
+
+	static String userID(Context caller) {
+		String uId = getPref(caller).getString(USER_ID, "");
+		if (uId.length() == 0) {
+			uId = UUID.randomUUID().toString();
+			getEditor(caller).putString(USER_ID, uId);
+		}
+		return uId;
+	}
+
+	static String userID(Fragment caller) {
+		return userID(caller.getActivity());
 	}
 }
