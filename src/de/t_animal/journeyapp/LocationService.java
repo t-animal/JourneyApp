@@ -201,7 +201,7 @@ public class LocationService extends IntentService implements
 
 		if (isNowSafe && !isSafe) {
 			Notification isSafeNotification = new NotificationCompat.Builder(this)
-					.setSmallIcon(R.drawable.ic_launcher)
+					.setSmallIcon(R.drawable.ic_notification)
 					.setContentTitle(getString(R.string.safezoneNotificationTitle))
 					.setContentText(getString(R.string.safezoneNotificationText)).build();
 
@@ -323,7 +323,7 @@ public class LocationService extends IntentService implements
 
 	private void setForegroundNotification() {
 		Notification foregroundNotification = new NotificationCompat.Builder(this)
-				.setSmallIcon(R.drawable.ic_launcher)
+				.setSmallIcon(R.drawable.ic_notification)
 				.setContentTitle(getResources().getString(R.string.notificationTitle))
 				.setContentText(getResources().getString(
 						Preferences.sendData(this) ? R.string.notificationMessage_sendData
