@@ -45,6 +45,9 @@ import de.t_animal.journeyapp.JourneyProperties.Zone;
 public class LocationService extends IntentService implements
 		ConnectionCallbacks, OnConnectionFailedListener, LocationListener, OnSharedPreferenceChangeListener {
 
+	private static final int NOTIFICATION_FOREGROUND = 1;
+	private static final int NOTIFICATION_SAFEZONE = 2;
+
 	private final String TAG = "LocationService";
 
 	// Should be ok, because the service won't be recreated if already running
@@ -53,6 +56,7 @@ public class LocationService extends IntentService implements
 	private LocationClient locationClient;
 	private Location currentLocation;
 	private boolean isSafe = false;
+	private long lastSafezoneCheck = 0;
 
 	private OutputStream output;
 
@@ -177,6 +181,51 @@ public class LocationService extends IntentService implements
 		return true;
 	}
 
+	private void checkForSafezone() {
+		if (currentLocation == null)
+			return;
+
+		boolean isNowSafe = false;
+
+		// only check every 15 seconds
+		if (System.currentTimeMillis() - lastSafezoneCheck <= 15 * 1000) {
+			return;
+		}
+		lastSafezoneCheck = System.currentTimeMillis();
+
+		for (Zone safeZone : JourneyProperties.getInstance(this).getSafeZones()) {
+			if (safeZone.containsLocation(currentLocation)) {
+				isNowSafe = true;
+			}
+		}
+
+		if (isNowSafe && !isSafe) {
+			Notification isSafeNotification = new NotificationCompat.Builder(this)
+					.setSmallIcon(R.drawable.ic_launcher)
+					.setContentTitle(getString(R.string.safezoneNotificationTitle))
+					.setContentText(getString(R.string.safezoneNotificationText)).build();
+
+			NotificationManager mNotificationManager =
+					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			// mId allows you to update the notification later on.
+			mNotificationManager.notify(NOTIFICATION_SAFEZONE, isSafeNotification);
+
+			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE))
+					.vibrate(new long[] { 150, 150, 150, 150, 150, 150 }, -1);
+
+			isSafe = true;
+		} else if (!isNowSafe && isSafe) {
+			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE))
+					.vibrate(new long[] { 150, 150, 150, 150, 300, 300 }, -1);
+
+			NotificationManager mNotificationManager =
+					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			// mId allows you to update the notification later on.
+			mNotificationManager.cancel(2);
+			isSafe = false;
+		}
+	}
+
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	@Override
@@ -280,7 +329,7 @@ public class LocationService extends IntentService implements
 						Preferences.sendData(this) ? R.string.notificationMessage_sendData
 								: R.string.notificationMessage_noData)).build();
 
-		startForeground(1, foregroundNotification);
+		startForeground(NOTIFICATION_FOREGROUND, foregroundNotification);
 	}
 
 	@Override
@@ -329,35 +378,7 @@ public class LocationService extends IntentService implements
 			Preferences.coveredDistance(this, Preferences.coveredDistance(this) + result[0]);
 		}
 
-		// check if user is in a safezone
-		boolean isNowSafe = false;
-		for (Zone safeZone : JourneyProperties.getInstance(this).getSafeZones()) {
-			if (safeZone.containsLocation(newLocation)) {
-				isNowSafe = true;
-			}
-		}
-		if (isNowSafe && !isSafe) {
-			Notification isSafeNotification = new NotificationCompat.Builder(this)
-					.setSmallIcon(R.drawable.ic_launcher)
-					.setContentTitle("You are safe")
-					.setContentText("You're in a safe zone").build();
-
-			NotificationManager mNotificationManager =
-					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			// mId allows you to update the notification later on.
-			mNotificationManager.notify(2, isSafeNotification);
-
-			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1000);
-
-			isSafe = true;
-		} else if (!isNowSafe && isSafe) {
-			((Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(1000);
-
-			NotificationManager mNotificationManager =
-					(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			// mId allows you to update the notification later on.
-			mNotificationManager.cancel(2);
-		}
+		checkForSafezone();
 
 		currentLocation = newLocation;
 	}
