@@ -48,9 +48,23 @@
     <string name="info_locationServiceButton_value">Send your location to the journey team. This helps organize future journeys and create neat graphics of game.</string>
     <string name="info_mapFollowingUserButton_intro">Map follows your location</string>
     <string name="info_mapFollowingUserButton_value">Keeps the map centered on your location and disables panning</string>
+    <string name="info_resetJourney_intro">Reset journey</string>
+    <string name="info_resetJourney_value">This deletes all data and resets the app to first start state</string>
+    <string name="info_resetJourneyButton">Reset</string>
     
     <string name="info_system_headline">System</string>
+    <string name="info_flattr_intro">Flattr</string>
+    <string name="info_flattr_value">If you like this app, please consider flattring it. Click here to do so.</string>
+    <string name="info_license_intro">License</string>
+    <string name="info_license_value">This app is open-source and licensed under GPL v2 license. Click here to view it.</string>
+    <string name="info_acknowledgment_intro">Other people\'s work</string>
+    <string name="info_acknowledgement_value">In the making of this app some services, open-source libraries and free graphics were used. Click here to see a list of them and their licenses.</string>
     
+    <string name="info_resetConfirmDialoge_title">Please confirm reset</string>
+    <string name="info_resetConfirmDialoge_text">Really reset your journey progress? Can not be undone!</string>
+    <string name="info_resetConfirmDialoge_ok">Yes</string>
+    <string name="info_resetConfirmDialoge_abort">No</string>
+    <string name="info_resetConfirmDialoge_stopService">Please end the current journey first in the game tab.</string>
     
     <string name="locationService_name">JourneyApp LocationService</string>
     <string name="locationServerConnectionFailure">Could not connect to the location server</string>

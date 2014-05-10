@@ -45,6 +45,16 @@ public class JourneyPreferences {
 		registerOnSharedPreferenceChangeListener(caller.getActivity(), listener);
 	}
 
+	public static void resetAll(Context caller) {
+		getEditor(caller).remove(MAP_FOLLOWS_USER).remove(IS_CAUGHT).remove(SEND_DATA).remove(CAUGHT_COUNT)
+				.remove(VISITED_BITMASK).remove(VISITED_TIMES).remove(PLAY_TIME).remove(LAST_START_TIME)
+				.remove(COVERED_DISTANCE).remove(USER_ID).commit();
+	}
+
+	public static void resetAll(Fragment caller) {
+		resetAll(caller.getActivity());
+	}
+
 	/*
 	 * mapFollowsUser
 	 */

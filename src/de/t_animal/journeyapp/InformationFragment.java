@@ -1,19 +1,28 @@
 package de.t_animal.journeyapp;
 
+import java.io.File;
+
 import org.jraf.android.backport.switchwidget.Switch;
 
-import de.t_animal.journeyapp.util.JourneyPreferences;
-import de.t_animal.journeyapp.util.JourneyProperties;
-import de.t_animal.journeyapp.util.OnDisplayFragment;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.JourneyProperties;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 
 public class InformationFragment extends Fragment implements OnClickListener, OnDisplayFragment {
 
@@ -77,6 +86,10 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 
 		locationServiceButton.setOnClickListener(this);
 		info_mapFollowingUserButton.setOnClickListener(this);
+		((Button) fragmentRootView.findViewById(R.id.info_resetJourneyButton)).setOnClickListener(this);
+		((TextView) fragmentRootView.findViewById(R.id.info_flattr)).setOnClickListener(this);
+		((TextView) fragmentRootView.findViewById(R.id.info_acknowledgement)).setOnClickListener(this);
+		((TextView) fragmentRootView.findViewById(R.id.info_license)).setOnClickListener(this);
 
 		return fragmentRootView;
 	}
@@ -102,6 +115,17 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 		case R.id.info_mapFollowingUserButton:
 			onToggleMapFollowingUser(view);
 			break;
+		case R.id.info_resetJourneyButton:
+			resetJourneyData();
+			break;
+		case R.id.info_flattr:
+			String url = "https://flattr.com/submit/auto?user_id=t.animal&url=http://github.com/t-animal/JourneyApp";
+			startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
+			break;
+		case R.id.info_acknowledgement:
+		case R.id.info_license:
+			showHTMLPopup(view);
+			break;
 		}
 	}
 
@@ -115,5 +139,61 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 		} else {
 			JourneyPreferences.sendData(this, true);
 		}
+	}
+
+	private void resetJourneyData() {
+
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.info_resetConfirmDialoge_title)
+				.setMessage(R.string.info_resetConfirmDialoge_text)
+				.setPositiveButton(R.string.info_resetConfirmDialoge_ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						if (LocationService.isServiceRunning()) {
+							Toast.makeText(getActivity(), R.string.info_resetConfirmDialoge_stopService,
+									Toast.LENGTH_LONG).show();
+							return;
+						}
+
+						new File(Environment.getExternalStorageDirectory().getPath()
+								+ "/de.t_animal/journeyApp/"
+								+ JourneyProperties.getInstance(getActivity()).getJourneyID()
+								+ "/locationData").delete();
+
+						JourneyPreferences.resetAll(getActivity());
+
+						updateStatistics();
+					}
+				})
+				.setNegativeButton(R.string.info_resetConfirmDialoge_abort, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+					}
+				})
+				.show();
+	}
+
+	private void showHTMLPopup(View v) {
+		String title;
+		String url;
+
+		if (v.getId() == R.id.info_acknowledgement) {
+			title = "Acknowledgements";
+			url = "file:///android_asset/acknowledgements.html";
+		} else {
+			title = "License";
+			url = "file:///android_asset/license.html";
+		}
+
+		WebView wv = new WebView(getActivity());
+		wv.loadUrl(url);
+
+		new AlertDialog.Builder(getActivity())
+				.setTitle(title)
+				.setView(wv)
+				.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+					}
+				}).show();
+
 	}
 }

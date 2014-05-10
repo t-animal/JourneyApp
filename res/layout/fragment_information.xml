@@ -19,11 +19,11 @@
 
                 <TextView
                     android:id="@+id/info_tableHeader_journeyInformation"
+                    style="@style/TableHeader"
                     android:layout_marginLeft="6dip"
                     android:layout_span="3"
                     android:padding="3dip"
-                    android:text="@string/info_journey_headline"
-                    style="@style/TableHeader" />
+                    android:text="@string/info_journey_headline" />
             </TableRow>
 
             <!-- colored divider -->
@@ -116,11 +116,11 @@
 
                 <TextView
                     android:id="@+id/info_tableHeader_statistics"
+                    style="@style/TableHeader"
                     android:layout_marginLeft="6dip"
                     android:layout_span="2"
                     android:padding="3dip"
-                    android:text="@string/info_statistics_headline"
-                    style="@style/TableHeader" />
+                    android:text="@string/info_statistics_headline" />
             </TableRow>
 
             <!-- colored divider -->
@@ -173,11 +173,11 @@
 
                 <TextView
                     android:id="@+id/info_tableHeader_settings"
+                    style="@style/TableHeader"
                     android:layout_marginLeft="6dip"
                     android:layout_span="2"
                     android:padding="3dip"
-                    android:text="@string/info_settings_headline"
-                    style="@style/TableHeader" />
+                    android:text="@string/info_settings_headline" />
             </TableRow>
 
             <!-- colored divider -->
@@ -253,9 +253,53 @@
 
                 <org.jraf.android.backport.switchwidget.Switch
                     android:id="@+id/info_mapFollowingUserButton"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <View style="@style/Divider" />
+
+                <View style="@style/Divider" />
+            </TableRow>
+
+            <!-- Reset journey -->
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:layout_span="2"
+                    android:text="@string/info_resetJourney_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_resetJourney_value"
+                    style="@style/Cell"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/info_resetJourney_value" />
+
+                <!-- Wrap_content for width does not work :( -->
+
+                <Button
+                    android:id="@+id/info_resetJourneyButton"
+                    android:layout_width="180sp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/info_resetJourneyButton" />
             </TableRow>
 
             <TableRow
@@ -278,10 +322,10 @@
 
                 <TextView
                     android:id="@+id/info_tableHeader_system"
+                    style="@style/TableHeader"
                     android:layout_marginLeft="6dip"
                     android:padding="3dip"
-                    android:text="@string/info_system_headline"
-                    style="@style/TableHeader" />
+                    android:text="@string/info_system_headline" />
             </TableRow>
 
             <!-- colored divider -->
@@ -290,6 +334,45 @@
                 android:layout_width="fill_parent"
                 android:layout_height="2dip"
                 android:background="?attr/themeColor" />
+
+            <TextView
+                style="@style/Cell.Header"
+                android:text="@string/info_flattr_intro" />
+
+            <TextView
+                android:id="@+id/info_flattr"
+                style="@style/Cell"
+                android:clickable="true"
+                android:padding="3dip"
+                android:text="@string/info_flattr_value" />
+
+            <View style="@style/Divider" />
+
+            <TextView
+                style="@style/Cell.Header"
+                android:text="@string/info_license_intro" />
+
+            <TextView
+                android:id="@+id/info_license"
+                style="@style/Cell"
+                android:clickable="true"
+                android:padding="3dip"
+                android:text="@string/info_license_value" />
+
+            <View style="@style/Divider" />
+
+            <TextView
+                style="@style/Cell.Header"
+                android:text="@string/info_acknowledgment_intro" />
+
+            <TextView
+                android:id="@+id/info_acknowledgement"
+                style="@style/Cell"
+                android:clickable="true"
+                android:padding="3dip"
+                android:text="@string/info_acknowledgement_value" />
+
+            <View style="@style/Divider" />
         </TableLayout>
     </LinearLayout>
 
