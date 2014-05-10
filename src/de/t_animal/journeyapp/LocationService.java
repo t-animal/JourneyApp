@@ -156,8 +156,25 @@ public class LocationService extends IntentService implements
 			try {
 				output.write(getUserData(location));
 			} catch (IOException e) {
+				openOutputFile();
 				Log.e(TAG, "Could not safe userlocation to SDCard", e);
 			}
+	}
+
+	private boolean openOutputFile() {
+		try {
+			output = new FileOutputStream(
+					Environment.getExternalStorageDirectory().getPath()
+							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
+							+ "/locationData",
+					true);
+		} catch (FileNotFoundException e) {
+			Log.e(TAG, "Directory should have been created on startup", e);
+			Toast.makeText(this, "Directory structure corrupted, aborting start", Toast.LENGTH_SHORT).show();
+
+			return false;
+		}
+		return true;
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,16 +203,7 @@ public class LocationService extends IntentService implements
 		locationClient = new LocationClient(this, this, this);
 		locationClient.connect();
 
-		try {
-			output = new FileOutputStream(
-					Environment.getExternalStorageDirectory().getPath()
-							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
-							+ "/locationData",
-					true);
-		} catch (FileNotFoundException e) {
-			Log.e(TAG, "Directory should have been created on startup", e);
-			Toast.makeText(this, "Directory structure corrupted, aborting start", Toast.LENGTH_SHORT).show();
-
+		if (!openOutputFile()) {
 			// Do not call super i.e. do not call onHandleIntent
 			return IntentService.START_NOT_STICKY;
 		}
