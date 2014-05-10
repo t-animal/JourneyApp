@@ -1,4 +1,4 @@
-package de.t_animal.journeyapp;
+package de.t_animal.journeyapp.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.InvalidPropertiesFormatException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.xml.parsers.SAXParser;
@@ -20,8 +21,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+import de.t_animal.journeyapp.containers.Checkpoint;
+import de.t_animal.journeyapp.containers.Coordinate;
+import de.t_animal.journeyapp.containers.Zone;
+
 import android.content.Context;
-import android.location.Location;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -74,7 +78,7 @@ public class JourneyProperties {
 		}
 
 		try {
-			journeyDate = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(prop.getProperty("journeyDate"));
+			journeyDate = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(prop.getProperty("journeyDate"));
 		} catch (ParseException e) {
 			Log.e(this.getClass().getName(), "Could parse time", e);
 			journeyDate = new Date(9999, 12, 31);
@@ -278,70 +282,6 @@ public class JourneyProperties {
 		String name;
 		String description;
 		String coordinates;
-	}
-
-	class Coordinate {
-		double lat;
-		double lon;
-
-		public Coordinate(double lat, double lon) {
-			this.lat = lat;
-			this.lon = lon;
-		}
-
-		@Override
-		public String toString() {
-			return "{\"lat\": " + lat + ", \"lon\": " + lon + "}";
-		}
-	}
-
-	class Checkpoint extends Coordinate {
-		String name;
-		String description;
-
-		Zone safeZone;
-
-		public Checkpoint(double lat, double lon, String name, String description) {
-			super(lat, lon);
-			this.name = name;
-			this.description = description.replaceAll("<br>", "\n").replaceAll("<.*?>", "");
-		}
-
-		@Override
-		public String toString() {
-			return "{\"lat\": " + lat + ", \"lon\": " + lon + ", \"no\": \"" + name + "\"}";
-		}
-	}
-
-	class Zone {
-		String name;
-		String description;
-		Coordinate[] border;
-
-		public Zone(String name, String description, Coordinate[] border) {
-			this.name = name;
-			this.description = description.replaceAll("<br>", "\n").replaceAll("<.*?>", "");
-			this.border = border;
-		}
-
-		@Override
-		public String toString() {
-			return Arrays.deepToString(border);
-		}
-
-		public boolean containsLocation(Location location) {
-			int intersectingEdges = 0;
-			for (int i = 0; i < border.length; i++) {
-				if (Line2D.linesIntersect(0, 0,
-						location.getLatitude(), location.getLongitude(),
-						border[i].lat, border[i].lon,
-						border[(i + 1) % border.length].lat, border[(i + 1) % border.length].lon))
-
-					intersectingEdges++;
-			}
-			// if an odd number of intersections, the point is inside the polygon
-			return intersectingEdges % 2 == 1;
-		}
 	}
 
 	private class JourneyKmlHandler extends DefaultHandler {

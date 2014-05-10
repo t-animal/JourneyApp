@@ -1,6 +1,7 @@
-package de.t_animal.journeyapp;
+package de.t_animal.journeyapp.util;
 
 import java.util.Arrays;
+
 
 import android.content.Context;
 import android.webkit.JavascriptInterface;
@@ -27,7 +28,7 @@ public class JSCommunicationObject {
 
 	@JavascriptInterface
 	public String getTheme() {
-		return Preferences.isCaught(context) ? "THEME_CHASER" : "THEME_RUNNER";
+		return JourneyPreferences.isCaught(context) ? "THEME_CHASER" : "THEME_RUNNER";
 	}
 
 	@JavascriptInterface
@@ -53,11 +54,11 @@ public class JSCommunicationObject {
 
 	@JavascriptInterface
 	public boolean isFollowingUser() {
-		return Preferences.mapFollowsUser(context);
+		return JourneyPreferences.mapFollowsUser(context);
 	}
 
 	@JavascriptInterface
 	public void setFollowingUser(boolean followingUser) {
-		Preferences.mapFollowsUser(context, followingUser);
+		JourneyPreferences.mapFollowsUser(context, followingUser);
 	}
 }

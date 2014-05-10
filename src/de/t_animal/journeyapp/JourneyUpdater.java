@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import de.t_animal.journeyapp.util.JourneyPreferences;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +38,7 @@ public class JourneyUpdater extends Activity {
 	 */
 	private void setJourneyTheme() {
 		int theme = getIntent().getIntExtra("Theme",
-				Preferences.isCaught(this) ? Journey.THEME_CHASER : Journey.THEME_RUNNER);
+				JourneyPreferences.isCaught(this) ? Journey.THEME_CHASER : Journey.THEME_RUNNER);
 
 		switch (theme) {
 		case Journey.THEME_CHASER:

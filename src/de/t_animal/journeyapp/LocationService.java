@@ -33,7 +33,9 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-import de.t_animal.journeyapp.JourneyProperties.Zone;
+import de.t_animal.journeyapp.containers.Zone;
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.JourneyProperties;
 
 /**
  * A foreground service that keeps requesting the location while running and sends it to a server regularly. Offers
@@ -106,12 +108,12 @@ public class LocationService extends IntentService implements
 	 * @return
 	 */
 	private byte[] getUserData(Location location) {
-		String userId = Preferences.userID(this);
+		String userId = JourneyPreferences.userID(this);
 		double lat = location.getLatitude();
 		double lon = location.getLongitude();
 		float acc = location.getAccuracy();
 		long time = System.currentTimeMillis() / 1000;
-		byte caught = Preferences.isCaught(this) ? (byte) 1 : (byte) 0;
+		byte caught = JourneyPreferences.isCaught(this) ? (byte) 1 : (byte) 0;
 
 		byte[] data = new byte[1 + userId.length() + 8 + 8 + 4 + 8 + 1];
 		ByteBuffer.wrap(data).put((byte) userId.length())
@@ -257,7 +259,7 @@ public class LocationService extends IntentService implements
 			return IntentService.START_NOT_STICKY;
 		}
 
-		Preferences.registerOnSharedPreferenceChangeListener(this, this);
+		JourneyPreferences.registerOnSharedPreferenceChangeListener(this, this);
 		setForegroundNotification();
 
 		return super.onStartCommand(intent, flags, startId);
@@ -314,7 +316,7 @@ public class LocationService extends IntentService implements
 				continue;
 			}
 
-			if (Preferences.sendData(this)) {
+			if (JourneyPreferences.sendData(this)) {
 				sendLocationToServer(curLoc);
 				saveLocationToFile(curLoc);
 			}
@@ -326,7 +328,7 @@ public class LocationService extends IntentService implements
 				.setSmallIcon(R.drawable.ic_notification)
 				.setContentTitle(getResources().getString(R.string.notificationTitle))
 				.setContentText(getResources().getString(
-						Preferences.sendData(this) ? R.string.notificationMessage_sendData
+						JourneyPreferences.sendData(this) ? R.string.notificationMessage_sendData
 								: R.string.notificationMessage_noData)).build();
 
 		startForeground(NOTIFICATION_FOREGROUND, foregroundNotification);
@@ -334,7 +336,7 @@ public class LocationService extends IntentService implements
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
-		if (key == Preferences.SEND_DATA) {
+		if (key == JourneyPreferences.SEND_DATA) {
 			setForegroundNotification();
 		}
 	}
@@ -375,7 +377,7 @@ public class LocationService extends IntentService implements
 			Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
 					newLocation.getLatitude(), newLocation.getLongitude(), result);
 
-			Preferences.coveredDistance(this, Preferences.coveredDistance(this) + result[0]);
+			JourneyPreferences.coveredDistance(this, JourneyPreferences.coveredDistance(this) + result[0]);
 		}
 
 		checkForSafezone();

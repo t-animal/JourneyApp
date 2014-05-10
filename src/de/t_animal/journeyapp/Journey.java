@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +27,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 	 * Sets the theme according to the value "Theme" passed in the start intent's extras
 	 */
 	private void setJourneyTheme() {
-		int theme = getIntent().getIntExtra("Theme", Preferences.isCaught(this) ? THEME_CHASER : THEME_RUNNER);
+		int theme = getIntent().getIntExtra("Theme", JourneyPreferences.isCaught(this) ? THEME_CHASER : THEME_RUNNER);
 
 		switch (theme) {
 		case THEME_CHASER:

@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import de.t_animal.journeyapp.util.JSCommunicationObject;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

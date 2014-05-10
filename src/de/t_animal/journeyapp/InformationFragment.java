@@ -2,6 +2,10 @@ package de.t_animal.journeyapp;
 
 import org.jraf.android.backport.switchwidget.Switch;
 
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.JourneyProperties;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
@@ -28,13 +32,13 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	}
 
 	private void setButtonsFromPrefs() {
-		locationServiceButton.setChecked(Preferences.sendData(this));
-		info_mapFollowingUserButton.setChecked(Preferences.mapFollowsUser(this));
+		locationServiceButton.setChecked(JourneyPreferences.sendData(this));
+		info_mapFollowingUserButton.setChecked(JourneyPreferences.mapFollowsUser(this));
 	}
 
 	private void updateStatistics() {
-		int playTime = Preferences.playTime(this) + (int) (System.currentTimeMillis() / 1000)
-				- Preferences.lastStartTime(this);
+		int playTime = JourneyPreferences.playTime(this) + (int) (System.currentTimeMillis() / 1000)
+				- JourneyPreferences.lastStartTime(this);
 		int hours = playTime / 60 / 60;
 		int minutes = playTime / 60 % 60;
 		int seconds = playTime % 60;
@@ -42,7 +46,7 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 				.setText(String.format("%02d:%02d:%02d", hours, minutes, seconds));
 
 		String unit = "m";
-		float distance = Preferences.coveredDistance(this);
+		float distance = JourneyPreferences.coveredDistance(this);
 		if (distance > 10000) {
 			distance /= 1000;
 			unit = "km";
@@ -102,14 +106,14 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	}
 
 	private void onToggleMapFollowingUser(View view) {
-		Preferences.mapFollowsUser(this, ((Switch) view).isChecked());
+		JourneyPreferences.mapFollowsUser(this, ((Switch) view).isChecked());
 	}
 
 	private void onToggleLocationService(View view) {
-		if (Preferences.sendData(this)) {
-			Preferences.sendData(this, false);
+		if (JourneyPreferences.sendData(this)) {
+			JourneyPreferences.sendData(this, false);
 		} else {
-			Preferences.sendData(this, true);
+			JourneyPreferences.sendData(this, true);
 		}
 	}
 }

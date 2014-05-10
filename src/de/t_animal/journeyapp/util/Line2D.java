@@ -1,4 +1,4 @@
-package de.t_animal.journeyapp;
+package de.t_animal.journeyapp.util;
 
 /*
  * Copyright 1997-2006 Sun Microsystems, Inc.  All Rights Reserved.
@@ -25,7 +25,7 @@ package de.t_animal.journeyapp;
  * have any questions.
  */
 
-class Line2D {
+public class Line2D {
 	/**
 	 * Returns an indicator of where the specified point {@code (px,py)} lies with respect to the line segment from
 	 * {@code (x1,y1)} to {@code (x2,y2)}. The return value can be either 1, -1, or 0 and indicates in which direction

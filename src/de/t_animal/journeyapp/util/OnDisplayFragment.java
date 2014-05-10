@@ -1,4 +1,4 @@
-package de.t_animal.journeyapp;
+package de.t_animal.journeyapp.util;
 
 public interface OnDisplayFragment {
 

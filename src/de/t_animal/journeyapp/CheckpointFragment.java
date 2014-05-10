@@ -16,7 +16,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import de.t_animal.journeyapp.JourneyProperties.Checkpoint;
+import de.t_animal.journeyapp.containers.Checkpoint;
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 
 public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 
@@ -24,7 +26,7 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 
 	private View fragmentRootView;
 
-	public static CheckpointFragment newInstance(JourneyProperties.Checkpoint checkpoint) {
+	public static CheckpointFragment newInstance(Checkpoint checkpoint) {
 		CheckpointFragment newFrag = new CheckpointFragment();
 
 		Bundle bundle = new Bundle();
@@ -109,9 +111,9 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 
 			CheckBox visitedButton = ((CheckBox) convertView.findViewById(R.id.checkpoint_visitedButton));
 			TextView visitedTime = (TextView) convertView.findViewById(R.id.checkpoint_visited_value);
-			if ((Preferences.visitedBitMask(context) & (0x01 << i)) > 0) {
+			if ((JourneyPreferences.visitedBitMask(context) & (0x01 << i)) > 0) {
 				visitedButton.setChecked(true);
-				visitedTime.setText(Preferences.visitedTimes(context).split(",")[i]);
+				visitedTime.setText(JourneyPreferences.visitedTimes(context).split(",")[i]);
 			} else {
 				visitedButton.setChecked(false);
 				visitedTime.setText("");
@@ -132,15 +134,17 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 
 			cb.setChecked(!cb.isChecked());
 
-			String times[] = Preferences.visitedTimes(context).split(",");
+			String times[] = JourneyPreferences.visitedTimes(context).split(",");
 			if (cb.isChecked()) {
 				times[position] = (String) DateFormat.format("HH:mm", Calendar.getInstance().getTime());
-				Preferences.visitedBitMask(context, (Preferences.visitedBitMask(context) | (1 << position)));
+				JourneyPreferences.visitedBitMask(context,
+						(JourneyPreferences.visitedBitMask(context) | (1 << position)));
 			} else {
 				times[position] = "";
-				Preferences.visitedBitMask(context, (Preferences.visitedBitMask(context) & ~(1 << position)));
+				JourneyPreferences.visitedBitMask(context,
+						(JourneyPreferences.visitedBitMask(context) & ~(1 << position)));
 			}
-			Preferences.visitedTimes(context, TextUtils.join(",", times));
+			JourneyPreferences.visitedTimes(context, TextUtils.join(",", times));
 
 			((TextView) v.findViewById(R.id.checkpoint_visited_value)).setText(times[position]);
 		}

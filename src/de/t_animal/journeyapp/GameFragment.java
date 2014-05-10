@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.t_animal.journeyapp.CheckpointFragment.CheckpointListAdapter;
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.JourneyProperties;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 
 public class GameFragment extends Fragment implements OnClickListener, OnDisplayFragment {
 
@@ -68,8 +71,8 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 	@Override
 	public void onDisplay() {
 		game_startJourneyButton.setChecked(LocationService.isServiceRunning());
-		game_gotCaughtButton.setChecked(Preferences.isCaught(this));
-		game_othersCaught_value.setText("" + Preferences.caughtCount(this));
+		game_gotCaughtButton.setChecked(JourneyPreferences.isCaught(this));
+		game_othersCaught_value.setText("" + JourneyPreferences.caughtCount(this));
 	}
 
 	@Override
@@ -91,14 +94,14 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 	}
 
 	private void caughtLess() {
-		int newVal = Preferences.caughtCount(this) - 1;
-		Preferences.caughtCount(this, newVal < 0 ? 0 : newVal);
-		game_othersCaught_value.setText("" + Preferences.caughtCount(this));
+		int newVal = JourneyPreferences.caughtCount(this) - 1;
+		JourneyPreferences.caughtCount(this, newVal < 0 ? 0 : newVal);
+		game_othersCaught_value.setText("" + JourneyPreferences.caughtCount(this));
 	}
 
 	private void caughtMore() {
-		Preferences.caughtCount(this, Preferences.caughtCount(this) + 1);
-		game_othersCaught_value.setText("" + Preferences.caughtCount(this));
+		JourneyPreferences.caughtCount(this, JourneyPreferences.caughtCount(this) + 1);
+		game_othersCaught_value.setText("" + JourneyPreferences.caughtCount(this));
 	}
 
 	private void toggleGameRunning() {
@@ -107,24 +110,24 @@ public class GameFragment extends Fragment implements OnClickListener, OnDisplay
 			getActivity().stopService(new Intent(getActivity(), LocationService.class));
 
 			long endTime = System.currentTimeMillis() / 1000;
-			Preferences.playTime(this, (int) (Preferences.playTime(this) + endTime - Preferences.lastStartTime(this)));
-			Preferences.lastStartTime(this, -1);
+			JourneyPreferences.playTime(this, (int) (JourneyPreferences.playTime(this) + endTime - JourneyPreferences.lastStartTime(this)));
+			JourneyPreferences.lastStartTime(this, -1);
 
 		} else {
 
 			getActivity().startService(new Intent(getActivity(), LocationService.class));
 			startUpdatingDistance();
 
-			Preferences.lastStartTime(this, (int) (System.currentTimeMillis() / 1000));
+			JourneyPreferences.lastStartTime(this, (int) (System.currentTimeMillis() / 1000));
 		}
 	}
 
 	private void changeTheme() {
-		if (Preferences.isCaught(this)) {
-			Preferences.isCaught(this, false);
+		if (JourneyPreferences.isCaught(this)) {
+			JourneyPreferences.isCaught(this, false);
 			((Journey) getActivity()).restartWithTheme(Journey.THEME_RUNNER);
 		} else {
-			Preferences.isCaught(this, true);
+			JourneyPreferences.isCaught(this, true);
 			((Journey) getActivity()).restartWithTheme(Journey.THEME_CHASER);
 		}
 	}
