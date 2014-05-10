@@ -220,8 +220,11 @@ public class LocationService extends IntentService implements
 
 		Toast.makeText(this, "service destroyed", Toast.LENGTH_SHORT).show();
 
-		if (locationClient != null && locationClient.isConnected())
+		if (locationClient != null) {
+			Log.d(TAG, "disconnecting");
+			locationClient.removeLocationUpdates(this);
 			locationClient.disconnect();
+		}
 
 		if (output != null) {
 			try {
@@ -238,7 +241,7 @@ public class LocationService extends IntentService implements
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		System.out.println("Intent received");
+		Log.d(TAG, "Intent received");
 
 		while (isServiceRunning()) {
 			try {
@@ -249,9 +252,9 @@ public class LocationService extends IntentService implements
 				// do nothing, just execute as usual
 			}
 
-			System.out.println("Service still running");
+			Log.d(TAG, "Service still running");
 
-			Location curLoc;
+			Location curLoc = null;
 
 			// wait for the first connection
 			if (locationClient.isConnected()) {
@@ -259,12 +262,9 @@ public class LocationService extends IntentService implements
 				if (curLoc == null)
 					continue;
 			} else {
-				if (!locationClient.isConnecting())
-					locationClient.connect();
 				continue;
 			}
 
-			System.out.println("Current Location" + curLoc.toString());
 			if (Preferences.sendData(this)) {
 				sendLocationToServer(curLoc);
 				saveLocationToFile(curLoc);
@@ -318,6 +318,8 @@ public class LocationService extends IntentService implements
 
 	@Override
 	public void onLocationChanged(Location newLocation) {
+		Log.d(TAG, "Location update");
+
 		// calculate covered distance
 		if (currentLocation != null) {
 			float result[] = new float[1];
