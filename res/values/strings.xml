@@ -45,7 +45,7 @@
     
     <string name="info_settings_headline">Settings</string>
     <string name="info_locationServiceButton_intro">Location updates</string>
-    <string name="info_locationServiceButton_value">Send your location to the journey team. This helps organize future journeys and create neat graphics of game.</string>
+    <string name="info_locationServiceButton_value">Send your location to the journey team. This helps organize future journeys and create neat graphics of the course of the game.</string>
     <string name="info_mapFollowingUserButton_intro">Map follows your location</string>
     <string name="info_mapFollowingUserButton_value">Keeps the map centered on your location and disables panning</string>
     <string name="info_resetJourney_intro">Reset journey</string>
