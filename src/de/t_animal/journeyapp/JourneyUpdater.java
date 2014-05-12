@@ -9,8 +9,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import de.t_animal.journeyapp.util.JourneyPreferences;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +22,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import de.t_animal.journeyapp.util.JourneyPreferences;
 
 public class JourneyUpdater extends Activity {
 	private final String TAG = "JourneyUpdater";
@@ -120,6 +119,7 @@ public class JourneyUpdater extends Activity {
 
 				if (isCancelled()) {
 					inputStream.close();
+					outputStream.close();
 					return false;
 				}
 
@@ -169,8 +169,10 @@ public class JourneyUpdater extends Activity {
 
 				connection.disconnect();
 
-				new File(Environment.getExternalStorageDirectory().getPath()
-						+ "/de.t_animal/journeyApp/net.hawo.journey/").mkdirs();
+				Log.d(TAG, "Creating dir:" + new File(Environment.getExternalStorageDirectory().getPath()
+						+ "/de.t_animal/journeyApp/net.hawo.journey/").mkdirs());
+				Log.d(TAG, "Dir existing:" + new File(Environment.getExternalStorageDirectory().getPath()
+						+ "/de.t_animal/journeyApp/net.hawo.journey/").isDirectory());
 
 				updateProgress.setIndeterminate(false);
 
