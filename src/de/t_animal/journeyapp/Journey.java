@@ -1,7 +1,5 @@
 package de.t_animal.journeyapp;
 
-import de.t_animal.journeyapp.util.JourneyPreferences;
-import de.t_animal.journeyapp.util.OnDisplayFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,11 +11,15 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.OnDisplayFragment;
 
 public class Journey extends ActionBarActivity implements TabListener {
 
+	private static final String TAG = "Journey";
+
 	JourneyFragmentPagerAdapter adapter;
-	private ViewPager viewPager;
+	private SwipeTogglingViewPager viewPager;
 
 	public static final int THEME_CHASER = 0x00;
 	public static final int THEME_RUNNER = 0x01;
@@ -70,7 +72,7 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 		adapter = new JourneyFragmentPagerAdapter(getSupportFragmentManager());
 
-		viewPager = (ViewPager) findViewById(R.id.mainContainer);
+		viewPager = (SwipeTogglingViewPager) findViewById(R.id.mainContainer);
 		viewPager.setAdapter(adapter);
 
 		final ActionBar actionBar = getSupportActionBar();
@@ -108,7 +110,6 @@ public class Journey extends ActionBarActivity implements TabListener {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-
 	}
 
 	@Override
@@ -119,6 +120,12 @@ public class Journey extends ActionBarActivity implements TabListener {
 
 		if (curFrag != null && curFrag.isResumed())
 			((OnDisplayFragment) curFrag).onDisplay();
+
+		if (tab.getPosition() == 0) {
+			viewPager.setSwipingOnlyFromBorder(true);
+		} else {
+			viewPager.setSwipingOnlyFromBorder(false);
+		}
 	}
 
 	@Override

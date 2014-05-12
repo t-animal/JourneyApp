@@ -1,4 +1,4 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<de.t_animal.journeyapp.SwipeTogglingViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainContainer"
     android:layout_width="match_parent"
@@ -8,4 +8,4 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Journey" >
-</android.support.v4.view.ViewPager>
+</de.t_animal.journeyapp.SwipeTogglingViewPager>
