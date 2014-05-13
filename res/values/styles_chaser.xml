@@ -20,7 +20,7 @@
 
 <resources>
 
-    <style name="Theme.Chaser" parent="ThemeBase">
+    <style name="Theme.Chaser" parent="ThemeBase.Chaser">
         <item name="actionBarItemBackground">@drawable/selectable_background_chaser</item>
         <item name="popupMenuStyle">@style/PopupMenu.Chaser</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Chaser</item>
