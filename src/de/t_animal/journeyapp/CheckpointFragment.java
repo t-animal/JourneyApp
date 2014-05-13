@@ -1,5 +1,6 @@
 package de.t_animal.journeyapp;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -7,7 +8,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,7 +136,7 @@ public class CheckpointFragment extends Fragment implements OnDisplayFragment {
 
 			String times[] = JourneyPreferences.visitedTimes(context).split(",");
 			if (cb.isChecked()) {
-				times[position] = (String) DateFormat.format("HH:mm", Calendar.getInstance().getTime());
+				times[position] = (String) new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 				JourneyPreferences.visitedBitMask(context,
 						(JourneyPreferences.visitedBitMask(context) | (1 << position)));
 			} else {
