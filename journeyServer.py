@@ -3,10 +3,13 @@
 import socket
 import datetime
 import struct
+import os, sys
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 sock.bind(("0.0.0.0", 1338))
+
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
 
 print "set up"
 
