@@ -296,7 +296,8 @@
                 <Button
                     android:id="@+id/info_resetJourneyButton"
                     android:layout_width="180sp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35sp"
+                    android:padding="0sp"
                     android:layout_gravity="center_vertical"
                     android:singleLine="true"
                     android:text="@string/info_resetJourneyButton" />
