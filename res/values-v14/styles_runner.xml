@@ -34,13 +34,24 @@
         <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
         <item name="android:fastScrollThumbDrawable">@drawable/runner_fastscroll_thumb_holo</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarRunner</item>
+        <item name="android:buttonStyle">@style/Buttonrunner</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonrunner</item>
     </style>
-    
+
     <!-- From android-holo-colors for progress bar (outside actionbar) -->
-  <style name="ProgressBarRunner" parent="android:Widget.Holo.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
-      <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
-  </style>
+    <style name="ProgressBarRunner" parent="android:Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
+        <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
+    </style>
+
+    <style name="Buttonrunner" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/runner_btn_default_holo_dark</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+    </style>
+
+    <style name="ImageButtonrunner" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/runner_btn_default_holo_dark</item>
+    </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="android:background">@drawable/ab_solid_runner</item>

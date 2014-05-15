@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<!--
+     File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -34,12 +35,23 @@
         <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
         <item name="android:fastScrollThumbDrawable">@drawable/chaser_fastscroll_thumb_holo</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarChaser</item>
+        <item name="android:buttonStyle">@style/ButtonChaser</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonChaser</item>
     </style>
 
     <!-- From android-holo-colors for progress bar (outside actionbar) -->
     <style name="ProgressBarChaser" parent="android:Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
         <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
+    </style>
+
+    <style name="ButtonChaser" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+    </style>
+
+    <style name="ImageButtonChaser" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -53,7 +65,7 @@
         <item name="android:background">@drawable/ab_transparent_chaser</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Chaser</item>
     </style>
-    
+
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Chaser.Widget" parent="@style/Theme.AppCompat">
         <item name="android:popupMenuStyle">@style/PopupMenu.Chaser</item>

@@ -34,6 +34,8 @@
         <item name="android:checkboxStyle">@style/Checkbox.Chaser</item>
         <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarChaser</item>
+        <item name="android:buttonStyle">@style/ButtonChaser</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonChaser</item>
     </style>
 
     <style name="ActionBar.Solid.Chaser" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -103,6 +105,17 @@
     <style name="Switch.Chaser" parent="Widget.Holo.CompoundButton.Switch">
         <item name="track">@drawable/chaser_switch_track_holo_dark</item>
         <item name="thumb">@drawable/chaser_switch_inner_holo_dark</item>
+    </style>
+
+    <style name="ButtonChaser" parent="android:Widget.Button">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+    </style>
+
+    <style name="ImageButtonChaser" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
     </style>
 
 </resources>

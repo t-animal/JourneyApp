@@ -18,12 +18,23 @@
         <item name="android:buttonStyleToggle">@style/ToggleButton.Chaser</item>
         <item name="android:fastScrollThumbDrawable">@drawable/chaser_fastscroll_thumb_holo</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarChaser</item>
+        <item name="android:buttonStyle">@style/ButtonChaser</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonChaser</item>
     </style>
 
     <!-- From android-holo-colors for progress bar (outside actionbar) -->
     <style name="ProgressBarChaser" parent="android:Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
         <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
+    </style>
+
+    <style name="ButtonChaser" parent="android:Widget.Holo.Button">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+    </style>
+
+    <style name="ImageButtonChaser" parent="android:Widget.Holo.ImageButton">
+        <item name="android:background">@drawable/chaser_btn_default_holo_dark</item>
     </style>
 
 </resources>

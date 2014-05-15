@@ -34,6 +34,8 @@
         <item name="android:checkboxStyle">@style/Checkbox.Runner</item>
         <item name="android:buttonStyleToggle">@style/ToggleButton.Runner</item>
         <item name="android:progressBarStyleHorizontal">@style/ProgressBarRunner</item>
+        <item name="android:buttonStyle">@style/Buttonrunner</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonrunner</item>
     </style>
 
     <style name="ActionBar.Solid.Runner" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -69,14 +71,14 @@
     <style name="ProgressBar.Runner" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_runner</item>
     </style>
-    
+
     <!-- From android-holo-colors for progress bar (outside actionbar) -->
-  <style name="ProgressBarRunner" parent="android:Widget.ProgressBar.Horizontal">
-      <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
-      <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
-      <item name="android:minHeight">16dip</item>
-      <item name="android:maxHeight">16dip</item>
-  </style>
+    <style name="ProgressBarRunner" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/runner_progress_horizontal_holo_dark</item>
+        <item name="android:indeterminateDrawable">@drawable/runner_progress_indeterminate_horizontal_holo_dark</item>
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
 
     <style name="ActionButton.CloseMode.Runner" parent="@style/Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_runner</item>
@@ -99,15 +101,26 @@
         <item name="android:minHeight">48dip</item>
         <item name="android:textColor">#ffffff</item>
     </style>
-    
+
     <style name="Switch.Runner" parent="Widget.Holo.CompoundButton.Switch">
         <item name="track">@drawable/runner_switch_track_holo_dark</item>
         <item name="thumb">@drawable/runner_switch_inner_holo_dark</item>
         <item name="switchTextAppearance">@style/runnerSwitchColor</item>
     </style>
-    
+
     <style name="runnerSwitchColor" parent="android:TextAppearance.Small">
         <item name="android:textColor">@drawable/runner_switch_textcolor</item>
     </style>
-    
+
+    <style name="Buttonrunner" parent="android:Widget.Button">
+        <item name="android:background">@drawable/runner_btn_default_holo_dark</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmallInverse</item>
+    </style>
+
+    <style name="ImageButtonrunner" parent="android:Widget.ImageButton">
+        <item name="android:background">@drawable/runner_btn_default_holo_dark</item>
+    </style>
+
 </resources>
