@@ -14,8 +14,8 @@
     <string name="update_skipButton">Skip</string>
 
     <string name="game_gotCaught_value">Have you been caught?</string>
-    <string name="game_gotCaughtButton_on">I have not yet been caught</string>
-    <string name="game_gotCaughtButton_off">I have been caught</string>
+    <string name="game_gotCaughtButton">Go to chaser mode</string>
+    <string name="game_notGotCaughtButton">Go to runner mode</string>
     <string name="game_startJourneyButton_on">End your journey</string>
     <string name="game_startJourneyButton_off">Start your journey</string>
     <string name="game_othersCaught_intro">I caught </string>

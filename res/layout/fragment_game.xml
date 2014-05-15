@@ -13,12 +13,19 @@
         android:textOff="@string/game_startJourneyButton_off"
         android:textOn="@string/game_startJourneyButton_on" />
 
-    <ToggleButton
+    <Button
         android:id="@+id/game_gotCaughtButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOff="@string/game_gotCaughtButton_off"
-        android:textOn="@string/game_gotCaughtButton_on" />
+        android:text="@string/game_gotCaughtButton"
+        android:visibility="?attr/runnerOnly" />
+
+    <Button
+        android:id="@+id/game_notGotCaughtButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/game_notGotCaughtButton"
+        android:visibility="?attr/chaserOnly" />
 
     <LinearLayout
         android:id="@+id/game_othersCaughtRow"
