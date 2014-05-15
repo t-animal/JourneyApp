@@ -439,9 +439,11 @@ function setFollowingUser(following) {
             draggable: false,
         });
 
-        locationChangedListener = google.maps.event.addListener(geomarker, "position_changed", function () {
-            map.panTo(this.getPosition());
-        });
+        if (typeof (locationChangedListener) == 'undefined') {
+            locationChangedListener = google.maps.event.addListener(geomarker, "position_changed", function () {
+                map.panTo(this.getPosition());
+            });
+        }
         
         map.panTo(geomarker.getPosition());
         lockLocationButton.style.backgroundImage = 'url(./lockLocationOn.png)';
