@@ -445,7 +445,10 @@ function setFollowingUser(following) {
             });
         }
         
-        map.panTo(geomarker.getPosition());
+        var pos;
+        if((pos = geomarker.getPosition()) != null){
+            map.panTo(pos);
+        }
         lockLocationButton.style.backgroundImage = 'url(./lockLocationOn.png)';
     } else {
         if (typeof (locationChangedListener) != 'undefined') {
