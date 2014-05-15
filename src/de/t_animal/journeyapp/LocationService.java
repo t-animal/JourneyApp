@@ -74,7 +74,7 @@ public class LocationService extends IntentService implements
 	 * 
 	 * @return true if the server is running
 	 */
-	static boolean isServiceRunning() {
+	public static boolean isServiceRunning() {
 		return singletonLocationService != null;
 	}
 

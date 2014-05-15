@@ -12,6 +12,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import de.t_animal.journeyapp.LocationService;
 import de.t_animal.journeyapp.containers.Coordinate;
 
 /**
@@ -124,5 +125,10 @@ public class JSCommunicationObject {
 	@JavascriptInterface
 	public String getPreviousMovement() {
 		return Arrays.deepToString(waypoints.toArray(new Coordinate[0]));
+	}
+
+	@JavascriptInterface
+	public boolean isServiceRunning() {
+		return LocationService.isServiceRunning();
 	}
 }

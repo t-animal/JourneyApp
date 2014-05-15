@@ -246,6 +246,10 @@ if (typeof (comm) == 'undefined') {
                     lon:11.02502703666687 
                 }]
             );
+        },
+        
+        isServiceRunning: function (){
+            return true;
         }
     };
 }
@@ -277,7 +281,9 @@ function onStart() {
     geomarker.setMap(map);
 
     drawMovementListener = google.maps.event.addListener(geomarker, "position_changed", function () {
-        poly.getPath().push(this.getPosition());
+        if(comm.isServiceRunning()){
+            poly.getPath().push(this.getPosition());
+        }
     });
    
     var homeControlDiv = document.createElement('div');
