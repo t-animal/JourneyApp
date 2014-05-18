@@ -90,7 +90,9 @@ def main(argv):
 			lastPrintJson = int(time.time())
 			jsonFile.seek(0)
 			jsonFile.truncate(0)
+			jsonFile.write("newData(")
 			jsonFile.write(json.dumps(users))
+			jsonFile.write(");");
 			jsonFile.flush()
 			os.fsync(jsonFile.fileno())
 
