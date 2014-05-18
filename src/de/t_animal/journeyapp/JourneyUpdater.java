@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.t_animal.journeyapp.util.JourneyPreferences;
+import de.t_animal.journeyapp.util.JourneyProperties;
 
 public class JourneyUpdater extends Activity {
 	private final String TAG = "JourneyUpdater";
@@ -99,8 +100,11 @@ public class JourneyUpdater extends Activity {
 
 		private boolean downloadFile(String filename) throws MalformedURLException, IOException {
 
+			Log.d(TAG, "downloading: " + filename);
+
 			HttpURLConnection connection = (HttpURLConnection) new URL(
 					"http://wwwcip.cs.fau.de/~ar79yxiw/journeyData/" + filename).openConnection();
+			connection.setUseCaches(false);
 
 			int fileSize = connection.getContentLength();
 
@@ -109,7 +113,7 @@ public class JourneyUpdater extends Activity {
 
 			InputStream inputStream = connection.getInputStream();
 			OutputStream outputStream = new FileOutputStream(Environment.getExternalStorageDirectory().getPath()
-					+ "/de.t_animal/journeyApp/net.hawo.journey/" + filename);
+					+ "/de.t_animal/journeyApp/net.hawo.journey/" + filename, false);
 
 			byte data[] = new byte[4096];
 			int transferred = 0;
@@ -133,6 +137,8 @@ public class JourneyUpdater extends Activity {
 			connection.disconnect();
 			inputStream.close();
 			outputStream.close();
+
+			Log.d(TAG, "download successfull: " + filename);
 
 			return true;
 		}
@@ -161,6 +167,8 @@ public class JourneyUpdater extends Activity {
 
 				int curVersion = Integer.parseInt(vString);
 				int oldVersion = PreferenceManager.getDefaultSharedPreferences(context).getInt("net.hawo.journey", -1);
+
+				Log.d(TAG, "CV:" + curVersion + " OV:" + oldVersion);
 
 				if (oldVersion == curVersion)
 					return true;
@@ -212,6 +220,8 @@ public class JourneyUpdater extends Activity {
 		protected void onPostExecute(Boolean result) {
 			finished = true;
 			super.onPostExecute(result);
+
+			Log.d(TAG, JourneyProperties.getInstance(context).getServerLocation());
 
 			if (!result.booleanValue()) {
 				if (PreferenceManager.getDefaultSharedPreferences(context).getInt("net.hawo.journey", -1) == -1) {
