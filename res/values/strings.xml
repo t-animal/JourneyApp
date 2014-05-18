@@ -42,6 +42,10 @@
     <string name="info_distance_value">0km</string>
     <string name="info_time_intro">Time</string>
     <string name="info_time_value">00:00</string>
+    <string name="info_speed_max_intro">Speed (Max)</string>
+    <string name="info_speed_max_value">0km/h</string>
+    <string name="info_speed_avg_intro">Speed (Avg)</string>
+    <string name="info_speed_avg_value">0km/h</string>
     
     <string name="info_settings_headline">Settings</string>
     <string name="info_locationServiceButton_intro">Location updates</string>

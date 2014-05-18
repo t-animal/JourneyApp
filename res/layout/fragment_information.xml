@@ -158,6 +158,35 @@
                     style="@style/Cell"
                     android:text="@string/info_time_value" />
             </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dip" >
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_speed_max_intro" />
+
+                <TextView
+                    style="@style/Cell.Header"
+                    android:text="@string/info_speed_avg_intro" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/info_speed_max_value"
+                    style="@style/Cell"
+                    android:text="@string/info_speed_max_value" />
+
+                <TextView
+                    android:id="@+id/info_speed_avg_value"
+                    style="@style/Cell"
+                    android:text="@string/info_speed_avg_value" />
+            </TableRow>
         </TableLayout>
 
         <!-- Settings -->

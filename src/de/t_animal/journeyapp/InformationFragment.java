@@ -26,6 +26,8 @@ import de.t_animal.journeyapp.util.OnDisplayFragment;
 
 public class InformationFragment extends Fragment implements OnClickListener, OnDisplayFragment {
 
+	private static final String TAG = "de.t_animal.journeyapp.InformationFragment";
+
 	private View fragmentRootView;
 	private Switch locationServiceButton;
 	private Switch info_mapFollowingUserButton;
@@ -63,6 +65,18 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 
 		((TextView) fragmentRootView.findViewById(R.id.info_distance_value)).setText(
 				String.format("%.2f%s", distance, unit));
+
+		((TextView) fragmentRootView.findViewById(R.id.info_speed_max_value)).setText(
+				String.format("%.2fkm/h", JourneyPreferences.maxSpeed(this) * 3.6)); // m/s=>km/h == *3.6
+
+		if (playTime > 0) {
+			double speed = JourneyPreferences.coveredDistance(this) / playTime * 3.6; // m/s=>km/h == *3.6
+			((TextView) fragmentRootView.findViewById(R.id.info_speed_avg_value)).setText(
+					String.format("%.2fkm/h", speed));
+		} else {
+			((TextView) fragmentRootView.findViewById(R.id.info_speed_avg_value)).setText(
+					String.format("%.2fkm/h", 0.));
+		}
 	}
 
 	@Override
@@ -98,6 +112,7 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 	public void onResume() {
 		super.onResume();
 		setButtonsFromPrefs();
+		updateStatistics();
 	}
 
 	@Override

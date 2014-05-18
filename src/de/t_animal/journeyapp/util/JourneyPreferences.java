@@ -22,6 +22,7 @@ public class JourneyPreferences {
 	public static final String LAST_START_TIME = "last_start_time";
 	public static final String COVERED_DISTANCE = "covered_distance";
 	public static final String USER_ID = "user_id";
+	public static final String MAX_SPEED = "max_speed";
 
 	private JourneyPreferences() {
 		throw new AssertionError();
@@ -48,7 +49,7 @@ public class JourneyPreferences {
 	public static void resetAll(Context caller) {
 		getEditor(caller).remove(MAP_FOLLOWS_USER).remove(IS_CAUGHT).remove(SEND_DATA).remove(CAUGHT_COUNT)
 				.remove(VISITED_BITMASK).remove(VISITED_TIMES).remove(PLAY_TIME).remove(LAST_START_TIME)
-				.remove(COVERED_DISTANCE).remove(USER_ID).commit();
+				.remove(COVERED_DISTANCE).remove(MAX_SPEED).remove(USER_ID).commit();
 	}
 
 	public static void resetAll(Fragment caller) {
@@ -232,7 +233,26 @@ public class JourneyPreferences {
 	}
 
 	/*
-	 * coveredDistance
+	 * maxSpeed
+	 */
+	public static void maxSpeed(Context caller, float maxSpeed) {
+		getEditor(caller).putFloat(MAX_SPEED, maxSpeed).commit();
+	}
+
+	public static float maxSpeed(Context caller) {
+		return getPref(caller).getFloat(MAX_SPEED, 0);
+	}
+
+	public static void maxSpeed(Fragment caller, float maxSpeed) {
+		maxSpeed(caller.getActivity(), maxSpeed);
+	}
+
+	public static float maxSpeed(Fragment caller) {
+		return maxSpeed(caller.getActivity());
+	}
+
+	/*
+	 * userID (only getters)
 	 */
 
 	public static String userID(Context caller) {

@@ -464,6 +464,9 @@ public class LocationService extends IntentService implements
 			JourneyPreferences.coveredDistance(this, JourneyPreferences.coveredDistance(this) + result[0]);
 		}
 
+		if (JourneyPreferences.maxSpeed(this) < newLocation.getSpeed())
+			JourneyPreferences.maxSpeed(this, newLocation.getSpeed());
+
 		checkForSafezone();
 
 		JSCommunicationObject.getInstance(this).addWaypoint(newLocation.getLatitude(), newLocation.getLongitude());
