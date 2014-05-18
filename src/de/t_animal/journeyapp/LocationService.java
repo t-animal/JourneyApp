@@ -1,5 +1,7 @@
 package de.t_animal.journeyapp;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,7 +9,9 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 import android.app.IntentService;
@@ -19,6 +23,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -64,6 +69,7 @@ public class LocationService extends IntentService implements
 	private long lastSafezoneCheck = 0;
 
 	private OutputStream output;
+	private OutputStream uploadOutput;
 
 	public LocationService() {
 		super("LocationService");
@@ -156,14 +162,22 @@ public class LocationService extends IntentService implements
 	}
 
 	/**
-	 * Safes the given location to a file
+	 * Safes the given location to a private file and (if send data is enabled) to a file for uploading later
 	 * 
 	 * @param location
 	 */
-	private void saveLocationToFile(Location location) {
+	private void saveLocationToFiles(Location location) {
 		if (output != null)
 			try {
 				output.write(getUserData(location));
+			} catch (IOException e) {
+				openOutputFile();
+				Log.e(TAG, "Could not safe userlocation to SDCard", e);
+			}
+
+		if (uploadOutput != null && JourneyPreferences.sendData(this))
+			try {
+				uploadOutput.write(getUserData(location));
 			} catch (IOException e) {
 				openOutputFile();
 				Log.e(TAG, "Could not safe userlocation to SDCard", e);
@@ -176,6 +190,11 @@ public class LocationService extends IntentService implements
 					Environment.getExternalStorageDirectory().getPath()
 							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
 							+ "/locationData",
+					true);
+			uploadOutput = new FileOutputStream(
+					Environment.getExternalStorageDirectory().getPath()
+							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
+							+ "/locationDataUploadable",
 					true);
 		} catch (FileNotFoundException e) {
 			Log.e(TAG, "Directory should have been created on startup", e);
@@ -288,6 +307,54 @@ public class LocationService extends IntentService implements
 			}
 		}
 
+		if (uploadOutput != null) {
+			try {
+				uploadOutput.close();
+			} catch (IOException e) {
+				Log.e(TAG, "Could not close uploadOutput file", e);
+			}
+		}
+
+		new AsyncTask<Context, Void, Boolean>() {
+
+			@Override
+			protected Boolean doInBackground(Context... args) {
+				Context context = args[0];
+
+				File uploadFile = new File(Environment.getExternalStorageDirectory().getPath()
+						+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(context).getJourneyID()
+						+ "/locationDataUploadable");
+
+				if (JourneyPreferences.sendData(context) && uploadFile.length() > 0) {
+					try {
+						Socket uploadSocket = new Socket(JourneyProperties.getInstance(context).getServerLocation(),
+								JourneyProperties.getInstance(context).getServerPort());
+
+						OutputStream sockOutput = uploadSocket.getOutputStream();
+
+						FileInputStream uploadFileStream = new FileInputStream(uploadFile);
+
+						int data;
+						while ((data = uploadFileStream.read()) > 0) {
+							sockOutput.write(data);
+						}
+
+						sockOutput.close();
+						uploadSocket.close();
+						uploadFileStream.close();
+
+					} catch (UnknownHostException e) {
+						Log.e(TAG, "Could not upload data", e);
+						return false;
+					} catch (IOException e) {
+						Log.e(TAG, "Could not upload data", e);
+						return false;
+					}
+				}
+				return true;
+			}
+		}.execute(this);
+
 		((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE)).cancel(2);
 
 		super.onDestroy();
@@ -321,8 +388,9 @@ public class LocationService extends IntentService implements
 
 			if (JourneyPreferences.sendData(this)) {
 				sendLocationToServer(curLoc);
-				saveLocationToFile(curLoc);
 			}
+
+			saveLocationToFiles(curLoc);
 		}
 	}
 
