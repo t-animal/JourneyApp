@@ -13,6 +13,7 @@ import java.nio.ByteBuffer;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -325,12 +327,25 @@ public class LocationService extends IntentService implements
 	}
 
 	private void setForegroundNotification() {
+		Intent reopenIntent = new Intent(this, Journey.class);
+
+		// The stack builder object will contain an artificial back stack for the
+		// started Activity.
+		// This ensures that navigating backward from the Activity leads out of
+		// your application to the Home screen.
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this)
+				.addParentStack(Journey.class)
+				.addNextIntent(reopenIntent);
+
+		PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
 		Notification foregroundNotification = new NotificationCompat.Builder(this)
 				.setSmallIcon(R.drawable.ic_notification)
 				.setContentTitle(getResources().getString(R.string.notificationTitle))
 				.setContentText(getResources().getString(
 						JourneyPreferences.sendData(this) ? R.string.notificationMessage_sendData
-								: R.string.notificationMessage_noData)).build();
+								: R.string.notificationMessage_noData))
+				.setContentIntent(resultPendingIntent).build();
 
 		startForeground(NOTIFICATION_FOREGROUND, foregroundNotification);
 	}
