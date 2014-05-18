@@ -239,7 +239,7 @@ public class JourneyPreferences {
 		String uId = getPref(caller).getString(USER_ID, "");
 		if (uId.length() == 0) {
 			uId = UUID.randomUUID().toString();
-			getEditor(caller).putString(USER_ID, uId);
+			getEditor(caller).putString(USER_ID, uId).commit();
 		}
 		return uId;
 	}
