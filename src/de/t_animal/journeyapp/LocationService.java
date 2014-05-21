@@ -243,6 +243,8 @@ public class LocationService extends IntentService implements
 			mNotificationManager.cancel(NOTIFICATION_SAFEZONE);
 			isSafe = false;
 		}
+
+		Log.d(TAG, "Safezone checked");
 	}
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
