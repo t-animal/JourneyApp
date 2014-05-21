@@ -21,14 +21,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.content.Context;
+import android.os.Environment;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.widget.Toast;
 import de.t_animal.journeyapp.containers.Checkpoint;
 import de.t_animal.journeyapp.containers.Coordinate;
 import de.t_animal.journeyapp.containers.Zone;
-
-import android.content.Context;
-import android.os.Environment;
-import android.util.Log;
-import android.widget.Toast;
 
 public class JourneyProperties {
 
@@ -54,6 +54,10 @@ public class JourneyProperties {
 		}
 
 		return singleton;
+	}
+
+	public static JourneyProperties getInstance(Fragment frag) {
+		return getInstance(frag.getActivity());
 	}
 
 	public String getJourneyID() {
