@@ -60,7 +60,7 @@
     <string name="info_flattr_intro">Flattr</string>
     <string name="info_flattr_value">If you like this app, please consider flattring it. Click here to do so.</string>
     <string name="info_license_intro">License</string>
-    <string name="info_license_value">This app is open-source and licensed under GPL v2 license. Click here to view it.</string>
+    <string name="info_license_value">This app is open-source and licensed under GPL v3 license. Click here to view it.</string>
     <string name="info_acknowledgment_intro">Other people\'s work</string>
     <string name="info_acknowledgement_value">In the making of this app some services, open-source libraries and free graphics were used. Click here to see a list of them and their licenses.</string>
     
