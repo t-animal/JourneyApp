@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 import de.t_animal.journeyapp.LocationService;
@@ -41,9 +40,7 @@ public class JSCommunicationObject {
 
 		InputStream file = null;
 		try {
-			file = new FileInputStream(Environment.getExternalStorageDirectory().getPath()
-					+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(context).getJourneyID()
-					+ "/locationData");
+			file = new FileInputStream(JourneyProperties.getInstance(context).getLocationFile());
 
 			// see LocationService.getUserData for how this was saved
 

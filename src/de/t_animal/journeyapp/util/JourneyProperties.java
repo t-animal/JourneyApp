@@ -1,5 +1,6 @@
 package de.t_animal.journeyapp.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -276,6 +277,20 @@ public class JourneyProperties {
 
 	public Zone[] getOffLimitsZones() {
 		return offLimitsZones;
+	}
+
+	public File getLocationFile() {
+		return new File(Environment.getExternalStorageDirectory().getPath()
+				+ "/de.t_animal/journeyApp/"
+				+ getJourneyID()
+				+ "/locationData");
+	}
+
+	public File getUploadLocationFile() {
+		return new File(Environment.getExternalStorageDirectory().getPath()
+				+ "/de.t_animal/journeyApp/"
+				+ getJourneyID()
+				+ "/locationDataUploadable");
 	}
 
 	/*

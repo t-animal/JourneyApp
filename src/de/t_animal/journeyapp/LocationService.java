@@ -25,7 +25,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -187,14 +186,10 @@ public class LocationService extends IntentService implements
 	private boolean openOutputFile() {
 		try {
 			output = new FileOutputStream(
-					Environment.getExternalStorageDirectory().getPath()
-							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
-							+ "/locationData",
+					JourneyProperties.getInstance(this).getLocationFile(),
 					true);
 			uploadOutput = new FileOutputStream(
-					Environment.getExternalStorageDirectory().getPath()
-							+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(this).getJourneyID()
-							+ "/locationDataUploadable",
+					JourneyProperties.getInstance(this).getUploadLocationFile(),
 					true);
 		} catch (FileNotFoundException e) {
 			Log.e(TAG, "Directory should have been created on startup", e);
@@ -321,9 +316,7 @@ public class LocationService extends IntentService implements
 			protected Boolean doInBackground(Context... args) {
 				Context context = args[0];
 
-				File uploadFile = new File(Environment.getExternalStorageDirectory().getPath()
-						+ "/de.t_animal/journeyApp/" + JourneyProperties.getInstance(context).getJourneyID()
-						+ "/locationDataUploadable");
+				File uploadFile = JourneyProperties.getInstance(context).getUploadLocationFile();
 
 				if (JourneyPreferences.sendData(context) && uploadFile.length() > 0) {
 					try {

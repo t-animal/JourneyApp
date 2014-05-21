@@ -1,7 +1,5 @@
 package de.t_animal.journeyapp;
 
-import java.io.File;
-
 import org.jraf.android.backport.switchwidget.Switch;
 
 import android.app.AlertDialog;
@@ -9,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -169,10 +166,8 @@ public class InformationFragment extends Fragment implements OnClickListener, On
 							return;
 						}
 
-						new File(Environment.getExternalStorageDirectory().getPath()
-								+ "/de.t_animal/journeyApp/"
-								+ JourneyProperties.getInstance(getActivity()).getJourneyID()
-								+ "/locationData").delete();
+						JourneyProperties.getInstance(getActivity()).getLocationFile().delete();
+						JourneyProperties.getInstance(getActivity()).getUploadLocationFile().delete();
 
 						JourneyPreferences.resetAll(getActivity());
 
