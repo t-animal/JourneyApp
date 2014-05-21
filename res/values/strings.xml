@@ -74,7 +74,7 @@
     <string name="locationServerConnectionFailure">Could not connect to the location server</string>
     <string name="noGooglePlayServices">No Google Play Services installed</string>
 
-    <string name="notificationTitle">Location update is on</string>
+    <string name="notificationTitle">Location recording is on</string>
     <string name="notificationMessage_sendData">Location is currently sent to the journey team</string>
     <string name="notificationMessage_noData">Your location is kept private. Please consider sharing it.</string>
     
