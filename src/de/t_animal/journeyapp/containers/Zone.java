@@ -58,6 +58,12 @@ public class Zone {
 				}
 			}
 		}
-		return (ccw < 0.0) ? -1 : ((ccw > 0.0) ? 1 : 0);
+
+		if (ccw < 0.0)
+			return -1;
+		else if (ccw > 0.0)
+			return 1;
+
+		return 0;
 	}
 }
